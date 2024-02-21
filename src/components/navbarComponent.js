@@ -20,7 +20,7 @@ export default function NavbarComponent() {
                         <Nav.Link><MdExplore /> <Link to={"/explore"} style={{textDecoration:'none', color:'black'}}>Explore</Link></Nav.Link>
                         <Nav.Link> <FaPeopleGroup /> <Link to={"/network"} style={{textDecoration:'none', color:'black'}}>Network</Link></Nav.Link>
                         <Nav.Link><PiMessengerLogoFill/> Messenger</Nav.Link>
-                        <Nav.Link><MdAccountCircle/> Profile</Nav.Link>
+                        <Nav.Link><MdAccountCircle/> <Link to={"/profile"} style={{textDecoration:'none', color:'black'}}>Profile</Link></Nav.Link>
                         <Nav.Link ><IoMdSettings /> <Link to={"/settings"} style={{textDecoration:'none', color:'black'}}>Settings</Link></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
