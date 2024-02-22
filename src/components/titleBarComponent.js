@@ -6,7 +6,7 @@ import { primaryColor, secondaryColor } from "../constants";
 
 export default function TitleBarComponent(){
     return(
-        <Navbar data-bs-theme="light" style={{backgroundColor:primaryColor}}>
+        <Navbar data-bs-theme="light" style={{backgroundColor:secondaryColor}}>
             <Container>
                 <Navbar.Brand>ConnectMe</Navbar.Brand>
             </Container>

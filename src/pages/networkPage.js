@@ -10,12 +10,12 @@ import { data } from "../data";
 import RenderProfessionalsComp from "../components/renderProfessionalsComp";
 import RenderStudentComponent from "../components/renderStudentsComponent";
 
-export default function NetworkPage() {
+export default function NetworkPage(props) {
     const [key, setKey] = useState('professionals');
     return (
         <>
             <NavbarComponent />
-            <Container fluid className="mx-auto" style={{ marginTop: '2vh' }}>
+            <Container fluid className="mx-auto" style={{ marginTop: '2vh', backgroundColor:props.background}}>
                 <Row className="justify-content-center mb-3">
                     <Col xs={12} sm={8} md={6}>
                         <Form>

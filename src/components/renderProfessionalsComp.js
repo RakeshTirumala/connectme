@@ -11,7 +11,7 @@ export default function RenderProfessionalsComp(){
             {
                 professionalsData.map((item)=>(
                     <Col key={item.email}>
-                        <Card style={{ width: '18rem' }}>
+                        <Card style={{ width: '18rem' }} id="profID">
                             <Image src={img} style={{ width: '8rem', padding:'0.5rem'}} roundedCircle />
                             <Card.Body>
                                 <Card.Title>{item.firstName} {item.lastName}</Card.Title>
