@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import { data } from "../data";
 import img from '../images/defaultPic.webp';
 
-export default function RenderProfessionalsComp(){
-    const professionalsData = data.filter(dp=>dp.professional===true);
+export default function RenderProfessionalsComp(props){
+    const [requestedMap, setRequestedMap] = useState({});
+
+    
+    const professionalsData = data.filter(dp => {
+        if (!props.searchQuery) return dp.professional === true;
+        return dp.professional === true && (
+            dp.firstName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+            dp.lastName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+            dp.bio.toLowerCase().includes(props.searchQuery.toLowerCase())
+        );
+    });
+
+    const handleConnect = (email) => {
+        setRequestedMap(prevMap => ({
+            ...prevMap,
+            [email]: true
+        }));
+    };
+
     return(
         <Row xs={1} md={2} lg={3} className="g-4">
             {
@@ -18,7 +36,9 @@ export default function RenderProfessionalsComp(){
                                 <Card.Text>
                                     {item.bio}
                                 </Card.Text>
-                                <Button variant="primary">Connect</Button>
+                                <Button variant="primary" onClick={() => handleConnect(item.email)}>
+                                    {requestedMap[item.email] ? 'Requested!' : 'Connect'}
+                                </Button>
                             </Card.Body>
                         </Card>
                     </Col>

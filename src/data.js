@@ -5,7 +5,7 @@ export const data = [
         "email": "john.doe@example.com",
         "mobile": "+1234567890",
         "newUser": true,
-        "bio":"Technology mad",
+        "bio":"Technology",
         "Education": [
           {
             "schoolName": "University of Example",
@@ -50,7 +50,7 @@ export const data = [
         "email": "alice.smith@example.com",
         "mobile": "+1987654321",
         "newUser": false,
-        "bio":"Marketing mad",
+        "bio":"Marketing",
         "Education": [
           {
             "schoolName": "State University",
@@ -90,7 +90,7 @@ export const data = [
         "email": "bob.johnson@example.com",
         "mobile": "+1765432890",
         "newUser": true,
-        "bio":"Technology mad",
+        "bio":"Technology",
         "Education": [
           {
             "schoolName": "Tech Institute",
@@ -501,342 +501,10 @@ export const currentUser = {
       },
       "Interests": ["Digital Marketing", "Social Media Management", "Market Research"],
       "dp": "jane_smith_profile_pic.jpg"
-    },
-    {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "mobile": "123-456-7890",
-      "newUser": false,
-      "Education": [
-        {
-          "degree": "Bachelor of Science",
-          "major": "Computer Science",
-          "university": "Example University",
-          "graduationYear": 2015
-        }
-      ],
-      "WorkExperience": [
-        {
-          "position": "Software Engineer",
-          "company": "Tech Company X",
-          "startDate": "2016-01-01",
-          "endDate": "2022-01-01"
-        }
-      ],
-      "Connections": [],
-      "Projects": [
-        {
-          "title": "Project Alpha",
-          "description": "Developed a web application for data visualization.",
-          "startDate": "2017-03-01",
-          "endDate": "2018-06-01"
-        }
-      ],
-      "posts": [
-        {
-          "content": "Just landed a new job!",
-          "timestamp": "2024-02-20T10:30:00Z"
-        }
-      ],
-      "Activity": {
-        "liked": [],
-        "commented": [],
-        "posted": [
-          {
-            "content": "Just landed a new job!",
-            "timestamp": "2024-02-20T10:30:00Z"
-          }
-        ]
-      },
-      "Interests": ["Machine Learning", "Data Science", "Web Development"],
-      "dp": "john_doe_profile_pic.jpg"
-    },
-    {
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "email": "jane.smith@example.com",
-      "mobile": "987-654-3210",
-      "newUser": false,
-      "Education": [
-        {
-          "degree": "Master of Business Administration",
-          "major": "Marketing",
-          "university": "Another University",
-          "graduationYear": 2018
-        }
-      ],
-      "WorkExperience": [
-        {
-          "position": "Marketing Manager",
-          "company": "Marketing Agency Y",
-          "startDate": "2019-01-01",
-          "endDate": null
-        }
-      ],
-      "Connections": [],
-      "Projects": [],
-      "posts": [],
-      "Activity": {
-        "liked": [],
-        "commented": [],
-        "posted": []
-      },
-      "Interests": ["Digital Marketing", "Social Media Management", "Market Research"],
-      "dp": "jane_smith_profile_pic.jpg"
-    },
-    {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "mobile": "123-456-7890",
-      "newUser": false,
-      "Education": [
-        {
-          "degree": "Bachelor of Science",
-          "major": "Computer Science",
-          "university": "Example University",
-          "graduationYear": 2015
-        }
-      ],
-      "WorkExperience": [
-        {
-          "position": "Software Engineer",
-          "company": "Tech Company X",
-          "startDate": "2016-01-01",
-          "endDate": "2022-01-01"
-        }
-      ],
-      "Connections": [],
-      "Projects": [
-        {
-          "title": "Project Alpha",
-          "description": "Developed a web application for data visualization.",
-          "startDate": "2017-03-01",
-          "endDate": "2018-06-01"
-        }
-      ],
-      "posts": [
-        {
-          "content": "Just landed a new job!",
-          "timestamp": "2024-02-20T10:30:00Z"
-        }
-      ],
-      "Activity": {
-        "liked": [],
-        "commented": [],
-        "posted": [
-          {
-            "content": "Just landed a new job!",
-            "timestamp": "2024-02-20T10:30:00Z"
-          }
-        ]
-      },
-      "Interests": ["Machine Learning", "Data Science", "Web Development"],
-      "dp": "john_doe_profile_pic.jpg"
-    },
-    {
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "email": "jane.smith@example.com",
-      "mobile": "987-654-3210",
-      "newUser": false,
-      "Education": [
-        {
-          "degree": "Master of Business Administration",
-          "major": "Marketing",
-          "university": "Another University",
-          "graduationYear": 2018
-        }
-      ],
-      "WorkExperience": [
-        {
-          "position": "Marketing Manager",
-          "company": "Marketing Agency Y",
-          "startDate": "2019-01-01",
-          "endDate": null
-        }
-      ],
-      "Connections": [],
-      "Projects": [],
-      "posts": [],
-      "Activity": {
-        "liked": [],
-        "commented": [],
-        "posted": []
-      },
-      "Interests": ["Digital Marketing", "Social Media Management", "Market Research"],
-      "dp": "jane_smith_profile_pic.jpg"
-    },
-    {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "mobile": "123-456-7890",
-      "newUser": false,
-      "Education": [
-        {
-          "degree": "Bachelor of Science",
-          "major": "Computer Science",
-          "university": "Example University",
-          "graduationYear": 2015
-        }
-      ],
-      "WorkExperience": [
-        {
-          "position": "Software Engineer",
-          "company": "Tech Company X",
-          "startDate": "2016-01-01",
-          "endDate": "2022-01-01"
-        }
-      ],
-      "Connections": [],
-      "Projects": [
-        {
-          "title": "Project Alpha",
-          "description": "Developed a web application for data visualization.",
-          "startDate": "2017-03-01",
-          "endDate": "2018-06-01"
-        }
-      ],
-      "posts": [
-        {
-          "content": "Just landed a new job!",
-          "timestamp": "2024-02-20T10:30:00Z"
-        }
-      ],
-      "Activity": {
-        "liked": [],
-        "commented": [],
-        "posted": [
-          {
-            "content": "Just landed a new job!",
-            "timestamp": "2024-02-20T10:30:00Z"
-          }
-        ]
-      },
-      "Interests": ["Machine Learning", "Data Science", "Web Development"],
-      "dp": "john_doe_profile_pic.jpg"
-    },
-    {
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "email": "jane.smith@example.com",
-      "mobile": "987-654-3210",
-      "newUser": false,
-      "Education": [
-        {
-          "degree": "Master of Business Administration",
-          "major": "Marketing",
-          "university": "Another University",
-          "graduationYear": 2018
-        }
-      ],
-      "WorkExperience": [
-        {
-          "position": "Marketing Manager",
-          "company": "Marketing Agency Y",
-          "startDate": "2019-01-01",
-          "endDate": null
-        }
-      ],
-      "Connections": [],
-      "Projects": [],
-      "posts": [],
-      "Activity": {
-        "liked": [],
-        "commented": [],
-        "posted": []
-      },
-      "Interests": ["Digital Marketing", "Social Media Management", "Market Research"],
-      "dp": "jane_smith_profile_pic.jpg"
-    },
-    {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "mobile": "123-456-7890",
-      "newUser": false,
-      "Education": [
-        {
-          "degree": "Bachelor of Science",
-          "major": "Computer Science",
-          "university": "Example University",
-          "graduationYear": 2015
-        }
-      ],
-      "WorkExperience": [
-        {
-          "position": "Software Engineer",
-          "company": "Tech Company X",
-          "startDate": "2016-01-01",
-          "endDate": "2022-01-01"
-        }
-      ],
-      "Connections": [],
-      "Projects": [
-        {
-          "title": "Project Alpha",
-          "description": "Developed a web application for data visualization.",
-          "startDate": "2017-03-01",
-          "endDate": "2018-06-01"
-        }
-      ],
-      "posts": [
-        {
-          "content": "Just landed a new job!",
-          "timestamp": "2024-02-20T10:30:00Z"
-        }
-      ],
-      "Activity": {
-        "liked": [],
-        "commented": [],
-        "posted": [
-          {
-            "content": "Just landed a new job!",
-            "timestamp": "2024-02-20T10:30:00Z"
-          }
-        ]
-      },
-      "Interests": ["Machine Learning", "Data Science", "Web Development"],
-      "dp": "john_doe_profile_pic.jpg"
-    },
-    {
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "email": "jane.smith@example.com",
-      "mobile": "987-654-3210",
-      "newUser": false,
-      "Education": [
-        {
-          "degree": "Master of Business Administration",
-          "major": "Marketing",
-          "university": "Another University",
-          "graduationYear": 2018
-        }
-      ],
-      "WorkExperience": [
-        {
-          "position": "Marketing Manager",
-          "company": "Marketing Agency Y",
-          "startDate": "2019-01-01",
-          "endDate": null
-        }
-      ],
-      "Connections": [],
-      "Projects": [],
-      "posts": [],
-      "Activity": {
-        "liked": [],
-        "commented": [],
-        "posted": []
-      },
-      "Interests": ["Digital Marketing", "Social Media Management", "Market Research"],
-      "dp": "jane_smith_profile_pic.jpg"
     }
   ],
   "Projects": [
-    {
+    { 
       "name": "Outlay – Expense Tracking Mobile App",
       "description": "Implemented client-side using React Native with 5+ screens and 20+ components. Developed REST APIs with Node.js and Express.js, employing MongoDB for efficient data handling. Deployed the server code on Google App Engine. Implemented JWT Authentication."
     },
@@ -862,3 +530,31 @@ export const currentUser = {
   "Interests": ["Algorithms and Data Structures", "Advance Data Structures", "DBMS", "Enterprise Computing", "Intelligent Agents"],
   "dp": "rakesh_tirumala_profile_pic.jpg"
 }
+
+export const feedData = [
+  {
+    id:1,
+    post:'I want Job',
+    postedBy:'Big head'
+  },
+  {
+    id:2,
+    post:"I want money",
+    postedBy:'Gavin Belson'
+  },
+  {
+    id:3,
+    post:'I want both',
+    postedBy:"Richard Hendricks"
+  },
+  {
+    id:4,
+    post:'I want more share than Gilfoyle',
+    postedBy:'Dinesh'
+  },
+  {
+    id:5,
+    post:'I deserve more share than Dinesh',
+    postedBy:'Gilfoyle' 
+  }
+]
