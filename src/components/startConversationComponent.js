@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, ListGroup, Container, InputGroup, Form, Button, Image } from "react-bootstrap";
-import { BiMessageSquare } from "react-icons/bi";
+// import { BiMessageSquare } from "react-icons/bi";
 import { IoIosSend } from "react-icons/io";
 import img from '../images/defaultPic.webp'
 // import convo1 from '../images/convo1.png'
@@ -11,25 +11,26 @@ import { lightTheme } from "../constants";
 
 export default function StartConversationComponent(props) {
   const activeUser = props.activeConnection;
-  console.log("Active user:", activeUser.firstName)
-  const [chat, setChat] = useState([]);
-  console.log("chat:",chat)
+  const ws = props.ws;
+  console.log("Active user:", activeUser.id)
+  // const [chat, setChat] = useState([]);
+  // console.log("chat:",chat)
+  const [messages, setMessages] = useState([])
 
 
   useEffect(()=>{
-    const history = [
-      { "user": activeUser.firstName, "message": `Hello, This is ${activeUser.firstName}` },
-      { "user": activeUser.firstName, "message": "Good morning!!!" },
-    ]
-    setChat(history)
-  },[activeUser.firstName])
+  },[])
   
   const [newMsg, setNewMsg] = useState("");
 
   const handleSend = () => {
     if (newMsg.trim() !== "") { 
-      const updatedChat = [...chat, { user: "user", message: newMsg }];
-      setChat(updatedChat);
+    const dataToSend = {
+        recipient:activeUser,
+        text:newMsg
+      }
+      ws.send(JSON.stringify(dataToSend))
+      setMessages(prev=>[...prev, dataToSend])
       setNewMsg(""); 
     }
   };
@@ -39,16 +40,16 @@ export default function StartConversationComponent(props) {
       {activeUser ? (
         <div style={{ position: 'relative', minHeight: '90vh'}}>
           <ListGroup as="ol" style={{ overflowY: "scroll"}}>
-            {chat.map((chatComp, index) => {
-              const isUser = chatComp.user === "user";
+            {messages.map((msgComp, index) => {
+              const isSender = (msgComp.recipient.token !== props.currentUser);
               const listItemStyle = {
                 border: "none",
-                textAlign: isUser ? "right" : "left" 
+                textAlign: isSender ? "right" : "left" 
               };
               const imageStyle = {
                 width: '2.5rem',
                 padding: '0.5rem',
-                float: isUser ? 'right' : 'left'
+                float: isSender ? 'right' : 'left'
               };
 
               return (
@@ -58,7 +59,7 @@ export default function StartConversationComponent(props) {
                   as="li" 
                   style={listItemStyle}
                 >
-                  <Image src={img} style={imageStyle} roundedCircle /> {chatComp.message}
+                  <Image src={img} style={imageStyle} roundedCircle /> {msgComp.text}
                 </ListGroup.Item>
               );
             })}

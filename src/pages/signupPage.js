@@ -7,47 +7,80 @@ import { TbPassword } from "react-icons/tb";
 import "../styles/login.css";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Toast } from "react-bootstrap";
 import { primaryColor } from "../constants";
 
 export default function SignUp(){
-  const userData = {
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showError, setShowError] = useState(false)
+  const [issueToRender, setIssueToRender] = useState("");
+
   const navigate = useNavigate();
-  const addUser = async (e) => {
-    console.log(inputs);
-    e.preventDefault();
-    navigate("/");
-    /*const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(inputs),
-    };
-    try {
-      const response = await fetch(
-        "http://localhost:8080/project/addUser",
-        requestOptions
-      );
-      const data = await response.json();
-      if (data.id !== "") {
-        navigate("/home");
+
+  function settingFieldsToDefault(){
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  }
+
+  const addUser = async () => {
+    console.log(email, password)
+    
+
+    if(confirmPassword!=="" && password!=="" && email!==""){
+      if(confirmPassword===password){
+          try {
+            const response = await fetch(
+              process.env.REACT_APP_SIGNUP_URL,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({email:email, password:password}),
+              }
+            );
+
+            const status = response.status;
+            console.log(status)
+            if(status===201){
+              navigate('/');
+            }else{
+              setShowError(true);
+              setIssueToRender(`Failed to signup due to ${status}`);
+              settingFieldsToDefault();
+            }
+
+          } catch (e) {
+            console.log(e);
+            setShowError(true);
+            setIssueToRender(e);
+            settingFieldsToDefault();
+          }
+
+      }else{
+        setShowError(true);
+        setIssueToRender("Passwords don't match!");
+        settingFieldsToDefault();
       }
-    } catch (e) {
-      console.log(e);
-    }*/
-  };
-  const [inputs, setInputs] = useState(userData);
-  const setUserData = (e) => {
-    setInputs((values) => ({ ...values, [e.target.name]: e.target.value }));
+    }else{
+      setShowError(true);
+      setIssueToRender("Fields are empty!");
+    }
+
   };
   return (
     <>
       <section>
         <TitleBarComponent />
       </section>
+      <Toast show={showError} onClose={()=>setShowError(false)}>
+        <Toast.Header style={{gap:'1vw'}}>
+          <strong className="me-auto">ConnectMe</strong>
+        </Toast.Header>
+        <Toast.Body>{issueToRender}</Toast.Body>
+      </Toast>
       <section className="formSection">
         <Form className="formDiv">
           <span className="loginTitle">Sign Up</span>
@@ -65,8 +98,8 @@ export default function SignUp(){
                   type="email"
                   name="email"
                   placeholder="example@xyz.com"
-                  value={inputs.email || ""}
-                  onChange={setUserData}
+                  value={email}
+                  onChange={(e)=>setEmail(e.target.value)}
                   style={{boxShadow:'none'}}
                 />
               </Col>
@@ -84,9 +117,9 @@ export default function SignUp(){
                 <Form.Control
                   type="password"
                   placeholder="Password"
-                  value={inputs.password || ""}
+                  value={password}
                   name="password"
-                  onChange={setUserData}
+                  onChange={(e)=>setPassword(e.target.value)}
                   style={{boxShadow:'none'}}
                 />
               </Col>
@@ -103,9 +136,9 @@ export default function SignUp(){
                 <Form.Control
                   type="password"
                   placeholder="Password"
-                  value={inputs.confirmPassword || ""}
+                  value={confirmPassword}
                   name="confirmPassword"
-                  onChange={setUserData}
+                  onChange={(e)=>setConfirmPassword(e.target.value)}
                   style={{boxShadow:'none'}}
                 />
               </Col>

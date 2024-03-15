@@ -12,7 +12,7 @@ export default function MessengerAccountsComponent(props) {
         roundedCircle
       />
       <div className="ms-2 me-auto">
-        <div className="fw-bold">{props.connectionName}</div>
+        <div className="fw-bold">{props.connectionID}</div>
         Cras justo odio
       </div>
       <Badge bg="primary" pill>
