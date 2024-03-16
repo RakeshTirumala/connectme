@@ -7,6 +7,7 @@ import img from '../images/defaultPic.webp'
 // import convo2 from '../images/convo2.svg'
 import convoStart from '../images/StartConvo.svg'
 import { lightTheme } from "../constants";
+import { data } from "../data";
 
 
 export default function StartConversationComponent(props) {
@@ -15,12 +16,9 @@ export default function StartConversationComponent(props) {
   console.log("Active user:", activeUser.id)
   // const [chat, setChat] = useState([]);
   // console.log("chat:",chat)
-  const [messages, setMessages] = useState([])
+  // const [messages, setMessages] = useState([])
 
 
-  useEffect(()=>{
-  },[])
-  
   const [newMsg, setNewMsg] = useState("");
 
   const handleSend = () => {
@@ -30,7 +28,7 @@ export default function StartConversationComponent(props) {
         text:newMsg
       }
       ws.send(JSON.stringify(dataToSend))
-      setMessages(prev=>[...prev, dataToSend])
+      props.handleSendMsgsFromSender(dataToSend)
       setNewMsg(""); 
     }
   };
@@ -40,7 +38,7 @@ export default function StartConversationComponent(props) {
       {activeUser ? (
         <div style={{ position: 'relative', minHeight: '90vh'}}>
           <ListGroup as="ol" style={{ overflowY: "scroll"}}>
-            {messages.map((msgComp, index) => {
+            {props.messages.map((msgComp, index) => {
               const isSender = (msgComp.recipient.token !== props.currentUser);
               const listItemStyle = {
                 border: "none",

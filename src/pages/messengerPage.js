@@ -21,8 +21,10 @@ export default function MessengerPage() {
   const [ws, setWs] = useState(null);
   const [showOnlineUsers, setShowOnlineUsers] = useState(false)
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [messages, setMessages] = useState([])
 
   const currentUser = localStorage.getItem('token');
+
 
   const handleInputChange = (e) => {
     // const searchTerm = e.target.value;
@@ -45,14 +47,14 @@ export default function MessengerPage() {
   // ws://monkfish-app-rl7kw.ondigitalocean.app
 
   useEffect(()=>{
-    const ws = new WebSocket(`ws://monkfish-app-rl7kw.ondigitalocean.app?token=${currentUser}`)
+    const ws = new WebSocket(`ws://localhost:1111?token=${currentUser}`)
     setWs(ws);
     ws.addEventListener('message', handleMessage)
   },[]);
-
+  
   function handleMessage(e){
     const data = JSON.parse(e.data)
-    console.log('online users', data.online);
+    console.log('Websocket data:', data);
 
     if('online' in data) {
       const uniqueConnectionsSet = new Set(data.online.map(obj => JSON.stringify(obj)));
@@ -60,8 +62,15 @@ export default function MessengerPage() {
       uniqueConnectionsArray = uniqueConnectionsArray.filter(c=>c.token!==currentUser);
       setConnections(uniqueConnectionsArray);
     }else{
-      console.log({data})
+      const {recipient, text} = data
+      console.log("[MESSENGER PAGE] ", "receipient:", recipient, "text:", text)
+      setMessages(prev=>[...prev, data])
+
     }
+  }
+
+  function handleSendMsgsFromSender(data){
+    setMessages(prev=>[...prev, data])
   }
 
 
@@ -132,7 +141,12 @@ export default function MessengerPage() {
           </ListGroup>
         </Offcanvas.Body>
       </Offcanvas>
-      <StartConversationComponent activeConnection={openChat} currentUser={currentUser} ws={ws}/>
+      <StartConversationComponent 
+        activeConnection={openChat} 
+        currentUser={currentUser} ws={ws} 
+        handleSendMsgsFromSender={handleSendMsgsFromSender}
+        messages={messages}
+      />
     </>
   );
 }
