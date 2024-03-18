@@ -36,6 +36,7 @@ export default function LoginPage() {
       if(response.ok){
         const responseData = await response.json();
         localStorage.setItem("token", responseData.token)
+        localStorage.setItem("email", email)
         navigate("/explore");
       }
     }catch(error){

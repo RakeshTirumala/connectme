@@ -39,7 +39,7 @@ export default function StartConversationComponent(props) {
         <div style={{ position: 'relative', minHeight: '90vh'}}>
           <ListGroup as="ol" style={{ overflowY: "scroll"}}>
             {props.messages.map((msgComp, index) => {
-              const isSender = (msgComp.recipient.token !== props.currentUser);
+              const isSender = (msgComp.recipient.id !== props.currentUseremail);
               const listItemStyle = {
                 border: "none",
                 textAlign: isSender ? "right" : "left" 

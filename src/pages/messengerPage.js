@@ -24,6 +24,7 @@ export default function MessengerPage() {
   const [messages, setMessages] = useState([])
 
   const currentUser = localStorage.getItem('token');
+  const currentUseremail = localStorage.getItem('email');
 
 
   const handleInputChange = (e) => {
@@ -47,7 +48,7 @@ export default function MessengerPage() {
   // ws://monkfish-app-rl7kw.ondigitalocean.app
 
   useEffect(()=>{
-    const ws = new WebSocket(`ws://localhost:1111?token=${currentUser}`)
+    const ws = new WebSocket(`ws://localhost:1111?token=${currentUser}&email=${currentUseremail}`)
     setWs(ws);
     ws.addEventListener('message', handleMessage)
   },[]);
@@ -57,10 +58,19 @@ export default function MessengerPage() {
     console.log('Websocket data:', data);
 
     if('online' in data) {
-      const uniqueConnectionsSet = new Set(data.online.map(obj => JSON.stringify(obj)));
-      let uniqueConnectionsArray = Array.from(uniqueConnectionsSet).map(str => JSON.parse(str));
-      uniqueConnectionsArray = uniqueConnectionsArray.filter(c=>c.token!==currentUser);
-      setConnections(uniqueConnectionsArray);
+      let onlineConnections = [data.online]
+      console.log(onlineConnections)
+      onlineConnections = onlineConnections[0].filter(x=> x.id!==currentUseremail);
+      const people = new Set();
+      const connectionWhoAreOnline = [];
+      onlineConnections.forEach((connection)=>{
+        if(!people.has(connection.id)){
+          people.add(connection.id)
+          connectionWhoAreOnline.push(connection)
+        }
+      })
+      console.log(connectionWhoAreOnline)
+      setConnections(connectionWhoAreOnline);
     }else{
       const {recipient, text} = data
       console.log("[MESSENGER PAGE] ", "receipient:", recipient, "text:", text)
@@ -130,7 +140,7 @@ export default function MessengerPage() {
                     }}
                   >
                     <MessengerAccountsComponent
-                    connectionID={connection.id}
+                    connection={connection.id}
                     />
                   </ListGroup.Item>
                 );
@@ -145,7 +155,7 @@ export default function MessengerPage() {
         activeConnection={openChat} 
         currentUser={currentUser} ws={ws} 
         handleSendMsgsFromSender={handleSendMsgsFromSender}
-        messages={messages}
+        messages={messages} currentUseremail={currentUseremail}
       />
     </>
   );
