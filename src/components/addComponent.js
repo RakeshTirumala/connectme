@@ -15,6 +15,37 @@ export default function AddComponent(props){
     const [company, setCompany] = useState("");
     const [description, setDescription] = useState("");
     const [projectTitle, setProjectTitle] = useState("");
+ 
+    function handlingAddDetail(){
+        if(props.type==="education"){
+            const data = {
+                Degree:degree,
+                schoolName:school,
+                Concentration:major,
+                startDate:JSON.stringify(startDate),
+                endDate:JSON.stringify(endDate)
+            }
+            console.log("edu data", data)
+            props.educationHandler(data)  
+        }else if(props.type==="professional"){
+            const data = {
+                role:role,
+                company:company,
+                description:description,
+                startDate:JSON.stringify(startDate),
+                endDate:JSON.stringify(endDate)
+            }
+            console.log("prof", data)
+            props.professionalHandler(data)
+        }else{
+            const data = {
+                projectTitle:projectTitle,
+                description:description
+            }
+            props.projectsHandler(data);
+        }
+        props.setAddComponent();
+    }
 
     return(
         <Container className="mx-auto">
@@ -80,7 +111,7 @@ export default function AddComponent(props){
                         </Form>
                         <Button 
                         variant="primary"
-                        onClick={props.setAddComponent}
+                        onClick={handlingAddDetail}
                         style={{marginRight:'1.0vw'}}
                         >Save</Button>
                         <Button 
@@ -152,7 +183,7 @@ export default function AddComponent(props){
                         </Form>
                         <Button 
                         variant="primary"
-                        onClick={props.setAddComponent}
+                        onClick={handlingAddDetail}
                         style={{marginRight:'1.0vw'}}
                         >Save</Button>
                         <Button 
@@ -196,7 +227,7 @@ export default function AddComponent(props){
                         </Form>
                         <Button 
                         variant="primary"
-                        onClick={props.setAddComponent}
+                        onClick={handlingAddDetail}
                         style={{marginRight:'1.0vw'}}
                         >Save</Button>
                         <Button 

@@ -12,11 +12,35 @@ export default function PersonalInfoComponent() {
   const [booleanForLastName, setBooleanForLastName] = useState(true)
   const [booleanForEmail, setBooleanForEmail] = useState(true)
   const [booleanForMobile, setBooleanForMobile] = useState(true)
-  const [firstName, setFirstName] = useState("Rakesh")
-  const [lastName, setLastName] = useState("Tirumala")
-  const [email, setEmail] = useState("rakeshus2002@gmail.com")
-  const[mobile, setMobile] = useState("848-342-8163")
-  
+
+  const fn = localStorage.getItem("firstName");
+  const ln = localStorage.getItem("lastName");
+  const emailId = localStorage.getItem('email')
+  const mobileNum = localStorage.getItem('mobile')
+
+  const [firstName, setFirstName] = useState(fn)
+  const [lastName, setLastName] = useState(ln)
+  const [email, setEmail] = useState(emailId)
+  const[mobile, setMobile] = useState(mobileNum)
+
+  const firstNameHandler=(e)=>{
+    setFirstName(e.target.value)
+    localStorage.setItem('firstName', e.target.value)
+  }
+  const lastNameHandler=(e)=>{
+    setLastName(e.target.value)
+    localStorage.setItem('lastName', e.target.value)
+  }
+  const emailHandler=(e)=>{
+    setEmail(e.target.value)
+    localStorage.setItem('email', e.target.value)
+  }
+  const mobileHandler=(e)=>{
+    setMobile(e.target.value)
+    localStorage.setItem('mobile', e.target.value)
+  }
+
+
   return (
     <Container fluid className="mx-auto" style={{ marginTop: "3vh" }}>
       <label
@@ -41,7 +65,7 @@ export default function PersonalInfoComponent() {
               value={firstName}
               disabled={booleanForFirstName}
               style={{ boxShadow: "none" }}
-              onChange={(e)=>setFirstName(e.target.value)}
+              onChange={(e)=>firstNameHandler(e)}
             />
             {
               booleanForFirstName
@@ -74,7 +98,7 @@ export default function PersonalInfoComponent() {
               value={lastName}
               disabled={booleanForLastName}
               style={{ boxShadow: "none" }}
-              onChange={(e)=>setLastName(e.target.value)}
+              onChange={(e)=>lastNameHandler(e)}
             />
             {
               booleanForLastName
@@ -107,7 +131,7 @@ export default function PersonalInfoComponent() {
               disabled={booleanForEmail}
               value={email}
               style={{ boxShadow: "none" }}
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e)=>emailHandler(e)}
             />
             {
               booleanForEmail
@@ -140,7 +164,7 @@ export default function PersonalInfoComponent() {
               disabled={booleanForMobile}
               value={mobile}
               style={{ boxShadow: "none" }}
-              onChange={(e)=>setMobile(e.target.value)}
+              onChange={(e)=>mobileHandler(e)}
             />
             {
               booleanForMobile

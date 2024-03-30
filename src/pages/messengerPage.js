@@ -22,9 +22,11 @@ export default function MessengerPage() {
   const [showOnlineUsers, setShowOnlineUsers] = useState(false)
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [messages, setMessages] = useState([])
+  const [chatsData, setChatsData] = useState();
 
   const currentUser = localStorage.getItem('token');
   const currentUseremail = localStorage.getItem('email');
+  const [usersToMsgsObj, setUsersToMsgsObj] = useState({})
 
 
   const handleInputChange = (e) => {
@@ -40,6 +42,7 @@ export default function MessengerPage() {
     // setFilteredUsers(filteredItems);
   };
   const handleConversation = (value) => {
+    console.log("id:",value)
     setOpenChat(value);
     setShow(false);
     setIsVisible(true)
@@ -69,20 +72,34 @@ export default function MessengerPage() {
           connectionWhoAreOnline.push(connection)
         }
       })
-      console.log(connectionWhoAreOnline)
+      console.log("your connections:",JSON.stringify(connectionWhoAreOnline))
       setConnections(connectionWhoAreOnline);
     }else{
-      const {recipient, text} = data
-      console.log("[MESSENGER PAGE] ", "receipient:", recipient, "text:", text)
+      console.log(data)
+      const {senderId, receiverId, text} = data
+      console.log("[MESSENGER PAGE] ", "receipient:", receiverId, "text:", text)
       setMessages(prev=>[...prev, data])
-
+      // setMessages(prev=>[...prev, data])
+      // let msgsWithThatSender = usersToMsgsObj[senderId];
+      // msgsWithThatSender = [...msgsWithThatSender, data]
+      // usersToMsgsObj[senderId] = msgsWithThatSender;
     }
   }
 
-  function handleSendMsgsFromSender(data){
-    setMessages(prev=>[...prev, data])
-  }
+  // const handleMsgsFromSender=(data, id)=>{
+  //   if(usersToMsgsObj.hasOwnProperty(id)){
+  //     let msgsWithThatSender = usersToMsgsObj[id];
+  //     msgsWithThatSender = [...msgsWithThatSender, data]
+  //     usersToMsgsObj[id] = msgsWithThatSender;
+  //   }else{
+  //     usersToMsgsObj[id] = [data];
+  //   }
+  // }
 
+  function handleMsgs(data){
+    if(messages.length===0) setMessages(data)
+    else setMessages(prev=>[...prev, data])
+  }
 
   return (
     <>
@@ -91,7 +108,7 @@ export default function MessengerPage() {
         <div className="icon-container">
           <IoIosArrowForward
             className="arrowButton"
-            style={{ fontSize: "30px" }}
+            style={{ fontSize: "30px"}}
             onClick={() => {
               setShow(true);
               setIsVisible(false);
@@ -130,7 +147,7 @@ export default function MessengerPage() {
                     data-id={index}
                     value={connection}
                     key={index}
-                    onClick={() => handleConversation(connection)}
+                    onClick={() => handleConversation(connection.id)}
                     as="li"
                     className="d-flex justify-content-between align-items-start"
                     style={{
@@ -154,8 +171,10 @@ export default function MessengerPage() {
       <StartConversationComponent 
         activeConnection={openChat} 
         currentUser={currentUser} ws={ws} 
-        handleSendMsgsFromSender={handleSendMsgsFromSender}
-        messages={messages} currentUseremail={currentUseremail}
+        handleMsgs={handleMsgs}
+        messages={messages} 
+        currentUseremail={currentUseremail}
+        usersToMsgsObj={usersToMsgsObj}
       />
     </>
   );

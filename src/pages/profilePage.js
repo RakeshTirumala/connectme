@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import NavbarComponent from "../components/navbarComponent";
-import { Container } from "react-bootstrap";
+import { Alert, Button, Container } from "react-bootstrap";
 
 import ProfileDpComponent from "../components/profileDpComponent";
 import PersonalInfoComponent from "../components/personalInfoComponent";
@@ -10,15 +10,29 @@ import ProfessionalWorkComponent from "../components/professionalWorkComponent";
 import ProjectsComponent from "../components/projectsComponent";
 import InterestsComponent from "../components/interestsComponent";
 import UserTypeComponent from "../components/userTypeComponent";
-
+ 
 export default function ProfilePage() { 
   const [userType, setUserType] = useState("");
   const handleUserType=(childData)=>{
     setUserType(childData)
   }
+  let newUser = localStorage.getItem('user');
+  newUser = JSON.parse(newUser).newUser;
+  console.log("new user", newUser)
   return (
     <>
-      <NavbarComponent />
+    {
+      (!newUser)
+      ?(
+        <NavbarComponent />
+      )
+      :(
+        <Alert key={'light'} variant={'light'} style={{textAlign:'center'}}>
+          You need to fill the following details and save them inorder to use the app.
+        </Alert>
+      )
+    }
+    {/* <NavbarComponent/> */}
       <Container
         fluid
         className="mx-auto"
@@ -37,6 +51,9 @@ export default function ProfilePage() {
         <ProfessionalWorkComponent />
         <ProjectsComponent/>  
         <InterestsComponent/>
+        <center>
+          <Button variant="primary" style={{margin:'5%'}}>Save profile</Button>
+        </center>
       </Container>
     </>
   );

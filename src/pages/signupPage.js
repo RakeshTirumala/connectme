@@ -17,6 +17,7 @@ export default function SignUp(){
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showError, setShowError] = useState(false)
   const [issueToRender, setIssueToRender] = useState("");
+  const [progress, setProgress] = useState(false)
 
   const navigate = useNavigate();
 
@@ -28,13 +29,13 @@ export default function SignUp(){
 
   const addUser = async () => {
     console.log(email, password)
-    
+    setProgress(true)
 
     if(confirmPassword!=="" && password!=="" && email!==""){
       if(confirmPassword===password){
           try {
             const response = await fetch(
-              process.env.REACT_APP_SIGNUP_URL,
+              "http://localhost:1111/api/signup",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -68,6 +69,7 @@ export default function SignUp(){
       setShowError(true);
       setIssueToRender("Fields are empty!");
     }
+    setProgress(false)
 
   };
   return (
@@ -170,6 +172,15 @@ export default function SignUp(){
               <Link to={"/"} style={{color:'black'}}> Login!</Link>
             </p>
           </span>
+          {
+          (progress===true)
+          ?(
+            <progress value={null} />
+          )
+          :(
+            <></>
+          )
+        }
         </Form>
       </section>
     </>

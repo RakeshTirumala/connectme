@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 import { GrProjects } from "react-icons/gr";
 import { Accordion, Container } from "react-bootstrap";
@@ -8,11 +8,25 @@ import AddComponent from "./addComponent";
 
 export default function ProjectsComponent(){
     const [showAddComponent, setShowAddComponent] = useState(false)
+    const [projects, setProjects] = useState([])
 
     const setAddComponent=()=>{
       setShowAddComponent(!showAddComponent)
     }
-    console.log(showAddComponent)
+    // console.log(showAddComponent)
+    useEffect(()=>{
+        const storedProjects = JSON.parse(localStorage.getItem('projects'))
+        if(storedProjects) setProjects(storedProjects)
+    },[])
+
+    const projectsHandler=(data)=>{
+        setProjects(prev=>[...prev, data])
+    }
+
+    useEffect(()=>{
+        localStorage.setItem('projects', JSON.stringify(projects))
+    },[projects])
+
     return(
         <>
             <Container fluid className="mx-auto" style={{ marginTop: "3vh" }}>
@@ -28,7 +42,26 @@ export default function ProjectsComponent(){
             <Container fluid className="mx-auto">
                 <Container fluid className="mx-auto">
                 <Accordion defaultActiveKey="0">
-                {currentUser.Projects.map((project, index) => {
+                {
+                   (projects.length===0)
+                   ?(
+                    <p style={{marginLeft:'1vw'}}>Add projects!!!</p>
+                   )
+                   :(
+                    projects.map((project, index) => {
+                        return (
+                            <Accordion.Item
+                            key={index} eventKey={index}>
+                            <Accordion.Header>{project.projectTitle}</Accordion.Header>
+                            <Accordion.Body>
+                                {project.description}
+                            </Accordion.Body>
+                            </Accordion.Item>
+                        );
+                    })
+                   ) 
+                }
+                {/* {currentUser.Projects.map((project, index) => {
                     return (
                         <Accordion.Item
                         key={index} eventKey={index}>
@@ -38,12 +71,15 @@ export default function ProjectsComponent(){
                         </Accordion.Body>
                         </Accordion.Item>
                     );
-                })}
+                })} */}
                 </Accordion>
                 {
                     showAddComponent
                     ?(
-                        <AddComponent setAddComponent={setAddComponent} type={"project"}/>
+                        <AddComponent 
+                        setAddComponent={setAddComponent} 
+                        type={"project"} 
+                        projectsHandler={projectsHandler}/>
                     )
                     :(
                         <p

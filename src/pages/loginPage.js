@@ -18,15 +18,19 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const [showError, setShowError] = useState(false);
+  const [progress, setProgress] = useState(false);
+
+  // const newUser = true;
 
   console.log("email,", email, "password", password);
 
   const handleLogin = async () => {
+    setProgress(true);
     console.log(email, password);
-
+    // process.env.REACT_APP_LOGIN_URL_DIGITAL_OCEAN
     try {
       const response = await fetch(
-        process.env.REACT_APP_LOGIN_URL_DIGITAL_OCEAN,
+        "http://localhost:1111/api/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -39,7 +43,31 @@ export default function LoginPage() {
         const responseData = await response.json();
         localStorage.setItem("token", responseData.token);
         localStorage.setItem("email", email)
-        navigate("/explore");
+        console.log("user:",JSON.stringify(responseData.user))
+        localStorage.setItem('user', JSON.stringify(responseData.user));
+
+        localStorage.setItem('newUser', responseData.user.newUser);
+        localStorage.setItem('firstName', responseData.user.firstName);
+        localStorage.setItem('lastName', responseData.user.lastName);
+        localStorage.setItem('email', responseData.user.email);
+        localStorage.setItem('mobile', responseData.user.mobile);
+        localStorage.setItem('userType', responseData.user.userType);
+        console.log("The education that I am going to insert", (JSON.stringify(responseData.user.Education)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.Education))
+        
+        const education = (JSON.stringify(responseData.user.Education)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.Education)
+        const experience = (JSON.stringify(responseData.user.workExperience)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.workExperience)
+        const projects = (JSON.stringify(responseData.user.projects)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.projects)
+        
+        localStorage.setItem('Education', education);
+        localStorage.setItem('workExperience', experience);
+        localStorage.setItem('projects', projects)
+
+        // navigate("/explore");
+        if(JSON.parse(localStorage.getItem('user')).newUser){
+          navigate('/profile')
+          localStorage.setItem('newUser', true);
+        }
+        else navigate("/explore");
       }
     } catch (error) {
       console.log("error", error);
@@ -132,6 +160,15 @@ export default function LoginPage() {
               </Link>
             </p>
           </span>
+          {
+          (progress===true)
+          ?(
+            <progress value={null} />
+          )
+          :(
+            <></>
+          )
+        }
         </Form>
       </section>
     </>

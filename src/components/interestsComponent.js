@@ -1,22 +1,40 @@
-import React, { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.css'
+import React, { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.css';
 import { Accordion, Button, Container, Form } from "react-bootstrap";
 import { MdOutlineInterests } from "react-icons/md";
 import { lightTheme } from "../constants";
 
-export default function InterestsComponent(){
+export default function InterestsComponent() {
     const [selectedInterests, setSelectedInterests] = useState([]);
-    const map = {"Software Engineer":"SWE", "Human Resources":"HR", "Product Management":"PM"}
-    console.log(selectedInterests)
+    useEffect(() => {
+        const storedInterests = JSON.parse(localStorage.getItem('interests'))
+        setSelectedInterests(storedInterests || []); 
+    }, []);
 
-    return(
-        <Container fluid className="mx-auto" style={{marginTop:'3vh'}}>
-            <label
-            style={{
-            marginLeft: "3vw",
-            fontWeight: "bold",
-            fontSize: "16px",
-            marginBottom: "2vh",
+    const interests = [
+        { id: "1", label: "Software Engineer", value: "SWE" },
+        { id: "2", label: "Human Resources", value: "HR" },
+        { id: "3", label: "Product Management", value: "PM" },
+        { id: "4", label: "Marketing", value: "Markt" },
+        { id: "5", label: "Finance", value: "Fin" },
+        { id: "6", label: "Education", value: "Edu" }
+    ];
+
+    const handleCheckboxChange = (interest, isChecked) => {
+        setSelectedInterests(isChecked ? [...selectedInterests, interest] : selectedInterests.filter(item => item !== interest));
+    };
+
+    const handleInterests = () => {
+        localStorage.setItem('interests', JSON.stringify(selectedInterests));
+    }
+
+    return (
+        <Container fluid className="mx-auto" style={{ marginTop: '3vh' }}>
+            <label style={{
+                marginLeft: "3vw",
+                fontWeight: "bold",
+                fontSize: "16px",
+                marginBottom: "2vh",
             }}>Interests <MdOutlineInterests />
             </label>
             <Container fluid className="mx-auto">
@@ -24,71 +42,46 @@ export default function InterestsComponent(){
                     <Accordion defaultActiveKey="0">
                         <Accordion.Item>
                             <Accordion.Header>
-                                {
-                                    selectedInterests.map((interest)=>{
-                                        return(
-                                            <div 
-                                            style={{
-                                            borderRadius:'5rem',  
-                                            height:'2rem',
-                                            width:'3rem',
-                                            marginRight:'1vw',
-                                            backgroundColor:lightTheme, 
-                                            border: "0.5px solid black",
-                                            boxShadow:"0px 4px 8px rgba(0, 0, 0, 0.1)"}}>
-                                                <label 
-                                                style={{
-                                                    fontFamily:'monospace',
-                                                    fontWeight:'bold',
-                                                    justifyContent:"center",
-                                                    textAlign:'left',
-                                                    padding:'1vh'
-                                                    }}>{map[interest]}</label>
-                                            </div>
-                                        )
-                                    })
-                                }
+                                {selectedInterests.map(interest => (
+                                    <div key={interest} style={{
+                                        borderRadius: '5rem',
+                                        height: '2rem',
+                                        width: '3rem',
+                                        marginRight: '1vw',
+                                        backgroundColor: lightTheme,
+                                        border: "0.5px solid black",
+                                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)"
+                                    }}>
+                                        <label style={{
+                                            fontFamily: 'monospace',
+                                            fontWeight: 'bold',
+                                            justifyContent: "center",
+                                            textAlign: 'left',
+                                            padding: '1vh'
+                                        }}>{interest}</label>
+                                    </div>
+                                ))}
                             </Accordion.Header>
                             <Accordion.Body>
-                            <Form>
-                                <Form.Check 
-                                    type="checkbox"
-                                    id="1"
-                                    label="Software Engineer"
-                                    onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setSelectedInterests([...selectedInterests, "Software Engineer"]);
-                                        } else {
-                                            setSelectedInterests(selectedInterests.filter(interest => interest !== "Software Engineer"));
-                                        }
-                                    }}
-                                />
-                                <Form.Check 
-                                    type="checkbox"
-                                    id="2"
-                                    label="Human Resources"
-                                    onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setSelectedInterests([...selectedInterests, "Human Resources"]);
-                                        } else {
-                                            setSelectedInterests(selectedInterests.filter(interest => interest !== "Human Resources"));
-                                        }
-                                    }}
-                                />
-                                <Form.Check 
-                                    type="checkbox"
-                                    id="3"
-                                    label="Product Management"
-                                    onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setSelectedInterests([...selectedInterests, "Product Management"]);
-                                        } else {
-                                            setSelectedInterests(selectedInterests.filter(interest => interest !== "Product Management"));
-                                        }
-                                    }}
-                                />
-                            </Form>
-                            <Button variant="primary" style={{marginTop:'3vh', borderRadius:'5rem'}}>Update</Button>
+                                <Form>
+                                    {interests.map(({ id, label, value }) => (
+                                        <Form.Check
+                                            key={id}
+                                            type="checkbox"
+                                            id={id}
+                                            label={label}
+                                            checked={selectedInterests.includes(value)}
+                                            onChange={(e) => handleCheckboxChange(value, e.target.checked)}
+                                        />
+                                    ))}
+                                    <Button
+                                        variant="primary"
+                                        style={{ marginTop: '3vh', borderRadius: '5rem' }}
+                                        onClick={() => handleInterests()}
+                                    >
+                                        Update
+                                    </Button>
+                                </Form>
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
