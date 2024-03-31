@@ -122,39 +122,6 @@ export default function PersonalInfoComponent() {
               )
             }
           </InputGroup>
-          {/* Email */}
-          <InputGroup className="mb-3">
-            <Form.Control
-              placeholder="Email address"
-              aria-label="Email address"
-              aria-describedby="basic-addon2"
-              disabled={booleanForEmail}
-              value={email}
-              style={{ boxShadow: "none" }}
-              onChange={(e)=>emailHandler(e)}
-            />
-            {
-              booleanForEmail
-              ?(
-                <Button 
-                variant="outline-secondary" 
-                id="button-addon2"
-                onClick={()=>setBooleanForEmail(false)}
-                >
-                  <FiEdit2 />
-                </Button>
-              )
-              :(
-                <Button 
-                variant="outline-secondary" 
-                id="button-addon2"
-                onClick={()=>setBooleanForEmail(true)}
-                >
-                  <TiTick/>
-                </Button>
-              )
-            }
-          </InputGroup>
           {/* Phone */}
           <InputGroup className="mb-3">
             <Form.Control
@@ -187,6 +154,40 @@ export default function PersonalInfoComponent() {
                 </Button>
               )
             }
+          </InputGroup>
+
+          {/* Email */}
+          <InputGroup className="mb-3">
+            <Form.Control
+              placeholder="Email address"
+              aria-label="Email address"
+              aria-describedby="basic-addon2"
+              disabled={booleanForEmail}
+              value={email}
+              style={{ boxShadow: "none" }}
+              onChange={(e)=>emailHandler(e)}
+            />
+            {/* {
+              booleanForEmail
+              ?(
+                <Button 
+                variant="outline-secondary" 
+                id="button-addon2"
+                onClick={()=>setBooleanForEmail(false)}
+                >
+                  <FiEdit2 />
+                </Button>
+              )
+              :(
+                <Button 
+                variant="outline-secondary" 
+                id="button-addon2"
+                onClick={()=>setBooleanForEmail(true)}
+                >
+                  <TiTick/>
+                </Button>
+              )
+            } */}
           </InputGroup>
         </Row>
       </Container>

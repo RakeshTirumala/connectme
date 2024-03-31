@@ -52,15 +52,16 @@ export default function LoginPage() {
         localStorage.setItem('email', responseData.user.email);
         localStorage.setItem('mobile', responseData.user.mobile);
         localStorage.setItem('userType', responseData.user.userType);
-        console.log("The education that I am going to insert", (JSON.stringify(responseData.user.Education)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.Education))
+        // console.log("The education that I am going to insert", (JSON.stringify(responseData.user.Education)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.Education))
         
         const education = (JSON.stringify(responseData.user.Education)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.Education)
         const experience = (JSON.stringify(responseData.user.workExperience)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.workExperience)
         const projects = (JSON.stringify(responseData.user.projects)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.projects)
-        
+        const interests = (JSON.stringify(responseData.user.interests)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.interests)
         localStorage.setItem('Education', education);
         localStorage.setItem('workExperience', experience);
         localStorage.setItem('projects', projects)
+        localStorage.setItem('interests', interests);
 
         // navigate("/explore");
         if(JSON.parse(localStorage.getItem('user')).newUser){
