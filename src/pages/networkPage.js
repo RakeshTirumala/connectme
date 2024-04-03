@@ -80,6 +80,7 @@ export default function NetworkPage(props) {
             id="controlled-tab-example"
             activeKey={key}
             onSelect={(k) => setKey(k)}
+<<<<<<< HEAD
             className="mb-3"
           >
             <Tab eventKey="professionals" title="Professionals">
@@ -91,6 +92,19 @@ export default function NetworkPage(props) {
             <Tab eventKey="connections" title="My Connections">
               <MyConnectionsComponent connections={connection} />
             </Tab>
+=======
+            className="mb-3">
+              <div fluid className="mx-auto">
+                <Tabs>
+                  <Tab eventKey="professionals" title="Professionals">
+                    <RenderProfessionalsComp searchQuery={searchQuery} />
+                  </Tab>
+                  <Tab eventKey="students" title="Students">
+                    <RenderStudentComponent searchQuery={searchQuery} />
+                  </Tab>
+                </Tabs>
+              </div>
+>>>>>>> 98c01ce5756302c947fc9784b83a81b411e62524
           </Tabs>
         </Container>
       </Container>
