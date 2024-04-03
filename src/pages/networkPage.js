@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import {
   Button,
@@ -16,10 +16,32 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import RenderProfessionalsComp from "../components/renderProfessionalsComp";
 import RenderStudentComponent from "../components/renderStudentsComponent";
+import MyConnectionsComponent from "../components/myConnectionsComponent";
 
 export default function NetworkPage(props) {
   const [key, setKey] = useState("professionals");
   const [searchQuery, setSearchQuery] = useState("");
+  const [connection, setUserConnection] = useState([]);
+  const currentUseremail = localStorage.getItem("email");
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:1111/api/user/getUserConnections?email=${currentUseremail}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const { user } = await response.json();
+      setUserConnection(user.connections);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   return (
     <>
@@ -65,6 +87,9 @@ export default function NetworkPage(props) {
             </Tab>
             <Tab eventKey="students" title="Students">
               <RenderStudentComponent searchQuery={searchQuery} />
+            </Tab>
+            <Tab eventKey="connections" title="My Connections">
+              <MyConnectionsComponent connections={connection} />
             </Tab>
           </Tabs>
         </Container>

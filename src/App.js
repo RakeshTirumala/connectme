@@ -18,6 +18,7 @@ function App() {
     // else document.getElementById('root').style.backgroundColor = 'white'
     // console.log("theme:", bgTheme)
   };
+
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
@@ -26,7 +27,7 @@ function App() {
       <Route path="/settings" element={<SettingsPage bgTheme={handleBG} />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/messenger" element={<MessengerPage />} />
-      <Route path="/signup" element={<SignUp/>} />  
+      <Route path="/signup" element={<SignUp />} />
     </Routes>
   );
 }
