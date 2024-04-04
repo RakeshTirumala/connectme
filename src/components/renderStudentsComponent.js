@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { data } from "../data";
-import { Button, Card, Col, Image, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import img from "../images/defaultPic.webp";
+import noDataa from '../images/noDataa.svg'
 
 export default function RenderStudentComponent(props) {
-  const [requestedMap, setRequestedMap] = useState({});
+  const [requested, setRequested] = useState(new Set());
+  const [content, setContent] = useState([]);
+  const [studentsData, setStudentsData] = useState([]) 
+  let buttons = []
+  let i = 0;
 
   const studentData = data.filter((dp) => {
     if (!props.searchQuery) return dp.professional === false;
@@ -16,38 +21,116 @@ export default function RenderStudentComponent(props) {
     );
   });
 
-  const handleConnect = (email) => {
-    setRequestedMap((prevMap) => ({
-      ...prevMap,
-      [email]: true,
-    }));
+  useEffect(()=>{
+    fetchStudentData()
+  },[])
+
+  useEffect(()=>{
+    handlePagination(0)
+    console.log("hey just trying",studentsData)
+  },[content])
+
+  useEffect(()=>{
+    if(studentsData){
+      studentsData.map((item)=>{
+        const requestsOfThisUser = new Set(item.Requests);
+        if(requestsOfThisUser.has(props.email)) requested.add(item.email)
+      })
+    }
+  },[studentsData])
+
+  const fetchStudentData=async()=>{
+    const response = await fetch(`http://localhost:1111/api/network/students?email=${props.email}&interests=${JSON.stringify(props.interests)}`,{
+      method:'GET',
+      headers: { "Content-Type": "application/json" }
+    })
+    console.log(response);
+    const data = await response.json();
+    console.log("data:[Students]",data.paginatedUsers)
+    setContent(data.paginatedUsers)
+    // console.log("Students Content",content)
+  }
+
+  const handleConnect = async(email) => {
+    try{
+      const response = await fetch(`http://localhost:1111/api/network/requests`,{
+        method:'PUT',
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({currentUser:props.email, targetUser:email})
+      })
+      if(response.ok){
+        let past = new Set(requested);
+        past.add(email)
+        setRequested(past)
+      }
+    }catch(error){
+      alert(error)
+    }
   };
 
+
+  const handlePagination=(page)=>{
+    const pageContent = content[page]
+    setStudentsData(pageContent)
+  }
+
+  console.log("studentsData",studentsData)
+
+  if(content.length>1){
+    for(let i=0; i<content.length;i++){
+      buttons.push(
+        <Button value={i+1} key={i+1} style={{margin:'0.1%'}} onClick={()=>handlePagination(i)}>{i+1}</Button>
+      )
+    }
+  }
+
   return (
-    <Row xs={1} md={2} lg={3} className="g-4">
-      {studentData.map((item) => (
-        <Col key={item.email}>
-          <Card style={{ width: "18rem" }}>
-            <Image
-              src={img}
-              style={{ width: "8rem", padding: "0.5rem" }}
-              roundedCircle
-            />
-            <Card.Body>
-              <Card.Title>
-                {item.firstName} {item.lastName}
-              </Card.Title>
-              <Card.Text>{item.bio}</Card.Text>
-              <Button
-                variant="primary"
-                onClick={() => handleConnect(item.email)}
-              >
-                {requestedMap[item.email] ? "Requested!" : "Connect"}
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+    <>
+    <Container fluid className="mx-auto" style={{minHeight:'60vh'}}>
+      {
+        (!studentsData)
+        ?(
+          <center>
+            <Image src={noDataa} style={{ width: '12rem', margin:'10%'}} />
+          </center>
+        )
+        :(
+          <Row xs={1} md={2} lg={3} className="g-4">
+          {
+            studentsData.map((item) => (
+              <Col key={i}>
+                <Card style={{ width: "18rem" }}>
+                  <Image
+                    src={img}
+                    style={{ width: "8rem", padding: "0.5rem" }}
+                    roundedCircle
+                  />
+                  <Card.Body>
+                    <Card.Title>
+                      {item.firstName} {item.lastName}
+                    </Card.Title>
+                    <Card.Text>
+                      Interests: {item.Interests.join(" • ")}
+                    </Card.Text>
+                    <Button
+                      variant="primary"
+                      onClick={() => handleConnect(item.email)}
+                    >
+                      {requested.has(item.email) ? "Requested!" : "Connect"}
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        )
+      }
+    </Container>
+    <center>
+      <Container fluid className="mx-auto">
+        {buttons}
+      </Container>
+    </center>
+    </>
   );
 }

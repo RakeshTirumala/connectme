@@ -146,7 +146,7 @@ export default function StartConversationComponent(props) {
       ) : (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", backgroundColor: lightTheme }}>
           <Row style={{ justifyContent: "center" }}>
-            <Image src={convoStart} style={{ width: '18rem' }} />
+            <Image src={convoStart} style={{ width: '15rem' }} />
             <p style={{
               fontSize: "1.0rem",
               color: "grey",

@@ -17,12 +17,16 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import RenderProfessionalsComp from "../components/renderProfessionalsComp";
 import RenderStudentComponent from "../components/renderStudentsComponent";
 import MyConnectionsComponent from "../components/myConnectionsComponent";
+import RequestsComponent from "../components/requestsComponent";
 
 export default function NetworkPage(props) {
   const [key, setKey] = useState("professionals");
   const [searchQuery, setSearchQuery] = useState("");
   const [connection, setUserConnection] = useState([]);
   const currentUseremail = localStorage.getItem("email");
+  const interests = JSON.parse(localStorage.getItem('interests'))
+
+  console.log(interests)
 
   useEffect(() => {
     fetchUserData();
@@ -67,9 +71,17 @@ export default function NetworkPage(props) {
                   <FaSearch />
                 </Button>
                 <DropdownButton id="dropdown-basic-button" title="Interests">
-                  <Dropdown.Item>Software Engineering</Dropdown.Item>
+                  {
+                    interests.map((interest)=>{
+                      return(
+                        <Dropdown.Item key={interest}>{interest}</Dropdown.Item>
+                      )
+                    })
+                  }
+                  {/* <Dropdown.Item>Software Engineering</Dropdown.Item>
                   <Dropdown.Item>Technology</Dropdown.Item>
-                  <Dropdown.Item>Something else</Dropdown.Item>
+                  <Dropdown.Item>Something else</Dropdown.Item> */}
+
                 </DropdownButton>
               </div>
             </Form>
@@ -80,31 +92,19 @@ export default function NetworkPage(props) {
             id="controlled-tab-example"
             activeKey={key}
             onSelect={(k) => setKey(k)}
-<<<<<<< HEAD
-            className="mb-3"
-          >
+            className="mb-3">
             <Tab eventKey="professionals" title="Professionals">
-              <RenderProfessionalsComp searchQuery={searchQuery} />
+              <RenderProfessionalsComp searchQuery={searchQuery} interests={interests} email={currentUseremail}/>
             </Tab>
             <Tab eventKey="students" title="Students">
-              <RenderStudentComponent searchQuery={searchQuery} />
+              <RenderStudentComponent searchQuery={searchQuery} interests={interests} email={currentUseremail}/>
             </Tab>
-            <Tab eventKey="connections" title="My Connections">
-              <MyConnectionsComponent connections={connection} />
+            <Tab eventKey="connections" title="Connections">
+              <MyConnectionsComponent connections={connection}/>
             </Tab>
-=======
-            className="mb-3">
-              <div fluid className="mx-auto">
-                <Tabs>
-                  <Tab eventKey="professionals" title="Professionals">
-                    <RenderProfessionalsComp searchQuery={searchQuery} />
-                  </Tab>
-                  <Tab eventKey="students" title="Students">
-                    <RenderStudentComponent searchQuery={searchQuery} />
-                  </Tab>
-                </Tabs>
-              </div>
->>>>>>> 98c01ce5756302c947fc9784b83a81b411e62524
+            <Tab eventKey="Requests" title="Requests">
+              <RequestsComponent email={currentUseremail}/>
+            </Tab>
           </Tabs>
         </Container>
       </Container>
