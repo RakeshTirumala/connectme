@@ -8,25 +8,29 @@ import { data } from "../data";
 
 export default function StartConversationComponent(props) {
   const activeUser = props.activeConnection;
+  const activeUserName =props.activeChatUserFullName;
   const ws = props.ws;
   const [newMsg, setNewMsg] = useState("");
   const [fetchedData, setFetchedData] = useState([]);
   const messagesEndRef = useRef(null);
 
+  console.log("Current user", props.currentUseremail)
+
   const fetchPrevChat = async () => {
     try {
-      const response = await fetch(`http://localhost:1111/api/chats/byuserId?id=${activeUser}`, {
+      const response = await fetch(`http://localhost:1111/api/chats/byuserId?id=${activeUser}&current=${props.currentUseremail}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       });
       const { id } = await response.json();
-      props.handleMsgs(id);
+      props.handleFetchedMessages(id);
     } catch (error) {
       console.error("Error fetching chat data:", error);
     }
   }; 
 
   useEffect(() => {
+    props.clearMessages();
     if (activeUser) {
       fetchPrevChat();
     }
@@ -34,7 +38,7 @@ export default function StartConversationComponent(props) {
 
   useEffect(() => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior:'smooth'});
+      messagesEndRef.current.scrollIntoView({ behavior:'auto'});
     }
   }, [props.messages]);
 
@@ -49,6 +53,7 @@ export default function StartConversationComponent(props) {
       props.handleMsgs(dataToSend);
       setNewMsg("");
     }
+    console.log("Props.messages", props.messages)
   };
 
   console.log(props.messages)
@@ -67,14 +72,14 @@ export default function StartConversationComponent(props) {
             <div style={{display:'flex', flexDirection:'row'}}>
               <Image src={img} style={{width: '3rem',height:'3rem', padding: '0.5rem'}} roundedCircle />
               <div style={{display:'flex', flexDirection:'column'}}>
-                <h6 style={{fontFamily:'monospace', fontWeight:'bold'}}>{activeUser}</h6>
-                <p style={{fontFamily:'monospace', fontSize:'10px'}}>Active Now</p>
+                <h6 style={{fontFamily:'monospace', fontWeight:'bold'}}>{activeUserName}</h6>
+                {/* <p style={{fontFamily:'monospace', fontSize:'10px'}}>Active Now</p> */}
               </div>
             </div>
           </div>
           <ListGroup as="ol" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
             {
-            (props.messages===undefined)
+            (!props.messages)
               ?(
                 <p>Loading...</p>
               )

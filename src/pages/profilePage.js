@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import NavbarComponent from "../components/navbarComponent";
 import { Alert, Button, Container } from "react-bootstrap";
@@ -13,11 +13,14 @@ import UserTypeComponent from "../components/userTypeComponent";
  
 export default function ProfilePage() { 
   const [userType, setUserType] = useState("");
+  const [newUser, setNewUser] = useState(true)
   const handleUserType=(childData)=>{
     setUserType(childData)
   }
-  let newUser = localStorage.getItem('user');
-  newUser = JSON.parse(newUser).newUser;
+  useEffect(() => {
+    setNewUser(JSON.parse(localStorage.getItem('user')).newUser);
+  }, []);
+  
   console.log("new user", newUser);
 
   const handleSave=async()=>{
@@ -36,7 +39,7 @@ export default function ProfilePage() {
     //   experience:experience, projects:projects, interests:interests, email:email,newUser:false, userType:userType}
     // console.log(data)
 
-    if(fn && ln && mobile.length === 10 && interests.length > 0){
+    if(fn && ln && interests.length > 0){
       const response = await fetch('http://localhost:1111/api/profile/', {
         method:'PUT',
         headers: { "Content-Type": "application/json" },
@@ -47,6 +50,7 @@ export default function ProfilePage() {
         const data = await response.json();
         console.log("user", JSON.stringify(data.user))
         localStorage.setItem('newUser', data.user.newUser);
+        setNewUser(data.user.newUser)
         localStorage.setItem('firstName', data.user.firstName);
         localStorage.setItem('lastName', data.user.lastName);
         localStorage.setItem('email', data.user.email);
@@ -62,7 +66,7 @@ export default function ProfilePage() {
         localStorage.setItem('workExperience', experience);
         localStorage.setItem('projects', projects)
         localStorage.setItem('interests', interests);
-        if(newUser) window.location.reload()
+        if(!newUser) window.location.reload()
       }else{
         console.log("User error")
       }
@@ -74,15 +78,12 @@ export default function ProfilePage() {
   return (
     <>
     {
-      (!newUser)
+      (newUser)
       ?(
-        <NavbarComponent />
+        <></>
       )
       :(
-        // <Alert key={'light'} variant={'light'} style={{textAlign:'center'}}>
-        //   You need to fill the following details and save them inorder to use the app.
-        // </Alert>
-        <></>
+        <NavbarComponent />
       )
     }
     {/* <NavbarComponent/> */}

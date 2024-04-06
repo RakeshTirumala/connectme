@@ -12,6 +12,9 @@ export default function RequestsComponent(props){
         fetchRequests()
     },[])
 
+    props.handleRequestsLength(requests.length)
+
+
     const fetchRequests=async()=>{
         const response = await fetch(`http://localhost:1111/api/network/requests?email=${props.email}`,{
             method:"GET",
@@ -31,7 +34,7 @@ export default function RequestsComponent(props){
     }
 
     // console.log("Requests", requests)
-
+  
     const handleRequest=async(value, actionOnUser)=>{
         // console.log(value, actionOnUser, props.email)
         const response = await fetch(`http://localhost:1111/api/network/connectionRequest`,{
@@ -42,6 +45,8 @@ export default function RequestsComponent(props){
         console.log(response)
         if(response.ok){
             setDecision(true)
+        }else{
+            console.log(response.status)
         }
     }
 

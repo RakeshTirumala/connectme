@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Container, Image, Card } from "react-bootstrap";
 import img from "../images/defaultPic.webp";
-import { feedData } from "../data";
+// import { feedData } from "../data";
 import PostComponent from "./postComponent";
 import StartPostComponent from "./startPostComponent";
+import noFeed from "../images/noFeed.svg";
+
 export default function FeedComponent() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [feed, setFeed] = useState([])
+
+
   return (
     <>
       <Container className="mx-auto">
@@ -47,21 +52,32 @@ export default function FeedComponent() {
       </Container>
 
       <Container className="mx-auto" style={{ overflowY: "scroll" }}>
-        {feedData
-          .sort((a, b) => b.id - a.id)
-          .map((post) => {
-            return (
-              <PostComponent
-                key={post.id}
-                post={post.post}
-                postedBy={post.postedBy}
-                id={post.id}
-              />
-            );
-          })}
+        {
+          (feed.length>0)
+          ?(
+            feed
+            .sort((a, b) => b.id - a.id)
+            .map((post) => {
+              return (
+                <PostComponent
+                  key={post.id}
+                  post={post.post}
+                  postedBy={post.postedBy}
+                  id={post.id}
+                />
+              );
+            })
+          )
+          :(
+            <center>
+              <Image src={noFeed} style={{width:"15rem"}}/>
+              <p style={{color:'grey', fontFamily:'monospace'}}>No feed!</p>
+            </center>
+          )
+        }
       </Container>
       <StartPostComponent
-        data={feedData}
+        data={feed}
         show={show}
         handleInput={handleClose}
         handleClose={handleClose}

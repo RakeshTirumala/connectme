@@ -6,9 +6,9 @@ import img from '../images/defaultPic.webp';
 import noDataa from '../images/noDataa.svg';
 
 export default function RenderProfessionalsComp(props) {
-    const [requestedMap, setRequestedMap] = useState({});
     const [content, setContent] = useState([]);
     const [professionalsData, setProfessionalsData] = useState([])
+    const [requested, setRequested] = useState(new Set());
     let buttons = [];
     let i = 0;
 
@@ -20,7 +20,7 @@ export default function RenderProfessionalsComp(props) {
         handlePagination(0);
     },[content])
 
-    
+     
 
     const fetchProfessionalData = async () => {
         const response = await fetch(`http://localhost:1111/api/network/professionals?email=${props.email}&interests=${JSON.stringify(props.interests)}`, {
@@ -41,12 +41,22 @@ export default function RenderProfessionalsComp(props) {
         );
     });
 
-    const handleConnect = (email) => {
-        setRequestedMap(prevMap => ({
-            ...prevMap,
-            [email]: true
-        }));
-    };
+    const handleConnect = async(email) => {
+        try{
+          const response = await fetch(`http://localhost:1111/api/network/requests`,{
+            method:'PUT',
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({currentUser:props.email, targetUser:email})
+          })
+          if(response.ok){
+            let past = new Set(requested);
+            past.add(email)
+            setRequested(past)
+          }
+        }catch(error){
+          alert(error)
+        }
+      };
 
 
     const handlePagination=(page)=>{
@@ -87,7 +97,7 @@ export default function RenderProfessionalsComp(props) {
                                                         {item.bio}
                                                     </Card.Text>
                                                     <Button variant="primary" onClick={() => handleConnect(item.email)}>
-                                                        {requestedMap[item.email] ? 'Requested!' : 'Connect'}
+                                                        {requested.has(item.email) ? 'Requested!' : 'Connect'}
                                                     </Button>
                                                 </Card.Body>
                                             </Card>

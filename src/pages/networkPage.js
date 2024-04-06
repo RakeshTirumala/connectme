@@ -25,12 +25,19 @@ export default function NetworkPage(props) {
   const [connection, setUserConnection] = useState([]);
   const currentUseremail = localStorage.getItem("email");
   const interests = JSON.parse(localStorage.getItem('interests'))
+  const [requestsLength, setRequestsLength] = useState(0);
 
   console.log(interests)
 
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  const handleRequestsLength=(data)=>{
+    if(data) setRequestsLength(data);        
+  }
+
+
   const fetchUserData = async () => {
     try {
       const response = await fetch(
@@ -40,8 +47,9 @@ export default function NetworkPage(props) {
           headers: { "Content-Type": "application/json" },
         }
       );
-      const { user } = await response.json();
-      setUserConnection(user.connections);
+      const { users } = await response.json();
+      console.log("connections",users)
+      setUserConnection(users);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -102,8 +110,13 @@ export default function NetworkPage(props) {
             <Tab eventKey="connections" title="Connections">
               <MyConnectionsComponent connections={connection}/>
             </Tab>
-            <Tab eventKey="Requests" title="Requests">
-              <RequestsComponent email={currentUseremail}/>
+            <Tab eventKey="Requests" 
+            title={<span>Requests 
+            <span style={{backgroundColor: 'red', color: 'white', 
+              paddingLeft:'.35rem', paddingRight:'.35rem', 
+              paddingTop:'.03rem', paddingBottom:'.03rem', 
+              margin:'.3rem', borderRadius:'50%', fontSize:'12px'}}>{requestsLength}</span></span>}>
+              <RequestsComponent email={currentUseremail} handleRequestsLength={handleRequestsLength}/>
             </Tab>
           </Tabs>
         </Container>

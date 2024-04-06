@@ -9,6 +9,7 @@ export default function MyConnectionsComponent(props) {
   console.log("here", props.connections);
   const userData = props.connections;
 
+
   /* const userData = props.userData.connections.filter((conn) => {
     if (!props.searchQuery) return true;
     return (
@@ -32,11 +33,14 @@ export default function MyConnectionsComponent(props) {
                   return(
                     <ListGroup.Item key={user}>
                       <Row>
-                        <Col sm={3} md={2}>
+                        <Col sm={4} md={2} >
                           <Image src={img} roundedCircle style={{width:'2.5rem'}}/>
                         </Col>
-                        <Col style={{padding:'0.5%'}}>
-                          {user}
+                        <Col style={{padding:'0.5%'}} sm={4} md={2} >
+                          {user.firstName} {user.lastName}
+                        </Col>
+                        <Col style={{padding:'0.5%'}} sm={4} md={2} >
+                          {user.email}
                         </Col>
                       </Row>
                     </ListGroup.Item>
