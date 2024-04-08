@@ -1,17 +1,59 @@
 import "bootstrap/dist/css/bootstrap.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import 'emoji-picker-element';  
+import { RiEmojiStickerLine } from "react-icons/ri";
 
 export default function StartPostComponent(props) {
   const [post, setPost] = useState("");
+  const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
+  const email = localStorage.getItem('email')
+  const [localFeed, SetLocalFeed]= useState([]);
+
+
+  const postToDb=async()=>{
+    const response = await fetch('http://localhost:1111/api/feed/',{
+      method:'POST',
+      headers:{'Content-Type': 'application/json'},
+      body:JSON.stringify({currentUser:email, post:post})
+    })
+    console.log(response)
+    if(response.ok){
+      console.log("post inserted to the db");
+      const data = {
+        id: props.feed.length + 1,
+        postData:post,
+        likes:0,
+        comments:0,
+        fullNameOfPoster:props.fullName,
+        email:props.currentUser,
+        timeOfCreation:new Date(),
+        currentUserLiked:false
+      }
+      props.addDataToFeed(data)
+      console.log(props.feed)
+    }else{
+      console.log("failed to insert!")
+    }
+  }
+
+
+
   const handlePost = () => {
-    props.data.push({
-      id: props.data.length + 1,
-      post: post,
-      postedBy: "Gilfoyle",
-    });
+    if(post.trim()!==""){
+      postToDb();
+      setPost("")
+    }
     props.handleClose();
   };
+
+  useEffect(()=>{
+    if(emojiPickerVisible){
+      document.querySelector('emoji-picker')
+      .addEventListener('emoji-click', event => setPost(prev=>prev+event.detail.unicode));
+    }
+  },[emojiPickerVisible])
+
   return (
     <Modal show={props.show} onHide={props.handleClose}>
       <Modal.Header closeButton>
@@ -28,14 +70,26 @@ export default function StartPostComponent(props) {
               onChange={(e) => setPost(e.target.value)}
               style={{ boxShadow: "none" }}
             />
+            <RiEmojiStickerLine 
+            style={{cursor:'pointer', float:'right', margin:'2%'}} 
+            size={18}
+            onClick={()=>setEmojiPickerVisible(!emojiPickerVisible)}
+            />
           </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
+        {
+          emojiPickerVisible && (
+            <div style={{maxHeight: '30px'}}>
+              <emoji-picker class="light"></emoji-picker>
+            </div>
+          )
+        }
         <Button variant="secondary" onClick={props.handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handlePost}>
+        <Button variant="primary" onClick={()=>handlePost()}>
           Post
         </Button>
       </Modal.Footer>

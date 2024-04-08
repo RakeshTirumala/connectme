@@ -27,6 +27,7 @@ export default function RequestsComponent(props){
             const data = await response.json();
             console.log(data)
             setRequests(data.requests);
+            localStorage.setItem('requests', JSON.stringify(data.requests))
             console.log("[requests]",data.requests)
         }else{
             console.log("couldn't fetch requests")

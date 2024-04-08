@@ -5,6 +5,9 @@ import img from '../images/defaultPic.webp'
 import convoStart from '../images/StartConvo.svg'
 import { lightTheme, primaryColor, secondaryColor } from "../constants";
 import { data } from "../data";
+// import Picker from 'emoji-picker-react';
+import { RiEmojiStickerLine } from "react-icons/ri";
+import 'emoji-picker-element';  
 
 export default function StartConversationComponent(props) {
   const activeUser = props.activeConnection;
@@ -13,8 +16,10 @@ export default function StartConversationComponent(props) {
   const [newMsg, setNewMsg] = useState("");
   const [fetchedData, setFetchedData] = useState([]);
   const messagesEndRef = useRef(null);
+  const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
 
   console.log("Current user", props.currentUseremail)
+  
 
   const fetchPrevChat = async () => {
     try {
@@ -57,6 +62,15 @@ export default function StartConversationComponent(props) {
   };
 
   console.log(props.messages)
+
+
+  useEffect(()=>{
+    if(emojiPickerVisible){
+      document.querySelector('emoji-picker')
+      .addEventListener('emoji-click', event => setNewMsg(prev=>prev+event.detail.unicode));
+    }
+  },[emojiPickerVisible])
+
 
   return (
     <>
@@ -123,9 +137,27 @@ export default function StartConversationComponent(props) {
             }
             <div ref={messagesEndRef} />
           </ListGroup>
+
+          {
+            emojiPickerVisible &&
+            (
+              <div style={{ position:'absolute', bottom:'70vh', maxHeight: '50px', marginLeft:'1vw'}}>
+                <emoji-picker class="light"></emoji-picker>
+              </div>
+            )
+          }
+          {/* <div style={{ position: 'absolute', bottom: '70vh', maxHeight: '50px', marginLeft:'1vw'}}>
+              <Picker open={emojiPickerVisible} onEmojiClick={onEmojiClick} width={300} height={350}/>
+          </div> */}
           <div style={{position: 'absolute', bottom: 0, width: '100%',}}>
             <Container className="d-flex justify-content-center">
               <InputGroup className="mb-3" style={{paddingBottom:'1rem'}}>
+                <Button 
+                  variant="secondary" 
+                  id="button-addon2"
+                  onClick={()=>setEmojiPickerVisible(!emojiPickerVisible)}>
+                  <RiEmojiStickerLine/>
+                </Button>
                 <Form.Control
                   as="textarea"
                   rows={2}

@@ -31,7 +31,7 @@ export default function MyConnectionsComponent(props) {
               {
                 userData.map((user)=>{
                   return(
-                    <ListGroup.Item key={user}>
+                    <ListGroup.Item key={user.email}>
                       <Row>
                         <Col sm={4} md={2} >
                           <Image src={img} roundedCircle style={{width:'2.5rem'}}/>

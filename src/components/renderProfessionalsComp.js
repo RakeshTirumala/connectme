@@ -20,6 +20,13 @@ export default function RenderProfessionalsComp(props) {
         handlePagination(0);
     },[content])
 
+    useEffect(()=>{
+        const pendingRequests = JSON.parse(localStorage.getItem('requests'));
+        // console.log("pending",pendingRequests)
+        pendingRequests.forEach(item => setRequested(new Set(requested).add(item.email)));
+    },[])
+
+
      
 
     const fetchProfessionalData = async () => {

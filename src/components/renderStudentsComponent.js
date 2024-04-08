@@ -39,6 +39,12 @@ export default function RenderStudentComponent(props) {
     }
   },[studentsData])
 
+  useEffect(()=>{
+    const pendingRequests = JSON.parse(localStorage.getItem('requests'));
+    // console.log("pending",pendingRequests)
+    pendingRequests.forEach(item => setRequested(new Set(requested).add(item.email)));
+  },[])
+
   const fetchStudentData=async()=>{
     const response = await fetch(`http://localhost:1111/api/network/students?email=${props.email}&interests=${JSON.stringify(props.interests)}`,{
       method:'GET',

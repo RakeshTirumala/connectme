@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Container, Image, Card } from "react-bootstrap";
 import img from "../images/defaultPic.webp";
@@ -6,12 +6,43 @@ import img from "../images/defaultPic.webp";
 import PostComponent from "./postComponent";
 import StartPostComponent from "./startPostComponent";
 import noFeed from "../images/noFeed.svg";
+import { MdEmail } from "react-icons/md";
 
 export default function FeedComponent() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [feed, setFeed] = useState([])
+
+  const fn = localStorage.getItem('firstName');
+  const ln = localStorage.getItem('lastName');
+  const currentUser = localStorage.getItem('email')
+
+  useEffect(()=>{
+    fetchFeed()
+  },[])
+
+  const fetchFeed=async()=>{
+    const response = await fetch(`http://localhost:1111/api/feed/?currentUser=${currentUser}`,{
+      method:"GET",
+      headers:{"Content-Type":"application/json"},
+    })
+    const {feed} = await response.json();
+    setFeed(feed);
+  }
+
+  const fullName = `${fn} ${ln}`;
+
+  console.log(feed)
+
+  const addDataToFeed=(data)=>{
+    feed.unshift(data);
+  }
+
+  useEffect(()=>{
+    setFeed(feed)
+},[feed])
+
 
 
   return (
@@ -51,19 +82,24 @@ export default function FeedComponent() {
         </Card>
       </Container>
 
-      <Container className="mx-auto" style={{ overflowY: "scroll" }}>
+      <Container className="mx-auto" style={{ overflowY: "scroll", height:'100vh'}}>
         {
           (feed.length>0)
           ?(
             feed
-            .sort((a, b) => b.id - a.id)
             .map((post) => {
               return (
                 <PostComponent
                   key={post.id}
-                  post={post.post}
-                  postedBy={post.postedBy}
+                  post={post.postData}
+                  postedBy={post.fullNameOfPoster}
                   id={post.id}
+                  date={post.timeOfCreation}
+                  likes = {post.likes}
+                  comments = {post.comments}
+                  currentUserLiked={post.currentUserLiked}
+                  currentUser={currentUser}
+                  connectionsLiked={post.connectionsLiked}
                 />
               );
             })
@@ -77,11 +113,15 @@ export default function FeedComponent() {
         }
       </Container>
       <StartPostComponent
-        data={feed}
+        feed={feed}
         show={show}
         handleInput={handleClose}
         handleClose={handleClose}
+        fullName = {fullName}
+        currentUser={currentUser}
+        addDataToFeed={addDataToFeed}
       />
     </>
   );
-}
+} 
+ 
