@@ -69,13 +69,15 @@ export default function LoginPage() {
           localStorage.setItem('newUser', true);
         }
         else navigate("/explore");
-      }
+      } 
     } catch (error) {
       console.log("error", error);
       setShowError(true);
       setEmail("");
       setPassword("");
     }
+
+    setProgress(false)
   };
   return (
     <>
@@ -162,7 +164,7 @@ export default function LoginPage() {
             </p>
           </span>
           {
-          (progress===true)
+          (progress)
           ?(
             <progress value={null} />
           )

@@ -36,14 +36,15 @@ export default function FeedComponent() {
   console.log(feed)
 
   const addDataToFeed=(data)=>{
-    feed.unshift(data);
+    const newFeed = [data, ...feed];
+    setFeed(newFeed);
   }
 
-  useEffect(()=>{
-    setFeed(feed)
-},[feed])
+  // useEffect(()=>{
+  //   setFeed(feed)
+  // },[feed])
 
-
+ 
 
   return (
     <>

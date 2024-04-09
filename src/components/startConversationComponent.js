@@ -141,7 +141,7 @@ export default function StartConversationComponent(props) {
           {
             emojiPickerVisible &&
             (
-              <div style={{ position:'absolute', bottom:'70vh', maxHeight: '50px', marginLeft:'1vw'}}>
+              <div style={{ position:'absolute', bottom:'75%', maxHeight: '50px', marginLeft:'1vw'}}>
                 <emoji-picker class="light"></emoji-picker>
               </div>
             )

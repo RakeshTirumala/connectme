@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import 'emoji-picker-element';  
 import { RiEmojiStickerLine } from "react-icons/ri";
-
+ 
 export default function StartPostComponent(props) {
   const [post, setPost] = useState("");
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
@@ -77,15 +77,15 @@ export default function StartPostComponent(props) {
             />
           </Form.Group>
         </Form>
-      </Modal.Body>
-      <Modal.Footer>
         {
           emojiPickerVisible && (
-            <div style={{maxHeight: '30px'}}>
-              <emoji-picker class="light"></emoji-picker>
+            <div>
+              <emoji-picker class="light" style={{width:'80%'}}></emoji-picker>
             </div>
           )
         }
+      </Modal.Body>
+      <Modal.Footer>
         <Button variant="secondary" onClick={props.handleClose}>
           Close
         </Button>
