@@ -12,7 +12,7 @@ export default function StartPostComponent(props) {
 
 
   const postToDb=async()=>{
-    const response = await fetch('http://localhost:1111/api/feed/',{
+    const response = await fetch(process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN,{
       method:'POST',
       headers:{'Content-Type': 'application/json'},
       body:JSON.stringify({currentUser:email, post:post})

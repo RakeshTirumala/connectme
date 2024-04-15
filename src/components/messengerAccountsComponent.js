@@ -7,7 +7,7 @@ export default function MessengerAccountsComponent(props) {
   return (
     <>
       <Image
-        src={img}
+        src={(!props.dp)?img:props.dp}
         style={{ width: "4rem", padding: "0.5rem" }}
         roundedCircle
       />

@@ -34,7 +34,7 @@ export default function MyConnectionsComponent(props) {
                     <ListGroup.Item key={user.email}>
                       <Row>
                         <Col sm={4} md={2} >
-                          <Image src={img} roundedCircle style={{width:'2.5rem'}}/>
+                          <Image src={(!user.dp)?img:user.dp} roundedCircle style={{width:'2.5rem'}}/>
                         </Col>
                         <Col style={{padding:'0.5%'}} sm={4} md={2} >
                           {user.firstName} {user.lastName}

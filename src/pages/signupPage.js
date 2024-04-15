@@ -35,7 +35,7 @@ export default function SignUp(){
       if(confirmPassword===password){
           try {
             const response = await fetch(
-              "http://localhost:1111/api/signup",
+              process.env.REACT_APP_SIGNUP_URL_DIGITAL_OCEAN,
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

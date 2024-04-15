@@ -46,7 +46,7 @@ export default function RenderStudentComponent(props) {
   },[])
 
   const fetchStudentData=async()=>{
-    const response = await fetch(`http://localhost:1111/api/network/students?email=${props.email}&interests=${JSON.stringify(props.interests)}`,{
+    const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/students?email=${props.email}&interests=${JSON.stringify(props.interests)}`,{
       method:'GET',
       headers: { "Content-Type": "application/json" }
     })
@@ -59,7 +59,7 @@ export default function RenderStudentComponent(props) {
 
   const handleConnect = async(email) => {
     try{
-      const response = await fetch(`http://localhost:1111/api/network/requests`,{
+      const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/requests`,{
         method:'PUT',
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({currentUser:props.email, targetUser:email})
@@ -107,7 +107,7 @@ export default function RenderStudentComponent(props) {
               <Col key={i}>
                 <Card style={{ width: "18rem" }}>
                   <Image
-                    src={img}
+                    src={(!item.dp)?img:item.dp}
                     style={{ width: "8rem", padding: "0.5rem" }}
                     roundedCircle
                   />

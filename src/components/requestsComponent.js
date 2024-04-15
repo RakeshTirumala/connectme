@@ -16,7 +16,7 @@ export default function RequestsComponent(props){
 
 
     const fetchRequests=async()=>{
-        const response = await fetch(`http://localhost:1111/api/network/requests?email=${props.email}`,{
+        const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/requests?email=${props.email}`,{
             method:"GET",
             headers:{"Content-Type":"application/json"}
         })
@@ -38,7 +38,7 @@ export default function RequestsComponent(props){
   
     const handleRequest=async(value, actionOnUser)=>{
         // console.log(value, actionOnUser, props.email)
-        const response = await fetch(`http://localhost:1111/api/network/connectionRequest`,{
+        const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/connectionRequest`,{
             method:"PUT",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify({decision:value, currentUser:props.email, actionOnUser:actionOnUser})
@@ -70,7 +70,7 @@ export default function RequestsComponent(props){
                                             <ListGroup.Item  key={request.email}>
                                                 <Row>
                                                     <Col>
-                                                        <Image src={img} roundedCircle style={{width:'2.5rem'}}/>
+                                                        <Image src={(!request.dp)?img:request.dp} roundedCircle style={{width:'2.5rem'}}/>
                                                     </Col>
                                                     <Col style={{padding:'0.5%'}}>
                                                         {request.firstName} {request.lastName} 

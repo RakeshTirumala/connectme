@@ -23,7 +23,7 @@ export default function StartCommentComponent(props){
                 userId:currentUser,
                 data:comment
             }
-            const response = await fetch('http://localhost:1111/api/feed/postActivityComments',{
+            const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}/postActivityComments`,{
                 method:"PUT",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify({currentUser:currentUser, postId:postId, commentData:commentData})

@@ -19,11 +19,11 @@ export default function StartConversationComponent(props) {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
 
   console.log("Current user", props.currentUseremail)
-  
+   
 
   const fetchPrevChat = async () => {
     try {
-      const response = await fetch(`http://localhost:1111/api/chats/byuserId?id=${activeUser}&current=${props.currentUseremail}`, {
+      const response = await fetch(`${process.env.REACT_APP_CHATS_URL_DIGITAL_OCEAN}/byuserId?id=${activeUser}&current=${props.currentUseremail}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       });
@@ -84,7 +84,7 @@ export default function StartConversationComponent(props) {
           }}>
           <div className="d-flex justify-content-center" style={{height:'8vh'}}>
             <div style={{display:'flex', flexDirection:'row'}}>
-              <Image src={img} style={{width: '3rem',height:'3rem', padding: '0.5rem'}} roundedCircle />
+              {/* <Image src={img} style={{width: '3rem',height:'3rem', padding: '0.5rem'}} roundedCircle /> */}
               <div style={{display:'flex', flexDirection:'column'}}>
                 <h6 style={{fontFamily:'monospace', fontWeight:'bold'}}>{activeUserName}</h6>
                 {/* <p style={{fontFamily:'monospace', fontSize:'10px'}}>Active Now</p> */}
@@ -128,7 +128,7 @@ export default function StartConversationComponent(props) {
                       as="li"
                       style={listItemStyle}
                     >
-                      <Image src={img} style={imageStyle} roundedCircle /> 
+                      {/* <Image src={img} style={imageStyle} roundedCircle />  */}
                       <p style={textStyle}>{msgComp.text}</p>
                     </ListGroup.Item>
                   );

@@ -30,7 +30,7 @@ export default function RenderProfessionalsComp(props) {
      
 
     const fetchProfessionalData = async () => {
-        const response = await fetch(`http://localhost:1111/api/network/professionals?email=${props.email}&interests=${JSON.stringify(props.interests)}`, {
+        const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/professionals?email=${props.email}&interests=${JSON.stringify(props.interests)}`, {
             method: 'GET',
             headers: { "Content-Type": "application/json" }
         });
@@ -50,7 +50,7 @@ export default function RenderProfessionalsComp(props) {
 
     const handleConnect = async(email) => {
         try{
-          const response = await fetch(`http://localhost:1111/api/network/requests`,{
+          const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/requests`,{
             method:'PUT',
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify({currentUser:props.email, targetUser:email})
@@ -97,7 +97,7 @@ export default function RenderProfessionalsComp(props) {
                                     professionalsData.map((item) => (
                                         <Col key={item.email}>
                                             <Card style={{ width: '18rem' }} id="profID">
-                                                <Image src={img} style={{ width: '8rem', padding: '0.5rem' }} roundedCircle />
+                                                <Image src={(!item.dp)?img:item.dp} style={{ width: '8rem', padding: '0.5rem' }} roundedCircle />
                                                 <Card.Body>
                                                     <Card.Title>{item.firstName} {item.lastName}</Card.Title>
                                                     <Card.Text>

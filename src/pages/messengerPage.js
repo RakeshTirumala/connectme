@@ -42,7 +42,7 @@ export default function MessengerPage() {
   // FETCHING CONNECTIONS OF A PARTICULAR USER
   const fetchConnectionsOfUser=async()=>{
     try{
-      const response = await fetch(`http://localhost:1111/api/messenger/connections?email=${currentUseremail}`, {
+      const response = await fetch(`${process.env.REACT_APP_MESSENGER_URL_DIGITAL_OCEAN}?email=${currentUseremail}`, {
         method:"GET",
         headers:{"Content-Type":"application/json"}
       })
@@ -61,7 +61,7 @@ export default function MessengerPage() {
   // FETCHING PAST CONVERSATIONS OF A USER
   const fetchPrevConvo=async()=>{
     try{
-      const response = await fetch(`http://localhost:1111/api/messenger/pastConversations?email=${currentUseremail}`,{
+      const response = await fetch(`${process.env.REACT_APP_MESSENGER_URL_DIGITAL_OCEAN}/pastConversations?email=${currentUseremail}`,{
         method:"GET",
         headers:{"Content-Type":"application/json"}
       })
@@ -111,7 +111,7 @@ export default function MessengerPage() {
 
   // WEBSOCKET EVENTS
   useEffect(()=>{
-    const ws = new WebSocket(`ws://localhost:1111?token=${currentUser}&email=${currentUseremail}`)
+    const ws = new WebSocket(`${process.env.REACT_APP_WEBSOCKET_URL}?token=${currentUser}&email=${currentUseremail}`)
     setWs(ws);
     ws.addEventListener('message', handleMessage)
   },[]);
@@ -233,11 +233,12 @@ export default function MessengerPage() {
                       flexDirection: "row",
                       cursor: "pointer",
                     }}
-                  >
+                  > 
                     <MessengerAccountsComponent
                     connection={connection.email}
                     connectionFirstname = {connection.firstName}
                     connectionLastName = {connection.lastName}
+                    dp={connection.dp}
                     />
                   </ListGroup.Item>
                 )
@@ -265,6 +266,7 @@ export default function MessengerPage() {
                       connectionFirstname = {connection.firstName}
                       connectionLastName = {connection.lastName}
                       latestMsgInConvo = {connection.chat.text}
+                      dp={connection.dp}
                       />
                     </ListGroup.Item>
                   );

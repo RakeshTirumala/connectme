@@ -61,7 +61,7 @@ export default function PostComponent(props){
 
     // UPDATE LIKES ARRAY OF THE POST
     const updateLikesOfPostId=async()=>{
-        const response = await fetch('http://localhost:1111/api/feed/postActivity',{
+        const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}/postActivity`,{
             method:"PUT",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify({currentUser:props.currentUser, postId:currentActivityPost, shouldIAddUserLike:liked})
@@ -71,7 +71,7 @@ export default function PostComponent(props){
 
     //FETCH LIKES OF A POST
     const fetchLikesOfPost=async()=>{
-        const response = await fetch(`http://localhost:1111/api/feed/postActivity/likes?postId=${currentActivityPost}`,{
+        const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}/postActivity/likes?postId=${currentActivityPost}`,{
             method:"GET",
             headers:{"Content-Type":"application/json"},
         })
@@ -82,7 +82,7 @@ export default function PostComponent(props){
 
     // FETCH COMMENTS OF A POST 
     const fetchCommentsOfPost=async()=>{
-        const response = await fetch(`http://localhost:1111/api/feed/postActivity/comments?postId=${currentActivityPost}`,{
+        const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}/postActivity/comments?postId=${currentActivityPost}`,{
             method:"GET",
             headers:{"Content-Type":"application/json"}
         })
@@ -129,7 +129,7 @@ export default function PostComponent(props){
             </Card.Header>
             <Card.Body>
                 <Card.Title style={{fontSize:'16px', fontWeight:'bold'}}>
-                    <Image src={img} roundedCircle style={{ width: "1.8rem", marginRight: "0.8rem" }}/>
+                    <Image src={(!props.dp)?img:props.dp} roundedCircle style={{ width: "1.8rem", marginRight: "0.8rem" }}/>
                     {props.postedBy}
                 </Card.Title>
                 <Card.Text style={{fontFamily:'fantasy'}}>{props.post}</Card.Text>
@@ -195,7 +195,7 @@ export default function PostComponent(props){
                                             <ListGroup.Item key={user.email}>
                                                 <Row>
                                                     <Col>
-                                                        <Image src={img} roundedCircle style={{width:'2rem'}}/>
+                                                        <Image src={(!user.dp)?img:user.dp} roundedCircle style={{width:'2rem'}}/>
                                                     </Col>
                                                     <Col>
                                                         {user.firstName} {user.lastName}
@@ -221,7 +221,7 @@ export default function PostComponent(props){
                                             <ListGroup.Item key={user.email}>
                                                 <Row>
                                                     <Col>
-                                                        <Image src={img} roundedCircle style={{width:'2rem'}}/>
+                                                        <Image src={(!user.dp)?img:user.dp} roundedCircle style={{width:'2rem'}}/>
                                                     </Col>
                                                     <Col>
                                                         {user.firstName} {user.lastName}

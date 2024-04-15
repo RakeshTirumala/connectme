@@ -27,10 +27,9 @@ export default function LoginPage() {
   const handleLogin = async () => {
     setProgress(true);
     console.log(email, password);
-    // process.env.REACT_APP_LOGIN_URL_DIGITAL_OCEAN
     try {
       const response = await fetch(
-        "http://localhost:1111/api/login",
+        process.env.REACT_APP_LOGIN_URL_DIGITAL_OCEAN,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -58,10 +57,13 @@ export default function LoginPage() {
         const experience = (JSON.stringify(responseData.user.workExperience)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.workExperience)
         const projects = (JSON.stringify(responseData.user.projects)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.projects)
         const interests = (JSON.stringify(responseData.user.interests)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.interests)
+        // const dp = (JSON.stringify(responseData.user.dp)===undefined)?"":responseData.user.dp
         localStorage.setItem('Education', education);
         localStorage.setItem('workExperience', experience);
         localStorage.setItem('projects', projects)
         localStorage.setItem('interests', interests);
+        localStorage.setItem('dp', (!responseData.user.dp)?"":responseData.user.dp);
+
 
         // navigate("/explore");
         if(JSON.parse(localStorage.getItem('user')).newUser){

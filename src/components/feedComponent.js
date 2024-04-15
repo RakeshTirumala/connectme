@@ -6,7 +6,7 @@ import img from "../images/defaultPic.webp";
 import PostComponent from "./postComponent";
 import StartPostComponent from "./startPostComponent";
 import noFeed from "../images/noFeed.svg";
-import { MdEmail } from "react-icons/md";
+// import { MdEmail } from "react-icons/md";
 
 export default function FeedComponent() {
   const [show, setShow] = useState(false);
@@ -17,19 +17,35 @@ export default function FeedComponent() {
   const fn = localStorage.getItem('firstName');
   const ln = localStorage.getItem('lastName');
   const currentUser = localStorage.getItem('email')
+  const dp = localStorage.getItem('dp')
+  // console.log("dp", dp)
+  // console.log("current", currentUser)
 
   useEffect(()=>{
     fetchFeed()
   },[])
 
-  const fetchFeed=async()=>{
-    const response = await fetch(`http://localhost:1111/api/feed/?currentUser=${currentUser}`,{
-      method:"GET",
-      headers:{"Content-Type":"application/json"},
-    })
-    const {feed} = await response.json();
-    setFeed(feed);
-  }
+  const fetchFeed = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}?currentUser=${currentUser}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      if (!response.ok) {
+        // Handle non-successful responses (e.g., 404, 500)
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      if(response.ok){
+        const { feed } = await response.json();
+        setFeed(feed);
+      }
+    } catch (error) {
+      console.error("Error fetching feed:", error);
+    }
+  };
+  
 
   const fullName = `${fn} ${ln}`;
 
@@ -60,7 +76,7 @@ export default function FeedComponent() {
         >
           <Card.Body style={{ display: "flex" }}>
             <Image
-              src={img}
+              src={(!dp)?img:dp}
               roundedCircle
               style={{ width: "3rem", marginRight: "0.8rem" }}
             />
@@ -101,6 +117,7 @@ export default function FeedComponent() {
                   currentUserLiked={post.currentUserLiked}
                   currentUser={currentUser}
                   connectionsLiked={post.connectionsLiked}
+                  dp={post.dp}
                 />
               );
             })

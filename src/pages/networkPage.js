@@ -41,7 +41,7 @@ export default function NetworkPage(props) {
   const fetchUserData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:1111/api/user/getUserConnections?email=${currentUseremail}`,
+        `${process.env.REACT_APP_USER_URL_DIGITAL_OCEAN}/getUserConnections?email=${currentUseremail}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },

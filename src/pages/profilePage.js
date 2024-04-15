@@ -33,18 +33,21 @@ export default function ProfilePage() {
     const interests = localStorage.getItem('interests')
     const email = localStorage.getItem('email')
     const userType = localStorage.getItem('userType')
-    console.log(education.length)
+    const dp = localStorage.getItem('dp')
+    
+    console.log("dp profile page", dp)
+    // console.log(education.length)
 
     // const data = {fn:fn, ln:ln, mobile:mobile, education:education,
     //   experience:experience, projects:projects, interests:interests, email:email,newUser:false, userType:userType}
     // console.log(data)
 
     if(fn && ln && interests.length > 0){
-      const response = await fetch('http://localhost:1111/api/profile/', {
+      const response = await fetch(process.env.REACT_APP_PROFILE_URL_DIGITAL_OCEAN, {
         method:'PUT',
         headers: { "Content-Type": "application/json" },
         body:JSON.stringify({fn:fn, ln:ln, mobile:mobile, education:education,
-        experience:experience, projects:projects, interests:interests, email:email,newUser:false, userType:userType})
+        experience:experience, projects:projects, interests:interests, email:email,newUser:false, userType:userType, dp:dp})
       })
       if(response.ok){
         const data = await response.json();
@@ -56,6 +59,7 @@ export default function ProfilePage() {
         localStorage.setItem('email', data.user.email);
         localStorage.setItem('mobile', data.user.mobile);
         localStorage.setItem('userType', data.user.userType);
+        localStorage.setItem('dp', data.user.dp);
         // console.log("The education that I am going to insert", (JSON.stringify(responseData.user.Education)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.Education))
         
         const education = (JSON.stringify(data.user.Education)===undefined)?JSON.stringify([]):JSON.stringify(data.user.Education)
@@ -66,7 +70,7 @@ export default function ProfilePage() {
         localStorage.setItem('workExperience', experience);
         localStorage.setItem('projects', projects)
         localStorage.setItem('interests', interests);
-        if(!newUser) window.location.reload()
+        // if(!newUser) window.location.reload()
       }else{
         console.log("User error")
       }
