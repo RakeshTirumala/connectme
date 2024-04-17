@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
-import { data } from "../data";
+// import { data } from "../data";
 import img from '../images/defaultPic.webp';
 import noDataa from '../images/noDataa.svg';
 
@@ -9,6 +9,8 @@ export default function RenderProfessionalsComp(props) {
     const [content, setContent] = useState([]);
     const [professionalsData, setProfessionalsData] = useState([])
     const [requested, setRequested] = useState(new Set());
+    const [professionalDataChanged, setProfessionalDataChanged] = useState(0);
+    const currentUser = localStorage.getItem('email');
     let buttons = [];
     let i = 0;
 
@@ -21,16 +23,25 @@ export default function RenderProfessionalsComp(props) {
     },[content])
 
     useEffect(()=>{
-        const pendingRequests = JSON.parse(localStorage.getItem('requests'));
-        // console.log("pending",pendingRequests)
-        pendingRequests.forEach(item => setRequested(new Set(requested).add(item.email)));
-    },[])
 
+        if(professionalsData){
+            professionalsData.forEach((dp)=>{
+                console.log(`Requests of ${dp.email}`, dp.Requests)
+                if(new Set(dp.Requests).has(currentUser)){
+                    const newSet = new Set(requested);
+                    newSet.add(dp.email);
+                    setRequested(newSet);
+                }
+            })
+        }
+    },[professionalDataChanged])
 
+    console.log("Requested", requested)
      
 
     const fetchProfessionalData = async () => {
-        const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/professionals?email=${props.email}&interests=${JSON.stringify(props.interests)}`, {
+        const response = await fetch(
+            `${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/professionals?email=${props.email}&interests=${JSON.stringify(props.interests)}`, {
             method: 'GET',
             headers: { "Content-Type": "application/json" }
         });
@@ -39,14 +50,14 @@ export default function RenderProfessionalsComp(props) {
         setContent(responseData.paginatedUsers);
     };
 
-    const professionalData = data.filter(dp => {
-        if (!props.searchQuery) return dp.professional === true;
-        return dp.professional === true && (
-            dp.firstName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
-            dp.lastName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
-            dp.bio.toLowerCase().includes(props.searchQuery.toLowerCase())
-        );
-    });
+    // const professionalData = data.filter(dp => {
+    //     if (!props.searchQuery) return dp.professional === true;
+    //     return dp.professional === true && (
+    //         dp.firstName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+    //         dp.lastName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+    //         dp.bio.toLowerCase().includes(props.searchQuery.toLowerCase())
+    //     );
+    // });
 
     const handleConnect = async(email) => {
         try{
@@ -69,6 +80,7 @@ export default function RenderProfessionalsComp(props) {
     const handlePagination=(page)=>{
         const pageContent = content[page]
         setProfessionalsData(pageContent)
+        setProfessionalDataChanged(prev=>prev+1)
       }
     
       console.log("professionals data", professionalsData)

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { data } from "../data";
+// import { data } from "../data";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import img from "../images/defaultPic.webp";
 import noDataa from '../images/noDataa.svg'
@@ -8,18 +8,21 @@ export default function RenderStudentComponent(props) {
   const [requested, setRequested] = useState(new Set());
   const [content, setContent] = useState([]);
   const [studentsData, setStudentsData] = useState([]) 
+  const currentUser = localStorage.getItem('email');
+  const [studentsDataChanged, setStudentsDataChanged] = useState(0);
+
   let buttons = []
   let i = 0;
 
-  const studentData = data.filter((dp) => {
-    if (!props.searchQuery) return dp.professional === false;
-    return (
-      dp.professional === false &&
-      (dp.firstName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
-        dp.lastName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
-        dp.bio.toLowerCase().includes(props.searchQuery.toLowerCase()))
-    );
-  });
+  // const studentData = data.filter((dp) => {
+  //   if (!props.searchQuery) return dp.professional === false;
+  //   return (
+  //     dp.professional === false &&
+  //     (dp.firstName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+  //       dp.lastName.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+  //       dp.bio.toLowerCase().includes(props.searchQuery.toLowerCase()))
+  //   );
+  // });
 
   useEffect(()=>{
     fetchStudentData()
@@ -27,23 +30,21 @@ export default function RenderStudentComponent(props) {
 
   useEffect(()=>{
     handlePagination(0)
-    console.log("hey just trying",studentsData)
+    // console.log("hey just trying",studentsData)
   },[content])
 
   useEffect(()=>{
     if(studentsData){
-      studentsData.map((item)=>{
-        const requestsOfThisUser = new Set(item.Requests);
-        if(requestsOfThisUser.has(props.email)) requested.add(item.email)
+      studentsData.forEach((dp)=>{
+        if(new Set(dp.Requests).has(currentUser)){
+          const newSet = new Set(requested);
+          newSet.add(dp.email);
+          setRequested(newSet)
+        }
       })
     }
-  },[studentsData])
+  },[studentsDataChanged])
 
-  useEffect(()=>{
-    const pendingRequests = JSON.parse(localStorage.getItem('requests'));
-    // console.log("pending",pendingRequests)
-    pendingRequests.forEach(item => setRequested(new Set(requested).add(item.email)));
-  },[])
 
   const fetchStudentData=async()=>{
     const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/students?email=${props.email}&interests=${JSON.stringify(props.interests)}`,{
