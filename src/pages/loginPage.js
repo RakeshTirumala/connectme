@@ -64,6 +64,10 @@ export default function LoginPage() {
         localStorage.setItem('interests', interests);
         localStorage.setItem('dp', (!responseData.user.dp)?"":responseData.user.dp);
 
+        localStorage.setItem('liked', JSON.stringify(responseData.user.liked));
+        localStorage.setItem('commented', JSON.stringify(responseData.user.commented));
+        localStorage.setItem('posts', JSON.stringify(responseData.user.posts));
+
 
         // navigate("/explore");
         if(JSON.parse(localStorage.getItem('user')).newUser){

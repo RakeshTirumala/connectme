@@ -10,6 +10,7 @@ import ProfessionalWorkComponent from "../components/professionalWorkComponent";
 import ProjectsComponent from "../components/projectsComponent";
 import InterestsComponent from "../components/interestsComponent";
 import UserTypeComponent from "../components/userTypeComponent";
+import UserFeedComponent from "../components/userActivityComponent";
  
 export default function ProfilePage() { 
   const [userType, setUserType] = useState("");
@@ -103,6 +104,7 @@ export default function ProfilePage() {
         }}
       >
         <ProfileDpComponent userType={userType}/>
+        <UserFeedComponent/>
         <PersonalInfoComponent />
         <UserTypeComponent handleUserType={handleUserType}/>
         <EducationComponent />
