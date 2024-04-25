@@ -108,7 +108,11 @@ export default function RenderProfessionalsComp(props) {
                                 {
                                     professionalsData.map((item) => (
                                         <Col key={item.email}>
-                                            <Card style={{ width: '18rem' }} id="profID">
+                                            <Card style={{ width: '18rem', 
+                                                backgroundColor:props.background, 
+                                                color:props.fontColor,
+                                                borderColor:'lightgrey'
+                                                }} id="profID">
                                                 <Image src={(!item.dp)?img:item.dp} style={{ width: '8rem', padding: '0.5rem' }} roundedCircle />
                                                 <Card.Body>
                                                     <Card.Title>{item.firstName} {item.lastName}</Card.Title>

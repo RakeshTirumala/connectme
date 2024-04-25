@@ -17,6 +17,11 @@ export default function StartConversationComponent(props) {
   const [fetchedData, setFetchedData] = useState([]);
   const messagesEndRef = useRef(null);
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
+  const [emojiPickerTheme, setEmojiPickerTheme] = useState("light")
+
+  useEffect(()=>{
+    (props.fontColor==="white")?setEmojiPickerTheme("dark"):setEmojiPickerTheme("light")
+  },[props.fontColor])
 
   console.log("Current user", props.currentUseremail)
    
@@ -73,14 +78,15 @@ export default function StartConversationComponent(props) {
 
 
   return (
-    <>
+    <Container fluid className="mx-auto" style={{backgroundColor:props.background, width:'100%'}}>
       {activeUser ? (
         <div style={{ 
           position: 'relative', 
           minHeight: 'calc(100vh - 50px)', 
           overflow: 'hidden',
           marginLeft:'5vw',
-          marginRight:'5vw'
+          marginRight:'5vw',
+          backgroundColor: props.background
           }}>
           <div className="d-flex justify-content-center" style={{height:'8vh'}}>
             <div style={{display:'flex', flexDirection:'row'}}>
@@ -91,7 +97,7 @@ export default function StartConversationComponent(props) {
               </div>
             </div>
           </div>
-          <ListGroup as="ol" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+          <ListGroup as="ol" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto',  backgroundColor: props.background}}>
             {
             (!props.messages)
               ?(
@@ -103,6 +109,7 @@ export default function StartConversationComponent(props) {
                   const listItemStyle = {
                     border: "none",
                     textAlign: isSender ? "right" : "left",
+                    backgroundColor: props.background
                   };
                   const imageStyle = {
                     width: '2.5rem',
@@ -142,7 +149,7 @@ export default function StartConversationComponent(props) {
             emojiPickerVisible &&
             (
               <div style={{ position:'absolute', bottom:'75%', maxHeight: '50px', marginLeft:'1vw'}}>
-                <emoji-picker class="light"></emoji-picker>
+                <emoji-picker class={emojiPickerTheme}></emoji-picker>
               </div>
             )
           }
@@ -168,7 +175,15 @@ export default function StartConversationComponent(props) {
                   onChange={(e)=>setNewMsg(e.target.value)}
                   style={{ 
                     boxShadow: 'none',
-                    resize:'none'}}
+                    resize:'none',
+                    backgroundColor: props.background,
+                    borderColor:'none',
+                    borderWidth:'0px',
+                    borderTopColor:'lightgrey',
+                    borderWidth:'1px',
+                    color:props.fontColor
+                    
+                  }}
                 />
                 <Button 
                   variant="outline-secondary" 
@@ -181,7 +196,8 @@ export default function StartConversationComponent(props) {
           </div>
         </div>
       ) : (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", backgroundColor: lightTheme }}>
+        <div style={{ display: "flex", justifyContent: "center",
+         alignItems: "center", height: "100vh", backgroundColor: props.background }}>
           <Row style={{ justifyContent: "center" }}>
             <Image src={convoStart} style={{ width: '15rem' }} />
             <p style={{
@@ -196,6 +212,6 @@ export default function StartConversationComponent(props) {
           </Row>
         </div>
       )}
-    </>
+    </Container>
   );
 }

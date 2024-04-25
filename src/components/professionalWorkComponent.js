@@ -7,7 +7,7 @@ import SubProfessionalWork from "./subProfessionWork";
 import { IoIosAdd } from "react-icons/io";
 import AddComponent from "./addComponent";
 
-export default function ProfessionalWorkComponent() {
+export default function ProfessionalWorkComponent(props) {
   const [showAddComponent, setShowAddComponent] = useState(false)
   const [professional, setProfessional] = useState([])
 
@@ -30,7 +30,7 @@ export default function ProfessionalWorkComponent() {
   },[professional])
 
   return (
-    <Container fluid className="mx-auto" style={{ marginTop: "3vh" }}>
+    <Container fluid className="mx-auto" style={{ marginTop: "3vh", color:props.fontColor}}>
       <label
         style={{
           marginLeft: "3vw",

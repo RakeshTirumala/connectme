@@ -1,28 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavbarComponent from "../components/navbarComponent";
-import { Accordion, Container, ListGroup } from "react-bootstrap";
+import { Accordion, Container, ListGroup, Tab, Tabs } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import { IoLogOut } from "react-icons/io5";
 import HelpComponent from "../components/helpComponent";
 import PasswordChangeComponen from "../components/passwordChangeComponent";
+import LikedPosts from "../components/likedPosts";
+import CommentedPosts from "../components/commentedPosts";
 
 export default function SettingsPage(props) {
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(props.themeData);
+  const [liked, setLiked] = useState([]);
+  const [commented, setCommented] = useState([]);
+
   const onTrigger = () => {
     setDarkTheme(!darkTheme);
-    props.bgTheme(darkTheme);
+    props.handleBG(!darkTheme);
   };
+
+  useEffect(()=>{
+    setLiked(JSON.parse(localStorage.getItem('liked')))
+    setCommented(JSON.parse(localStorage.getItem('commented')))
+  },[])
   return (
     <>
       <NavbarComponent />
-      <Container fluid className="mx-auto" style={{ marginTop: "2vh" }}>
-        <Container fluid className="mx-auto" style={{ paddingLeft: "5%" }}>
-          <Accordion defaultActiveKey="0">
+      <Container fluid className="mx-auto" style={{backgroundColor:props.background, minHeight:'100vh', paddingTop:'2vh'}}>
+        <Container fluid className="mx-auto" style={{ paddingLeft: "5%"}}>
+          <Accordion defaultActiveKey="0" className={`accordion-${props.background}`}>
             <Accordion.Item eventKey="0">
-              <Accordion.Header>Help</Accordion.Header>
+              <Accordion.Header >Help</Accordion.Header>
               <Accordion.Body>
-                <HelpComponent />
+                <HelpComponent/>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
@@ -31,14 +41,30 @@ export default function SettingsPage(props) {
                 <PasswordChangeComponen />
               </Accordion.Body>
             </Accordion.Item>
+            <Accordion.Item eventKey="2">
+              <Accordion.Header>Activity</Accordion.Header>
+              <Accordion.Body>
+                <Tabs>
+                    <Tab eventKey="liked" title="Liked">
+                        <LikedPosts likedPosts={liked}/>
+                    </Tab>
+                    <Tab eventKey="commented" title="Commented">
+                        <CommentedPosts commentedPosts={commented}/>
+                    </Tab>
+                </Tabs>
+              </Accordion.Body>
+            </Accordion.Item>
           </Accordion>
-          <ListGroup style={{ marginTop: "5vh" }}>
+
+          <ListGroup style={{ marginTop: "5vh"}}>
             <ListGroup.Item
               style={{
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
+                backgroundColor:props.background,
+                color:props.fontColor
               }}
             >
               Dark Theme{" "}
@@ -48,7 +74,7 @@ export default function SettingsPage(props) {
                 onChange={onTrigger}
               />
             </ListGroup.Item>
-            <ListGroup.Item style={{ cursor: "pointer" }}>
+            <ListGroup.Item style={{ cursor: "pointer", backgroundColor:props.background, color:props.fontColor}}>
               Logout <IoLogOut />
             </ListGroup.Item>
           </ListGroup>

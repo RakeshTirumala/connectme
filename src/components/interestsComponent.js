@@ -4,7 +4,7 @@ import { Accordion, Button, Container, Form } from "react-bootstrap";
 import { MdOutlineInterests } from "react-icons/md";
 import { lightTheme } from "../constants";
 
-export default function InterestsComponent() {
+export default function InterestsComponent(props) {
     const [selectedInterests, setSelectedInterests] = useState([]);
     useEffect(() => {
         const storedInterests = JSON.parse(localStorage.getItem('interests'))
@@ -29,7 +29,7 @@ export default function InterestsComponent() {
     }
 
     return (
-        <Container fluid className="mx-auto" style={{ marginTop: '3vh' }}>
+        <Container fluid className="mx-auto" style={{ marginTop: '3vh', color:props.fontColor}}>
             <label style={{
                 marginLeft: "3vw",
                 fontWeight: "bold",

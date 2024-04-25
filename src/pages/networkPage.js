@@ -61,7 +61,7 @@ export default function NetworkPage(props) {
       <Container
         fluid
         className="mx-auto"
-        style={{ marginTop: "2vh", backgroundColor: props.background }}
+        style={{paddingTop:'2vh',backgroundColor: props.background, minHeight:'100vh'}}
       >
         <Row className="justify-content-center mb-3">
           <Col xs={12} sm={8} md={6}>
@@ -71,7 +71,7 @@ export default function NetworkPage(props) {
                   type="text"
                   placeholder="Search"
                   className="mr-2 rounded-pill flex-grow-1"
-                  style={{ boxShadow: "none" }}
+                  style={{ boxShadow: "none", background:props.background, color:props.fontColor}}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -102,13 +102,15 @@ export default function NetworkPage(props) {
             onSelect={(k) => setKey(k)}
             className="mb-3">
             <Tab eventKey="professionals" title="Professionals">
-              <RenderProfessionalsComp searchQuery={searchQuery} interests={interests} email={currentUseremail}/>
+              <RenderProfessionalsComp searchQuery={searchQuery} interests={interests} 
+              email={currentUseremail} background={props.background} fontColor={props.fontColor}/>
             </Tab>
             <Tab eventKey="students" title="Students">
-              <RenderStudentComponent searchQuery={searchQuery} interests={interests} email={currentUseremail}/>
+              <RenderStudentComponent searchQuery={searchQuery} interests={interests} 
+              email={currentUseremail} background={props.background} fontColor={props.fontColor}/>
             </Tab>
             <Tab eventKey="connections" title="Connections">
-              <MyConnectionsComponent connections={connection}/>
+              <MyConnectionsComponent connections={connection} background={props.background} fontColor={props.fontColor}/>
             </Tab>
             <Tab eventKey="Requests" 
             title={<span>Requests 
@@ -116,7 +118,11 @@ export default function NetworkPage(props) {
               paddingLeft:'.35rem', paddingRight:'.35rem', 
               paddingTop:'.03rem', paddingBottom:'.03rem', 
               margin:'.3rem', borderRadius:'50%', fontSize:'12px'}}>{requestsLength}</span></span>}>
-              <RequestsComponent email={currentUseremail} handleRequestsLength={handleRequestsLength}/>
+              <RequestsComponent email={currentUseremail} 
+              handleRequestsLength={handleRequestsLength} 
+              background={props.background}
+              fontColor={props.fontColor}
+              />
             </Tab>
           </Tabs>
         </Container>

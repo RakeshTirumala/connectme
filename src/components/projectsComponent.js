@@ -6,7 +6,7 @@ import { currentUser } from "../data";
 import { IoIosAdd } from "react-icons/io";
 import AddComponent from "./addComponent";
 
-export default function ProjectsComponent(){
+export default function ProjectsComponent(props){
     const [showAddComponent, setShowAddComponent] = useState(false)
     const [projects, setProjects] = useState([])
 
@@ -29,7 +29,7 @@ export default function ProjectsComponent(){
 
     return(
         <>
-            <Container fluid className="mx-auto" style={{ marginTop: "3vh" }}>
+            <Container fluid className="mx-auto" style={{ marginTop: "3vh", color:props.fontColor}}>
             <label
                 style={{
                 marginLeft: "3vw",

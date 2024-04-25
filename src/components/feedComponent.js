@@ -8,7 +8,7 @@ import StartPostComponent from "./startPostComponent";
 import noFeed from "../images/noFeed.svg";
 // import { MdEmail } from "react-icons/md";
 
-export default function FeedComponent() {
+export default function FeedComponent(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -63,15 +63,16 @@ export default function FeedComponent() {
  
 
   return (
-    <>
+    <Container fluid style={{backgroundColor: props.background, minHeight:'100vh', paddingTop:'2vh'}}>
       <Container className="mx-auto">
         <Card
           style={{
-            marginTop: "2vh",
             marginBottom: "2vh",
             maxWidth: "800px",
             minWidth: "300px",
             width: "80vw",
+            backgroundColor:props.background,
+            borderColor:'lightgrey'
           }}
         >
           <Card.Body style={{ display: "flex" }}>
@@ -99,7 +100,7 @@ export default function FeedComponent() {
         </Card>
       </Container>
 
-      <Container className="mx-auto" style={{ overflowY: "scroll", height:'100vh'}}>
+      <Container className="mx-auto" style={{ overflowY: "scroll"}}>
         {
           (feed.length>0)
           ?(
@@ -117,7 +118,10 @@ export default function FeedComponent() {
                   currentUserLiked={post.currentUserLiked}
                   currentUser={currentUser}
                   connectionsLiked={post.connectionsLiked}
+                  connectionsCommented={post.connectionsCommented}
                   dp={post.dp}
+                  background={props.background}
+                  fontColor={props.fontColor}
                 />
               );
             })
@@ -138,8 +142,10 @@ export default function FeedComponent() {
         fullName = {fullName}
         currentUser={currentUser}
         addDataToFeed={addDataToFeed}
+        background={props.background}
+        fontColor={props.fontColor}
       />
-    </>
+    </Container>
   );
 } 
  

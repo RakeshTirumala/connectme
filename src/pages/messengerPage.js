@@ -11,7 +11,7 @@ import StartConversationComponent from "../components/startConversationComponent
 import { FaUsers } from "react-icons/fa";
 import nullIm from '../images/null.svg'
 
-export default function MessengerPage() {
+export default function MessengerPage(props) {
   const [show, setShow] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [searchItem, setSearchItem] = useState("");
@@ -80,7 +80,7 @@ export default function MessengerPage() {
     const searchTerm = e.target.value;
     setSearchItem(searchTerm);
   
-    let filteredItems;
+    let filteredItems = [];
     
     if (searchTerm.trim() === '') {
       // If the search term is empty, reset filteredItems to the original list of connections
@@ -192,17 +192,21 @@ export default function MessengerPage() {
         </div>
       )}
       <Offcanvas
+        style={{backgroundColor:props.background}}
         show={show}
         onHide={() => {
           setShow(false);
           setIsVisible(true);
         }}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title><FaUsers/> <strong>Connections</strong></Offcanvas.Title>
+          <Offcanvas.Title style={{backgroundColor:props.background, color:props.fontColor}}><FaUsers/> <strong>Connections</strong></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1" style={{ cursor: "pointer" }}>
+            <InputGroup.Text id="basic-addon1" style={{ cursor: "pointer",
+            background:props.background, 
+            color:props.fontColor,
+            }}>
               <IoSearch />
             </InputGroup.Text>
             <Form.Control
@@ -211,10 +215,10 @@ export default function MessengerPage() {
               placeholder="Search your connection"
               aria-label="Username"
               aria-describedby="basic-addon1"
-              style={{ boxShadow: "none" }}
+              style={{ boxShadow: "none",background:props.background, color:props.fontColor}}
             />
           </InputGroup>
-          <ListGroup as="ol" style={{ overflowY: "scroll" }}>
+          <ListGroup as="ol" style={{ overflowY: "scroll"}}>
             {
             
             (filteredUsers.length>0)?
@@ -232,6 +236,8 @@ export default function MessengerPage() {
                       display: "flex",
                       flexDirection: "row",
                       cursor: "pointer",
+                      background:props.background,
+                      color:props.fontColor
                     }}
                   > 
                     <MessengerAccountsComponent
@@ -259,6 +265,8 @@ export default function MessengerPage() {
                         display: "flex",
                         flexDirection: "row",
                         cursor: "pointer",
+                        background:props.background,
+                        color:props.fontColor
                       }}
                     >
                       <MessengerAccountsComponent
@@ -292,6 +300,8 @@ export default function MessengerPage() {
         usersToMsgsObj={usersToMsgsObj}
         handleFetchedMessages={handleFetchedMessages}
         clearMessages={clearMessages}
+        background={props.background}
+        fontColor={props.fontColor}
       />
     </>
   );

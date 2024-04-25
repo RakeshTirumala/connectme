@@ -25,11 +25,12 @@ export default function UserTypeComponent(props){
             fontWeight: "bold",
             fontSize: "16px",
             marginBottom: "2vh",
+            backgroundColor:props.background, color:props.fontColor
             }}>I am  <PiIdentificationBadgeLight />
             </label>
             <Container fluid className="mx-auto">
                 <Container fluid className="mx-auto">
-                    <Form style={{marginLeft:'3vw'}}>
+                    <Form style={{marginLeft:'3vw', backgroundColor:props.background, color:props.fontColor}}>
                         <Form.Check 
                         type="radio"
                         id="1"

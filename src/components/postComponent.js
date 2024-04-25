@@ -115,17 +115,32 @@ export default function PostComponent(props){
     return(
         <>
         <Card key={props.id} 
-        style={{marginTop:'2vh', marginBottom:'2vh',
-         maxWidth: '800px', minWidth: '300px', width: '80vw'}}>
-            <Card.Header style={{fontFamily:'fantasy', fontSize:'14px', display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+            style={{
+                marginTop:'2vh', marginBottom:'2vh', 
+                maxWidth: '800px', minWidth: '300px', width: '80vw',
+                backgroundColor:props.background,
+                color:props.fontColor,
+                borderColor:'lightgrey'
+            }}>
+            <Card.Header 
+            style={{fontFamily:'fantasy', fontSize:'14px', 
+            display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
                 <div>
                     {new Date(props.date).toLocaleDateString('en-US', options)}
                 </div>
                 {
-                    (props.connectionsLiked>0)
-                    ?(<div>{props.connectionsLiked} of your connections liked this post</div>)
-                    :(<></>)
+                (props.connectionsLiked > 0 || props.connectionsCommented > 0) ?
+                    (
+                        (props.connectionsLiked > 0 && props.connectionsCommented > 0) ?
+                            (<div>{props.connectionsLiked} liked & {props.connectionsCommented} commented from your connections</div>) :
+                            (props.connectionsLiked > 0 ?
+                                (<div>{props.connectionsLiked} of your connections liked this post</div>) :
+                                (<div>{props.connectionsCommented} of your connections commented on this post</div>)
+                            )
+                    ) :
+                    (<></>)
                 }
+
             </Card.Header>
             <Card.Body>
                 <Card.Title style={{fontSize:'16px', fontWeight:'bold'}}>

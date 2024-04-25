@@ -11,9 +11,13 @@ import ProfilePage from "./pages/profilePage";
 import SignUp from "./pages/signupPage";
 
 function App() {
+  const darkColor = '#1e2124'
   const [bgTheme, setBgTheme] = useState("white");
+  const [fontColor, setFontColor] = useState("black");
+  const [themeData, setThemeData] = useState(false);
   const handleBG = (childData) => {
-    childData ? setBgTheme("black") : setBgTheme("white");
+    childData ? setBgTheme(darkColor) : setBgTheme("white");
+    childData ? setFontColor("white") : setFontColor("black");
     // if(bgTheme==='black') document.getElementById('root').style.backgroundColor = 'black'
     // else document.getElementById('root').style.backgroundColor = 'white'
     // console.log("theme:", bgTheme)
@@ -22,11 +26,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-      <Route path="explore" element={<ExplorePage background={bgTheme} />} />
-      <Route path="/network" element={<NetworkPage background={bgTheme} />} />
-      <Route path="/settings" element={<SettingsPage bgTheme={handleBG} />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/messenger" element={<MessengerPage />} />
+      <Route path="explore" element={<ExplorePage background={bgTheme} fontColor={fontColor} />} />
+      <Route path="/network" element={<NetworkPage background={bgTheme} fontColor={fontColor} />} />
+      <Route path="/settings" element={<SettingsPage background={bgTheme} handleBG={handleBG} themeData={themeData} fontColor={fontColor} />} />
+      <Route path="/profile" element={<ProfilePage background={bgTheme} fontColor={fontColor} />} />
+      <Route path="/messenger" element={<MessengerPage background={bgTheme} fontColor={fontColor} />} />
       <Route path="/signup" element={<SignUp />} />
     </Routes>
   );

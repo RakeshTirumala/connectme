@@ -106,7 +106,7 @@ export default function RenderStudentComponent(props) {
           {
             studentsData.map((item) => (
               <Col key={i}>
-                <Card style={{ width: "18rem" }}>
+                <Card style={{ width: "18rem", backgroundColor:props.background, color:props.fontColor}}>
                   <Image
                     src={(!item.dp)?img:item.dp}
                     style={{ width: "8rem", padding: "0.5rem" }}

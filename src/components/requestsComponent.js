@@ -67,7 +67,7 @@ export default function RequestsComponent(props){
                                 {
                                     requests.map((request)=>{
                                         return(
-                                            <ListGroup.Item  key={request.email}>
+                                            <ListGroup.Item  key={request.email} style={{ backgroundColor:props.background, color:props.fontColor}}>
                                                 <Row>
                                                     <Col>
                                                         <Image src={(!request.dp)?img:request.dp} roundedCircle style={{width:'2.5rem'}}/>

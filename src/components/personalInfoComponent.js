@@ -6,7 +6,7 @@ import { SlInfo } from "react-icons/sl";
 import { currentUser } from "../data";
 import { TiTick } from "react-icons/ti";
 
-export default function PersonalInfoComponent() {
+export default function PersonalInfoComponent(props) {
 
   const [booleanForFirstName, setBooleanForFirstName] = useState(true)
   const [booleanForLastName, setBooleanForLastName] = useState(true)
@@ -64,7 +64,7 @@ export default function PersonalInfoComponent() {
               aria-describedby="basic-addon2"
               value={firstName}
               disabled={booleanForFirstName}
-              style={{ boxShadow: "none" }}
+              style={{ boxShadow: "none",  backgroundColor:props.background, color:props.fontColor}}
               onChange={(e)=>firstNameHandler(e)}
             />
             {
@@ -97,7 +97,7 @@ export default function PersonalInfoComponent() {
               aria-describedby="basic-addon2"
               value={lastName}
               disabled={booleanForLastName}
-              style={{ boxShadow: "none" }}
+              style={{ boxShadow: "none", backgroundColor:props.background, color:props.fontColor}}
               onChange={(e)=>lastNameHandler(e)}
             />
             {
@@ -130,7 +130,7 @@ export default function PersonalInfoComponent() {
               aria-describedby="basic-addon2"
               disabled={booleanForMobile}
               value={mobile}
-              style={{ boxShadow: "none" }}
+              style={{ boxShadow: "none",  backgroundColor:props.background, color:props.fontColor}}
               onChange={(e)=>mobileHandler(e)}
             />
             {
@@ -164,7 +164,7 @@ export default function PersonalInfoComponent() {
               aria-describedby="basic-addon2"
               disabled={booleanForEmail}
               value={email}
-              style={{ boxShadow: "none" }}
+              style={{ boxShadow: "none",  backgroundColor:props.background, color:props.fontColor}}
               onChange={(e)=>emailHandler(e)}
             />
             {/* {

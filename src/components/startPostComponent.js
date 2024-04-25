@@ -9,6 +9,11 @@ export default function StartPostComponent(props) {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
   const email = localStorage.getItem('email')
   const [localFeed, SetLocalFeed]= useState([]);
+  const [emojiPickerTheme, setEmojiPickerTheme] = useState("light");
+
+  useEffect(()=>{
+    (props.fontColor==="white")?setEmojiPickerTheme('dark'):setEmojiPickerTheme('light')
+  },[props.fontColor])
 
 
   const postToDb=async()=>{
@@ -56,10 +61,10 @@ export default function StartPostComponent(props) {
 
   return (
     <Modal show={props.show} onHide={props.handleClose}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton style={{backgroundColor:props.background, color:props.fontColor}}>
         <Modal.Title>New Post</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={{backgroundColor:props.background}}>
         <Form>
           <Form.Group className="mb-3" controlId="feedtext">
             <Form.Control
@@ -68,10 +73,13 @@ export default function StartPostComponent(props) {
               placeholder="Start a post"
               rows={3}
               onChange={(e) => setPost(e.target.value)}
-              style={{ boxShadow: "none" }}
+              style={{ boxShadow: "none", 
+              backgroundColor:props.background,
+              color:props.fontColor,  
+            }}
             />
             <RiEmojiStickerLine 
-            style={{cursor:'pointer', float:'right', margin:'2%'}} 
+            style={{cursor:'pointer', float:'right', margin:'2%', color:props.fontColor}} 
             size={18}
             onClick={()=>setEmojiPickerVisible(!emojiPickerVisible)}
             />
@@ -80,12 +88,12 @@ export default function StartPostComponent(props) {
         {
           emojiPickerVisible && (
             <div>
-              <emoji-picker class="light" style={{width:'80%'}}></emoji-picker>
+              <emoji-picker class={emojiPickerTheme} style={{width:'80%'}}></emoji-picker>
             </div>
           )
         }
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer style={{backgroundColor:props.background}}>
         <Button variant="secondary" onClick={props.handleClose}>
           Close
         </Button>

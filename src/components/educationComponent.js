@@ -6,7 +6,7 @@ import SubEducationComponent from "./subEducationComponent";
 import { IoIosAdd } from "react-icons/io";
 import AddComponent from "./addComponent";
  
-export default function EducationComponent() {
+export default function EducationComponent(props) {
   const [showAddComponent, setShowAddComponent] = useState(false);
   const [education, setEducation] = useState([]);
 
@@ -30,7 +30,7 @@ export default function EducationComponent() {
   }, [education]);
 
   return (
-    <Container fluid className="mx-auto" style={{ marginTop: "3vh" }}>
+    <Container fluid className="mx-auto" style={{ marginTop: "3vh", color:props.fontColor}}>
       <label
         style={{
           marginLeft: "3vw",

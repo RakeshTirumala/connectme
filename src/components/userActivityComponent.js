@@ -7,7 +7,7 @@ import LikedPosts from "./likedPosts";
 import CommentedPosts from "./commentedPosts";
 
 
-export default function UserActivityComponent(){
+export default function UserActivityComponent(props){
     const [liked, setLiked] = useState([]);
     const [commented, setCommented] = useState([]);
     const [posts, setPosts] = useState([]);
@@ -22,14 +22,14 @@ export default function UserActivityComponent(){
     console.log("liked",liked, "commented",commented, "posts",posts)
     
     return(
-        <>
+        <Container fluid className="mx-auto" style={{ marginTop: "3vh", color:props.fontColor}}>
             <label
                 style={{
-                marginLeft: "4vw",
-                fontWeight: "bold",
-                fontSize: "16px",
-                marginBottom: "2vh",
-            }}
+                    marginLeft: "3vw",
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    marginBottom: "2vh",
+                }}
             >
                 Activity
                 <MdDynamicFeed />
@@ -39,14 +39,8 @@ export default function UserActivityComponent(){
                     <Tab eventKey="posts" title="Posts">
                         <UserPosts posts={posts}/>
                     </Tab>
-                    <Tab eventKey="liked" title="Liked">
-                        <LikedPosts likedPosts={liked}/>
-                    </Tab>
-                    <Tab eventKey="commented" title="Commented">
-                        <CommentedPosts commentedPosts={commented}/>
-                    </Tab>
                 </Tabs>
             </Container>
-        </>
+        </Container>
     )
 }
