@@ -12,7 +12,7 @@ import { primaryColor } from "../constants";
 import Toast from "react-bootstrap/Toast";
 import { FaLock } from "react-icons/fa";
 
-export default function LoginPage() {
+export default function LoginPage(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +22,14 @@ export default function LoginPage() {
 
   // const newUser = true;
 
-  console.log("email,", email, "password", password);
+  // console.log("email", email, "password", password);
+
+  const settingTheme=()=>{
+    //SETTING THEME
+    const theme = localStorage.getItem(`${email}Theme`);
+    // if(theme===undefined) localStorage.setItem(`${email}Theme`, false);
+    props.handleBG((!theme)?false:theme);
+  }
 
   const handleLogin = async () => {
     setProgress(true);
@@ -40,8 +47,16 @@ export default function LoginPage() {
       console.log("response", response);
       if (response.ok) {
         const responseData = await response.json();
+        console.log(responseData)
         localStorage.setItem("token", responseData.token);
         localStorage.setItem("email", email)
+
+        //SETTING THEME
+        const theme = localStorage.getItem(`${email}Theme`);
+        console.log(theme)
+        if(theme==='null') localStorage.setItem(`${email}Theme`, false);
+        props.handleBG((theme==='false' || theme==='null')?false:true);
+
         console.log("user:",JSON.stringify(responseData.user))
         localStorage.setItem('user', JSON.stringify(responseData.user));
 
@@ -53,11 +68,12 @@ export default function LoginPage() {
         localStorage.setItem('userType', responseData.user.userType);
         // console.log("The education that I am going to insert", (JSON.stringify(responseData.user.Education)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.Education))
         
-        const education = (JSON.stringify(responseData.user.Education)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.Education)
+        const education = (JSON.stringify(responseData.user.education)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.education)
         const experience = (JSON.stringify(responseData.user.workExperience)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.workExperience)
         const projects = (JSON.stringify(responseData.user.projects)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.projects)
         const interests = (JSON.stringify(responseData.user.interests)===undefined)?JSON.stringify([]):JSON.stringify(responseData.user.interests)
         // const dp = (JSON.stringify(responseData.user.dp)===undefined)?"":responseData.user.dp
+        console.log("education", education)
         localStorage.setItem('Education', education);
         localStorage.setItem('workExperience', experience);
         localStorage.setItem('projects', projects)

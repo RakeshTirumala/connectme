@@ -42,7 +42,7 @@ export default function PersonalInfoComponent(props) {
 
 
   return (
-    <Container fluid className="mx-auto" style={{ marginTop: "3vh" }}>
+    <Container fluid className="mx-auto" style={{ marginTop: "3vh", color:props.fontColor}}>
       <label
         style={{
           marginLeft: "3vw",
@@ -74,6 +74,7 @@ export default function PersonalInfoComponent(props) {
                 variant="outline-secondary" 
                 id="button-addon2"
                 onClick={()=>setBooleanForFirstName(false)}
+                style={{color:props.fontColor}}
                 >
                   <FiEdit2 />
                 </Button>
@@ -83,6 +84,7 @@ export default function PersonalInfoComponent(props) {
                 variant="outline-secondary" 
                 id="button-addon2"
                 onClick={()=>setBooleanForFirstName(true)}
+                style={{color:props.fontColor}}
                 >
                   <TiTick/>
                 </Button>
@@ -107,6 +109,7 @@ export default function PersonalInfoComponent(props) {
                 variant="outline-secondary" 
                 id="button-addon2"
                 onClick={()=>setBooleanForLastName(false)}
+                style={{color:props.fontColor}}
                 >
                   <FiEdit2 />
                 </Button>
@@ -116,6 +119,7 @@ export default function PersonalInfoComponent(props) {
                 variant="outline-secondary" 
                 id="button-addon2"
                 onClick={()=>setBooleanForLastName(true)}
+                style={{color:props.fontColor}}
                 >
                   <TiTick/>
                 </Button>
@@ -140,6 +144,7 @@ export default function PersonalInfoComponent(props) {
                 variant="outline-secondary" 
                 id="button-addon2"
                 onClick={()=>setBooleanForMobile(false)}
+                style={{color:props.fontColor}}
                 >
                   <FiEdit2 />
                 </Button>
@@ -149,6 +154,7 @@ export default function PersonalInfoComponent(props) {
                 variant="outline-secondary" 
                 id="button-addon2"
                 onClick={()=>setBooleanForMobile(true)}
+                style={{color:props.fontColor}}
                 >
                   <TiTick/>
                 </Button>

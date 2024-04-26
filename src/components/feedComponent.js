@@ -21,6 +21,8 @@ export default function FeedComponent(props) {
   // console.log("dp", dp)
   // console.log("current", currentUser)
 
+  console.log("bg",props.background,"fontC", props.fontColor)
+
   useEffect(()=>{
     fetchFeed()
   },[])
@@ -63,7 +65,7 @@ export default function FeedComponent(props) {
  
 
   return (
-    <Container fluid style={{backgroundColor: props.background, minHeight:'100vh', paddingTop:'2vh'}}>
+    <Container fluid style={{backgroundColor: props.background, minHeight:'100vh', paddingTop:'2vh', fontFamily:"monospace"}}>
       <Container className="mx-auto">
         <Card
           style={{

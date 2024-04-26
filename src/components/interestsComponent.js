@@ -62,7 +62,7 @@ export default function InterestsComponent(props) {
                                     </div>
                                 ))}
                             </Accordion.Header>
-                            <Accordion.Body>
+                            <Accordion.Body style={{backgroundColor:props.background, color:props.fontColor}}>
                                 <Form>
                                     {interests.map(({ id, label, value }) => (
                                         <Form.Check

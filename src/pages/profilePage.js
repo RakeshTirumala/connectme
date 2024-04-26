@@ -118,9 +118,6 @@ export default function ProfilePage(props) {
         <ProjectsComponent background={props.background} fontColor={props.fontColor}/>  
         <InterestsComponent background={props.background} fontColor={props.fontColor}/>
         <UserActivityComponent background={props.background} fontColor={props.fontColor}/>
-        {/* <center>
-          <Button variant="primary" style={{margin:'5%'}} onClick={()=>handleSave()}>Save profile</Button>
-        </center> */}
       </Container>
     </>
   );

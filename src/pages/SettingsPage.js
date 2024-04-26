@@ -13,6 +13,7 @@ export default function SettingsPage(props) {
   const [darkTheme, setDarkTheme] = useState(props.themeData);
   const [liked, setLiked] = useState([]);
   const [commented, setCommented] = useState([]);
+  const email = localStorage.getItem('email');
 
   const onTrigger = () => {
     setDarkTheme(!darkTheme);
@@ -20,36 +21,44 @@ export default function SettingsPage(props) {
   };
 
   useEffect(()=>{
+    localStorage.setItem(`${email}Theme`, darkTheme)
+    console.log("theme now", darkTheme)
+  },[darkTheme])
+
+  useEffect(()=>{
     setLiked(JSON.parse(localStorage.getItem('liked')))
     setCommented(JSON.parse(localStorage.getItem('commented')))
   },[])
+
+  console.log("Theme", darkTheme)
+
   return (
     <>
       <NavbarComponent />
       <Container fluid className="mx-auto" style={{backgroundColor:props.background, minHeight:'100vh', paddingTop:'2vh'}}>
         <Container fluid className="mx-auto" style={{ paddingLeft: "5%"}}>
           <Accordion defaultActiveKey="0" className={`accordion-${props.background}`}>
-            <Accordion.Item eventKey="0">
-              <Accordion.Header >Help</Accordion.Header>
-              <Accordion.Body>
-                <HelpComponent/>
+            <Accordion.Item eventKey="0" key={0}>
+              <Accordion.Header>Help</Accordion.Header>
+              <Accordion.Body style={{backgroundColor:props.background, color:props.fontColor}}>
+                <HelpComponent background={props.background} fontColor={props.fontColor}/>
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="1">
+            <Accordion.Item eventKey="1" key={1}>
               <Accordion.Header>Change Password</Accordion.Header>
-              <Accordion.Body>
-                <PasswordChangeComponen />
+              <Accordion.Body style={{backgroundColor:props.background, color:props.fontColor}}>
+                <PasswordChangeComponen background={props.background} fontColor={props.fontColor}/>
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="2">
+            <Accordion.Item eventKey="2" key={2}>
               <Accordion.Header>Activity</Accordion.Header>
-              <Accordion.Body>
+              <Accordion.Body style={{backgroundColor:props.background, color:props.fontColor}}>
                 <Tabs>
-                    <Tab eventKey="liked" title="Liked">
-                        <LikedPosts likedPosts={liked}/>
+                    <Tab eventKey="liked" title="Liked" key="liked">
+                        <LikedPosts likedPosts={liked} background={props.background} fontColor={props.fontColor}/>
                     </Tab>
-                    <Tab eventKey="commented" title="Commented">
-                        <CommentedPosts commentedPosts={commented}/>
+                    <Tab eventKey="commented" title="Commented" key="commented">
+                        <CommentedPosts commentedPosts={commented} background={props.background} fontColor={props.fontColor}/>
                     </Tab>
                 </Tabs>
               </Accordion.Body>
@@ -66,15 +75,16 @@ export default function SettingsPage(props) {
                 backgroundColor:props.background,
                 color:props.fontColor
               }}
+              key={1}
             >
-              Dark Theme{" "}
+              Dark Theme
               <BootstrapSwitchButton
                 checked={darkTheme}
                 size="sm"
                 onChange={onTrigger}
               />
             </ListGroup.Item>
-            <ListGroup.Item style={{ cursor: "pointer", backgroundColor:props.background, color:props.fontColor}}>
+            <ListGroup.Item style={{ cursor: "pointer", backgroundColor:props.background, color:props.fontColor}} key={2}>
               Logout <IoLogOut />
             </ListGroup.Item>
           </ListGroup>

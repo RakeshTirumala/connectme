@@ -42,13 +42,15 @@ export default function MessengerPage(props) {
   // FETCHING CONNECTIONS OF A PARTICULAR USER
   const fetchConnectionsOfUser=async()=>{
     try{
-      const response = await fetch(`${process.env.REACT_APP_MESSENGER_URL_DIGITAL_OCEAN}?email=${currentUseremail}`, {
+      const response = await fetch(`${process.env.REACT_APP_MESSENGER_URL_DIGITAL_OCEAN}/connections?email=${currentUseremail}`, {
         method:"GET",
         headers:{"Content-Type":"application/json"}
       })
       const data = await response.json();
-      console.log("Connections of this user:", data.connections)
-      setConnections(data.connections)
+      if(data){
+        console.log("Connections of this user:", data.connections)
+        setConnections(data.connections)
+      }
     }catch(error){
       console.log();
     }
@@ -87,6 +89,7 @@ export default function MessengerPage(props) {
       filteredItems = [];
     } else {
       // Otherwise, filter connections based on the search term
+      console.log("Connections", connections)
       filteredItems = connections.filter(
         (user) =>
           user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -192,14 +195,14 @@ export default function MessengerPage(props) {
         </div>
       )}
       <Offcanvas
-        style={{backgroundColor:props.background}}
+        style={{backgroundColor:props.background, color:props.fontColor}}
         show={show}
         onHide={() => {
           setShow(false);
           setIsVisible(true);
         }}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title style={{backgroundColor:props.background, color:props.fontColor}}><FaUsers/> <strong>Connections</strong></Offcanvas.Title>
+          <Offcanvas.Title style={{color:props.fontColor}}><FaUsers/> <strong>Connections</strong></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <InputGroup className="mb-3">

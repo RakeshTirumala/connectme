@@ -54,12 +54,14 @@ export default function EducationComponent(props) {
                     eventKey={`${edu.startDate} ${edu.endDate}`}
                   >
                     <Accordion.Header>{edu.Degree}</Accordion.Header>
-                    <Accordion.Body>
+                    <Accordion.Body style={{backgroundColor:props.background, color:props.fontColor}}>
                       <SubEducationComponent
                         school={edu.schoolName}
                         start={edu.startDate}
                         end={edu.endDate}
                         conc={edu.Concentration}
+                        background={props.background}
+                        fontColor={props.fontColor}
                       />
                     </Accordion.Body>
                   </Accordion.Item>

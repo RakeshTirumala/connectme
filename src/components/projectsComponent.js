@@ -53,7 +53,7 @@ export default function ProjectsComponent(props){
                             <Accordion.Item
                             key={index} eventKey={index}>
                             <Accordion.Header>{project.projectTitle}</Accordion.Header>
-                            <Accordion.Body>
+                            <Accordion.Body style={{backgroundColor:props.background, color:props.fontColor}}>
                                 {project.description}
                             </Accordion.Body>
                             </Accordion.Item>

@@ -22,13 +22,14 @@ export default function UserActivityComponent(props){
     console.log("liked",liked, "commented",commented, "posts",posts)
     
     return(
-        <Container fluid className="mx-auto" style={{ marginTop: "3vh", color:props.fontColor}}>
+        <Container fluid className="mx-auto" style={{ marginTop: "3vh"}}>
             <label
                 style={{
                     marginLeft: "3vw",
                     fontWeight: "bold",
                     fontSize: "16px",
                     marginBottom: "2vh",
+                    color:props.fontColor
                 }}
             >
                 Activity
@@ -37,7 +38,7 @@ export default function UserActivityComponent(props){
             <Container className="mx-auto">
                 <Tabs>
                     <Tab eventKey="posts" title="Posts">
-                        <UserPosts posts={posts}/>
+                        <UserPosts posts={posts} background={props.background} fontColor={props.fontColor}/>
                     </Tab>
                 </Tabs>
             </Container>

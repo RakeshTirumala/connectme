@@ -19,15 +19,20 @@ export default function LikedPosts(props){
             </center>
         )
         :(
-            <Container style={{height:'50vh', overflowY:'scroll'}}>
+            <Container style={{height:'50vh', overflowY:'scroll', }}>
                 {
                     props.likedPosts.map((post)=>{
                         return(
-                            <Card key={post._id} style={{margin:'1%'}}>
+                            <Card key={post._id} 
+                            style={{
+                                margin:'1%', backgroundColor:props.background, 
+                                color:props.fontColor, borderColor:'lightgrey'}}>
                                     <Card.Header 
                                     style={{fontFamily:'fantasy', fontSize:'14px', 
                                     display:'flex', flexDirection:'row', 
-                                    justifyContent:'space-between'}}>
+                                    justifyContent:'space-between', borderStyle:'none',
+                                    backgroundColor:props.background
+                                    }}>
                                         <div>
                                             {new Date(post.createdAt).toLocaleDateString('en-US', options)}
                                         </div>
@@ -37,7 +42,12 @@ export default function LikedPosts(props){
                                         {post.postData}
                                     </Card.Text>
                                 </Card.Body>
-                                <Card.Footer style={{display:'flex', flexDirection:'row', gap:'1vw'}}>
+                                <Card.Footer 
+                                style={{
+                                    display:'flex', flexDirection:'row', 
+                                    gap:'1vw', borderStyle:'none',
+                                    backgroundColor:props.background
+                                    }}>
                                     <div>
                                         {post.likes.length} likes
                                     </div>

@@ -37,7 +37,7 @@ export default function StartCommentComponent(props){
     }
 
     return(
-        <Card>
+        <Card style={{backgroundColor:props.background}}>
             <Card.Body>
                 <Form>
                     <Form.Group className="mb-3" controlId="feedtext">
@@ -47,10 +47,10 @@ export default function StartCommentComponent(props){
                         placeholder="Comment..."
                         rows={3}
                         onChange={(e) => setComment(e.target.value)}
-                        style={{ boxShadow: "none" }}
+                        style={{ boxShadow: "none", backgroundColor:props.background, color:props.fontColor, }}
                         />
                         <RiEmojiStickerLine 
-                        style={{cursor:'pointer', float:'right', margin:'2%'}} 
+                        style={{cursor:'pointer', float:'right', margin:'2%', color:props.fontColor}} 
                         size={18}
                         onClick={()=>setEmojiPickerVisible(!emojiPickerVisible)}
                         />
@@ -59,7 +59,7 @@ export default function StartCommentComponent(props){
                 {
                     emojiPickerVisible && (
                         <div>
-                            <emoji-picker class="light" style={{width:'80%'}}></emoji-picker>
+                            <emoji-picker class={(props.fontColor==='white')?"dark":"light"} style={{width:'80%'}}></emoji-picker>
                         </div>
                     )
                 }

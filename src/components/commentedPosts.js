@@ -22,11 +22,15 @@ export default function CommentedPosts(props){
                 {
                     props.commentedPosts.map((post)=>{
                         return(
-                            <Card key={post._id} style={{margin:'1%'}}>
+                            <Card key={post._id} 
+                            style={{
+                                margin:'1%', backgroundColor:props.background, color:props.fontColor,
+                                borderColor:'lightgrey'
+                                }}>
                                     <Card.Header 
                                     style={{fontFamily:'fantasy', fontSize:'14px', 
                                     display:'flex', flexDirection:'row', 
-                                    justifyContent:'space-between'}}>
+                                    justifyContent:'space-between', borderStyle:'none'}}>
                                         <div>
                                             {new Date(post.createdAt).toLocaleDateString('en-US', options)}
                                         </div>
@@ -36,7 +40,7 @@ export default function CommentedPosts(props){
                                         {post.postData}
                                     </Card.Text>
                                 </Card.Body>
-                                <Card.Footer style={{display:'flex', flexDirection:'row', gap:'1vw'}}>
+                                <Card.Footer style={{display:'flex', flexDirection:'row', gap:'1vw', borderStyle:'none'}}>
                                     <div>
                                         {post.likes.length} likes
                                     </div>

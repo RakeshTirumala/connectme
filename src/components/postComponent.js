@@ -120,11 +120,15 @@ export default function PostComponent(props){
                 maxWidth: '800px', minWidth: '300px', width: '80vw',
                 backgroundColor:props.background,
                 color:props.fontColor,
-                borderColor:'lightgrey'
+                borderColor:'lightgrey',
+                fontFamily:'monospace',
             }}>
             <Card.Header 
-            style={{fontFamily:'fantasy', fontSize:'14px', 
-            display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+            style={{
+                fontSize:'14px', display:'flex', 
+                flexDirection:'row', justifyContent:'space-between',
+                borderStyle:'none', backgroundColor:props.background
+            }}>
                 <div>
                     {new Date(props.date).toLocaleDateString('en-US', options)}
                 </div>
@@ -143,25 +147,30 @@ export default function PostComponent(props){
 
             </Card.Header>
             <Card.Body>
-                <Card.Title style={{fontSize:'16px', fontWeight:'bold'}}>
+                <Card.Title style={{fontSize:'16px'}}>
                     <Image src={(!props.dp)?img:props.dp} roundedCircle style={{ width: "1.8rem", marginRight: "0.8rem" }}/>
                     {props.postedBy}
                 </Card.Title>
-                <Card.Text style={{fontFamily:'fantasy'}}>{props.post}</Card.Text>
+                <Card.Text style={{fontFamily:'monospace'}}>{props.post}</Card.Text>
             </Card.Body>
-            <Card.Footer style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+            <Card.Footer 
+            style={{
+                display:'flex', flexDirection:'row', 
+                justifyContent:'space-between', fontFamily:'monospace',
+                borderStyle:'none', backgroundColor:props.background
+                }}>
                     <div style={{display:'flex', flexDirection:'row'}}>
                         <Stack direction="horizontal" gap={2} style={{fontFamily:'fantasy', fontSize:'14px'}}>
                             <div className="p-2" 
                             onClick={()=>handleLikes(props.id)} 
-                            style={{cursor:"pointer"}}>{likes} Likes</div>
+                            style={{cursor:"pointer", fontFamily:'monospace'}}>{likes} Likes</div>
                             <div className="p-2 ms-auto" 
                             onClick={()=>handleComments(props.id)} 
-                            style={{cursor:"pointer"}}> {comments} Comments</div>
+                            style={{cursor:"pointer", fontFamily:'monospace'}}> {comments} Comments</div>
                         </Stack>
                     </div>
                     <div style={{display:'flex', flexDirection:'row'}}>
-                        <Stack direction="horizontal" gap={2} style={{fontFamily:'fantasy', fontSize:'14px'}}>
+                        <Stack direction="horizontal" gap={2} style={{fontFamily:'monospace', fontSize:'14px'}}>
                             <div className="p-2" style={{cursor:'pointer'}} onClick={()=>onClickLike(props.id)}>
                                 {
                                     (liked)
@@ -190,6 +199,8 @@ export default function PostComponent(props){
                     closeStartCommentComponent={closeStartCommentComponent}
                     currentActivityPost={currentActivityPost}
                     currentUser = {props.currentUser}
+                    background={props.background}
+                    fontColor={props.fontColor}
                 /> 
             }
         </Card>

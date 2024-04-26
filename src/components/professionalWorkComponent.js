@@ -57,7 +57,7 @@ export default function ProfessionalWorkComponent(props) {
                       eventKey={`${work.startDate} ${work.endDate}`}
                     >
                       <Accordion.Header>{work.role}</Accordion.Header>
-                      <Accordion.Body>
+                      <Accordion.Body style={{backgroundColor:props.background, color:props.fontColor}}>
                         <SubProfessionalWork
                           start={work.startDate}
                           end={work.endDate}
