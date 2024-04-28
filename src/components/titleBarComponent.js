@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import { secondaryColor } from "../constants";
 
-export default function TitleBarComponent() {
+export default function TitleBarComponent(props) {
   return (
     <Navbar data-bs-theme="light" style={{ backgroundColor: secondaryColor }}>
       <Container>

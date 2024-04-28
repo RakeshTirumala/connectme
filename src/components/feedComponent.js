@@ -65,7 +65,10 @@ export default function FeedComponent(props) {
  
 
   return (
-    <Container fluid style={{backgroundColor: props.background, minHeight:'100vh', paddingTop:'2vh', fontFamily:"monospace"}}>
+    <Container fluid style={{
+      backgroundColor: props.background, 
+      minHeight:'100vh', paddingTop:'2vh', 
+      fontFamily:"monospace"}}>
       <Container className="mx-auto">
         <Card
           style={{
@@ -102,7 +105,7 @@ export default function FeedComponent(props) {
         </Card>
       </Container>
 
-      <Container className="mx-auto" style={{ overflowY: "scroll"}}>
+      <Container className="mx-auto" style={{ overflowY: "scroll", minHeight:'100vh'}}>
         {
           (feed.length>0)
           ?(

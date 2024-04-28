@@ -33,11 +33,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginPage handleBG={handleBG}/>}/>
-      <Route path="explore" element={<ExplorePage background={bgTheme} fontColor={fontColor} />} />
-      <Route path="/network" element={<NetworkPage background={bgTheme} fontColor={fontColor} />} />
+      <Route path="explore" element={<ExplorePage background={bgTheme} fontColor={fontColor} themeData={themeData}/>} />
+      <Route path="/network" element={<NetworkPage background={bgTheme} fontColor={fontColor} themeData={themeData} />} />
       <Route path="/settings" element={<SettingsPage background={bgTheme} handleBG={handleBG} themeData={themeData} fontColor={fontColor} />} />
-      <Route path="/profile" element={<ProfilePage background={bgTheme} fontColor={fontColor} />} />
-      <Route path="/messenger" element={<MessengerPage background={bgTheme} fontColor={fontColor} />} />
+      <Route path="/profile" element={<ProfilePage background={bgTheme} fontColor={fontColor} themeData={themeData}/>} />
+      <Route path="/messenger" element={<MessengerPage background={bgTheme} fontColor={fontColor} themeData={themeData}/>} />
       <Route path="/signup" element={<SignUp />} />
     </Routes>
   );

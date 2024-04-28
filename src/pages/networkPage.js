@@ -69,7 +69,7 @@ export default function NetworkPage(props) {
 
   return (
     <>
-      <NavbarComponent />
+      <NavbarComponent background={props.background} fontColor={props.fontColor} themeData={props.themeData}/>
       <Container
         fluid
         className="mx-auto"

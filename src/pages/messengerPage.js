@@ -181,7 +181,7 @@ export default function MessengerPage(props) {
 
   return (
     <>
-      <NavbarComponent />
+      <NavbarComponent background={props.background} fontColor={props.fontColor} themeData={props.themeData}/>
       {isVisible && (
         <div className="icon-container">
           <IoIosArrowForward

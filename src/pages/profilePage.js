@@ -91,7 +91,7 @@ export default function ProfilePage(props) {
         <></>
       )
       :(
-        <NavbarComponent />
+        <NavbarComponent background={props.background} fontColor={props.fontColor} themeData={props.themeData}/>
       )
     }
     {/* <NavbarComponent/> */}
