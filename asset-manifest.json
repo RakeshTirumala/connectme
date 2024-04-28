@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/connectme/static/css/main.31dbae33.css",
+    "main.js": "/connectme/static/js/main.a26cfb0e.js",
+    "static/js/453.258b012d.chunk.js": "/connectme/static/js/453.258b012d.chunk.js",
+    "static/media/noFeed.svg": "/connectme/static/media/noFeed.311d83ad78e0f51590c1c671720ca39c.svg",
+    "static/media/null.svg": "/connectme/static/media/null.45103448891da12c08228c49e376d7e3.svg",
+    "static/media/StartConvo.svg": "/connectme/static/media/StartConvo.415cf6b4956a5d2ac4bd5bf4f06c9bb4.svg",
+    "static/media/noDataa.svg": "/connectme/static/media/noDataa.da934e1a71164a79596b2ef61045cff2.svg",
+    "static/media/finished.svg": "/connectme/static/media/finished.70d09542f7f5350f3aa914b5d98b921d.svg",
+    "static/media/ConnectMeLogoV2W.png": "/connectme/static/media/ConnectMeLogoV2W.da11516efba3803492d7.png",
+    "static/media/ConnectMeLogoV1.png": "/connectme/static/media/ConnectMeLogoV1.0b2438379f5ff3b714b3.png",
+    "static/media/defaultPic.webp": "/connectme/static/media/defaultPic.efadb13dba95b5bc918b.webp",
+    "index.html": "/connectme/index.html",
+    "main.31dbae33.css.map": "/connectme/static/css/main.31dbae33.css.map",
+    "main.a26cfb0e.js.map": "/connectme/static/js/main.a26cfb0e.js.map",
+    "453.258b012d.chunk.js.map": "/connectme/static/js/453.258b012d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31dbae33.css",
+    "static/js/main.a26cfb0e.js"
+  ]
+}
