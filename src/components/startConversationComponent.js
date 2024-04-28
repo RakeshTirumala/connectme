@@ -88,15 +88,15 @@ export default function StartConversationComponent(props) {
           marginRight:'5vw',
           backgroundColor: props.background
           }}>
-          <div className="d-flex justify-content-center" style={{height:'8vh'}}>
-            <div style={{display:'flex', flexDirection:'row'}}>
-              {/* <Image src={img} style={{width: '3rem',height:'3rem', padding: '0.5rem'}} roundedCircle /> */}
-              <div style={{display:'flex', flexDirection:'column'}}>
-                <h6 style={{fontFamily:'monospace', fontWeight:'bold'}}>{activeUserName}</h6>
-                {/* <p style={{fontFamily:'monospace', fontSize:'10px'}}>Active Now</p> */}
+          <div className="d-flex justify-content" style={{ height: '8vh', color: props.fontColor, marginTop: '1vh' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <Image src={(!props.displayPicture) ? img : props.displayPicture} style={{ width: '3rem', height: '3rem', padding: '0.5rem' }} roundedCircle />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <h6 style={{ fontFamily: 'monospace', fontWeight: 'bold', margin: '0' }}>{activeUserName}</h6>
               </div>
             </div>
           </div>
+
           <ListGroup as="ol" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto',  backgroundColor: props.background}}>
             {
             (!props.messages)

@@ -30,6 +30,7 @@ export default function MessengerPage(props) {
   const currentUseremail = localStorage.getItem('email');
   const [usersToMsgsObj, setUsersToMsgsObj] = useState({})
   const [data, setData] = useState({});
+  const [displayPic, setDisplayPic] = useState(null);
 
 
   //  FETCHING CONNECTIONS OF THE USER
@@ -102,12 +103,13 @@ export default function MessengerPage(props) {
   };
   
 
-  const handleConversation = (value, firstName, lastName) => {
+  const handleConversation = (value, firstName, lastName, dp) => {
     console.log("id:",value)
     setOpenChat(value);
     setActiveChatUserFullName(`${firstName} ${lastName}`)
     setShow(false);
     setIsVisible(true)
+    setDisplayPic(dp)
   };
 
   // ws://monkfish-app-rl7kw.ondigitalocean.app
@@ -261,7 +263,7 @@ export default function MessengerPage(props) {
                       data-id={index}
                       value={connection}
                       key={index}
-                      onClick={() => handleConversation(connection.email, connection.firstName, connection.lastName)}
+                      onClick={() => handleConversation(connection.email, connection.firstName, connection.lastName, connection.dp)}
                       as="li"
                       className="d-flex justify-content-between align-items-start"
                       style={{
@@ -305,6 +307,7 @@ export default function MessengerPage(props) {
         clearMessages={clearMessages}
         background={props.background}
         fontColor={props.fontColor}
+        displayPicture={displayPic}
       />
     </>
   );
