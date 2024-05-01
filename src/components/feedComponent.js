@@ -66,9 +66,8 @@ export default function FeedComponent(props) {
 
   return (
     <Container fluid style={{
-      backgroundColor: props.background, 
-      minHeight:'100vh', paddingTop:'2vh', 
-      fontFamily:"monospace"}}>
+      backgroundColor: props.background, paddingTop:'2vh', fontFamily:"monospace", minHeight:'100vh'}}>
+
       <Container className="mx-auto">
         <Card
           style={{
@@ -77,35 +76,44 @@ export default function FeedComponent(props) {
             minWidth: "300px",
             width: "80vw",
             backgroundColor:props.background,
-            borderColor:'lightgrey'
+            borderColor:'lightgrey',
           }}
         >
           <Card.Body style={{ display: "flex" }}>
-            <Image
-              src={(!dp)?img:dp}
-              roundedCircle
-              style={{ width: "3rem", marginRight: "0.8rem" }}
-            />
-            <Button
-              style={{
-                textAlign: "left",
-                backgroundColor: "transparent",
-                borderColor: "#ccc",
-                color: "#ccc",
-                paddingLeft: "1.6rem",
-                width: "90%",
-              }}
-              variant="secondary"
-              size="lg"
-              onClick={handleShow}
-            >
-              Share something...
-            </Button>
+          <Image
+            src={!dp ? img : dp}
+            roundedCircle
+            style={{ 
+              width: "100%", 
+              maxWidth: "2.5rem", 
+              height: "auto", 
+              maxHeight: "3rem",
+              marginRight:'0.5vw'
+            }}
+          />
+
+          <Button
+            style={{
+              textAlign: "left",
+              backgroundColor: "transparent",
+              borderColor: "#ccc",
+              color: "#ccc",
+              paddingLeft: "1.6rem",
+              width: "100%", 
+              fontSize:'10px'
+            }}
+            variant="secondary"
+            size="lg"
+            onClick={handleShow}
+          >
+            Post your thoughts... 
+          </Button>
+
           </Card.Body>
         </Card>
       </Container>
 
-      <Container className="mx-auto" style={{ overflowY: "scroll", minHeight:'100vh'}}>
+      <Container className="mx-auto" style={{overflowY:'scroll'}}>
         {
           (feed.length>0)
           ?(

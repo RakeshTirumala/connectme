@@ -50,7 +50,7 @@ export default function ProfileDpComponent(props){
         //   experience:experience, projects:projects, interests:interests, email:email,newUser:false, userType:userType}
         // console.log(data)
     
-        if(fn && ln && interests.length > 0){
+        if(fn && ln && interests && interests.length > 0){
           const response = await fetch(process.env.REACT_APP_PROFILE_URL_DIGITAL_OCEAN, {
             method:'PUT',
             headers: { "Content-Type": "application/json" },

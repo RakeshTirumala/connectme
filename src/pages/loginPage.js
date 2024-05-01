@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TitleBarComponent from "../components/titleBarComponent";
 import Form from "react-bootstrap/Form";
 import { MdEmail } from "react-icons/md";
@@ -24,11 +24,15 @@ export default function LoginPage(props) {
 
   // console.log("email", email, "password", password);
 
-  const settingTheme=()=>{
-    //SETTING THEME
-    const theme = localStorage.getItem(`${email}Theme`);
-    // if(theme===undefined) localStorage.setItem(`${email}Theme`, false);
-    props.handleBG((!theme)?false:theme);
+  // const settingTheme=()=>{
+  //   //SETTING THEME
+  //   const theme = localStorage.getItem(`${email}Theme`);
+  //   // if(theme===undefined) localStorage.setItem(`${email}Theme`, false);
+  //   props.handleBG((!theme)?false:theme);
+  // }
+
+  const onKeyPressCustom=(event)=>{
+    if(event.key==='Enter') handleLogin()
   }
 
   const handleLogin = async () => {
@@ -53,9 +57,10 @@ export default function LoginPage(props) {
 
         //SETTING THEME
         const theme = localStorage.getItem(`${email}Theme`);
-        console.log(theme)
-        if(theme==='null') localStorage.setItem(`${email}Theme`, false);
-        props.handleBG((theme==='false' || theme==='null')?false:true);
+        console.log(`Theme of ${email}`, theme);
+        // console.log(theme)
+        if(!JSON.parse(theme))localStorage.setItem(`${email}Theme`, false);
+        props.handleBG(!JSON.parse(theme)?false:true)
 
         console.log("user:",JSON.stringify(responseData.user))
         localStorage.setItem('user', JSON.stringify(responseData.user));
@@ -153,6 +158,7 @@ export default function LoginPage(props) {
                   style={{ boxShadow: "none" }}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={(event)=>onKeyPressCustom(event)}
                 />
               </Col>
             </Form.Group>

@@ -14,7 +14,7 @@ export default function MessengerAccountsComponent(props) {
       <div className="ms me-auto" style={{ padding: ".5rem" }}>
         <div className="fw-bold">{props.connectionFirstname} {props.connectionLastName}</div>
         <div className="ms me-auto" style={{marginTop:'0.5vh'}}>
-          <p style={{ fontFamily: 'monospace', color: 'grey', fontSize: '12px' }}>{props.latestMsgInConvo}</p>
+          <p style={{ fontFamily: 'sans-serif', color: 'grey', fontSize: '12px' }}>{props.latestMsgInConvo}</p>
         </div>
       </div>
     </>

@@ -60,7 +60,7 @@ export default function StartPostComponent(props) {
   },[emojiPickerVisible])
 
   return (
-    <Modal show={props.show} onHide={props.handleClose}>
+    <Modal show={props.show} onHide={props.handleClose} >
       <Modal.Header closeButton style={{backgroundColor:props.background, color:props.fontColor}}>
         <Modal.Title>New Post</Modal.Title>
       </Modal.Header>

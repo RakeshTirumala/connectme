@@ -9,7 +9,6 @@ export default function RenderProfessionalsComp(props) {
     const [content, setContent] = useState([]);
     const [professionalsData, setProfessionalsData] = useState([])
     const [requested, setRequested] = useState(new Set());
-    const [professionalDataChanged, setProfessionalDataChanged] = useState(0);
     const currentUser = localStorage.getItem('email');
     let buttons = [];
     let i = 0;
@@ -34,7 +33,7 @@ export default function RenderProfessionalsComp(props) {
                 }
             })
         }
-    },[professionalDataChanged])
+    },[professionalsData])
 
     console.log("Requested", requested)
      
@@ -80,7 +79,6 @@ export default function RenderProfessionalsComp(props) {
     const handlePagination=(page)=>{
         const pageContent = content[page]
         setProfessionalsData(pageContent)
-        setProfessionalDataChanged(prev=>prev+1)
       }
     
       console.log("professionals data", professionalsData)

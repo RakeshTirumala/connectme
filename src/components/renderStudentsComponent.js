@@ -9,10 +9,8 @@ export default function RenderStudentComponent(props) {
   const [content, setContent] = useState([]);
   const [studentsData, setStudentsData] = useState([]) 
   const currentUser = localStorage.getItem('email');
-  const [studentsDataChanged, setStudentsDataChanged] = useState(0);
 
   let buttons = []
-  let i = 0;
 
   // const studentData = data.filter((dp) => {
   //   if (!props.searchQuery) return dp.professional === false;
@@ -35,15 +33,17 @@ export default function RenderStudentComponent(props) {
 
   useEffect(()=>{
     if(studentsData){
+      console.log("students", new Set(studentsData))
       studentsData.forEach((dp)=>{
         if(new Set(dp.Requests).has(currentUser)){
+          console.log(new Set(dp.Requests).has(currentUser))
           const newSet = new Set(requested);
           newSet.add(dp.email);
           setRequested(newSet)
         }
       })
     }
-  },[studentsDataChanged])
+  },[studentsData])
 
 
   const fetchStudentData=async()=>{
@@ -105,7 +105,7 @@ export default function RenderStudentComponent(props) {
           <Row xs={1} md={2} lg={3} className="g-4">
           {
             studentsData.map((item) => (
-              <Col key={i}>
+              <Col key={item.email}>
                 <Card style={{ width: "18rem", backgroundColor:props.background, color:props.fontColor}}>
                   <Image
                     src={(!item.dp)?img:item.dp}

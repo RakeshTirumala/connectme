@@ -12,11 +12,13 @@ import ConnectMeLogoV1 from '../images/ConnectMeLogoV1.png'
 import ConnectMeLogoV2W from '../images/ConnectMeLogoV2W.png'
 
 export default function NavbarComponent(props) {
+
+
   return (
     <Navbar
-      data-bs-theme="light"
+      data-bs-theme={(props.themeData)?"dark":"light"}
       expand="lg"
-      style={{ backgroundColor: props.background,borderBottom: `1px solid ${primaryColor}`}}
+      style={{ backgroundColor: props.background, borderBottom: `1px solid ${primaryColor}`}}
     >
       <Container>
         <Navbar.Brand>
@@ -28,10 +30,10 @@ export default function NavbarComponent(props) {
             {
               (props.themeData)
               ?(
-                <Image src={ConnectMeLogoV2W} style={{ width: "8vw"}}/>
+                <Image src={ConnectMeLogoV2W} style={{ width: "8vw",  minWidth:'100px'}} fluid/>
               )
               :(
-                <Image src={ConnectMeLogoV1} style={{ width: "8vw"}}/>
+                <Image src={ConnectMeLogoV1} style={{ width: "8vw",  minWidth:'100px'}} fluid/>
               )
             }
           </Nav.Link>
@@ -52,6 +54,18 @@ export default function NavbarComponent(props) {
               style={{ textDecoration: "none", color:props.fontColor}}
             >
               <FaPeopleGroup /> Network
+              {
+                (props.requestsLength>0)
+                ?(
+                  <span style={{backgroundColor: 'red', color: 'white', 
+                  paddingLeft:'.35rem', paddingRight:'.35rem', 
+                  paddingTop:'.03rem', paddingBottom:'.03rem', 
+                  margin:'.3rem', borderRadius:'50%', fontSize:'12px'}}>{props.requestsLength}</span>
+                )
+                :(
+                  <></>
+                )
+              }
             </Nav.Link>
             <Nav.Link
               as={Link}

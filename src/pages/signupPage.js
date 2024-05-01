@@ -27,6 +27,10 @@ export default function SignUp(){
     setConfirmPassword("");
   }
 
+  const onKeyPressCustom=(event)=>{
+    if(event.key==='Enter') addUser();
+  }
+
   const addUser = async () => {
     console.log(email, password)
     setProgress(true)
@@ -142,6 +146,7 @@ export default function SignUp(){
                   name="confirmPassword"
                   onChange={(e)=>setConfirmPassword(e.target.value)}
                   style={{boxShadow:'none'}}
+                  onKeyDown={(event)=>onKeyPressCustom(event)}
                 />
               </Col>
             </Form.Group>

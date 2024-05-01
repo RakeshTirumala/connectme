@@ -31,6 +31,7 @@ export default function NetworkPage(props) {
     if(data) setRequestsLength(data);        
   }
 
+
   const handleSearch=async()=>{
     if(searchQuery.trim()!==""){
       // console.log(searchQuery)
@@ -69,7 +70,11 @@ export default function NetworkPage(props) {
 
   return (
     <>
-      <NavbarComponent background={props.background} fontColor={props.fontColor} themeData={props.themeData}/>
+      <NavbarComponent 
+        background={props.background} 
+        fontColor={props.fontColor} 
+        themeData={props.themeData}
+      />
       <Container
         fluid
         className="mx-auto"

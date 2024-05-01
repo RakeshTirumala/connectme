@@ -117,11 +117,10 @@ export default function PostComponent(props){
         <Card key={props.id} 
             style={{
                 marginTop:'2vh', marginBottom:'2vh', 
-                maxWidth: '800px', minWidth: '300px', width: '80vw',
-                backgroundColor:props.background,
-                color:props.fontColor,
-                borderColor:'lightgrey',
-                fontFamily:'monospace',
+                maxWidth: '800px', minWidth: '300px', 
+                width: '80vw', backgroundColor:props.background,
+                color:props.fontColor, borderColor:'lightgrey',
+                fontFamily:'sans-serif', boxShadow:'0px 4px 8px rgba(0, 0, 0, 0.1)'
             }}>
             <Card.Header 
             style={{
@@ -151,7 +150,7 @@ export default function PostComponent(props){
                     <Image src={(!props.dp)?img:props.dp} roundedCircle style={{ width: "1.8rem", marginRight: "0.8rem" }}/>
                     {props.postedBy}
                 </Card.Title>
-                <Card.Text style={{fontFamily:'monospace'}}>{props.post}</Card.Text>
+                <Card.Text style={{fontFamily:'sans-serif'}}>{props.post}</Card.Text>
             </Card.Body>
             <Card.Footer 
             style={{
@@ -160,17 +159,17 @@ export default function PostComponent(props){
                 borderStyle:'none', backgroundColor:props.background
                 }}>
                     <div style={{display:'flex', flexDirection:'row'}}>
-                        <Stack direction="horizontal" gap={2} style={{fontFamily:'fantasy', fontSize:'14px'}}>
+                        <Stack direction="horizontal" gap={2} style={{fontFamily:'sans-serif', fontSize:'14px'}}>
                             <div className="p-2" 
                             onClick={()=>handleLikes(props.id)} 
-                            style={{cursor:"pointer", fontFamily:'monospace'}}>{likes} Likes</div>
+                            style={{cursor:"pointer", fontFamily:'sans-serif'}}>{likes} Likes</div>
                             <div className="p-2 ms-auto" 
                             onClick={()=>handleComments(props.id)} 
-                            style={{cursor:"pointer", fontFamily:'monospace'}}> {comments} Comments</div>
+                            style={{cursor:"pointer", fontFamily:'sans-serif'}}> {comments} Comments</div>
                         </Stack>
                     </div>
                     <div style={{display:'flex', flexDirection:'row'}}>
-                        <Stack direction="horizontal" gap={2} style={{fontFamily:'monospace', fontSize:'14px'}}>
+                        <Stack direction="horizontal" gap={2} style={{fontFamily:'sans-serif', fontSize:'14px'}}>
                             <div className="p-2" style={{cursor:'pointer'}} onClick={()=>onClickLike(props.id)}>
                                 {
                                     (liked)
@@ -206,7 +205,7 @@ export default function PostComponent(props){
         </Card>
         <Modal show={showLikesComments} onHide={()=>setShowLikesComments(!showLikesComments)} size="md">
             <Modal.Header closeButton>
-                <Modal.Title style={{fontSize:"16px", fontFamily:"fantasy"}}>{clickedOn}</Modal.Title>
+                <Modal.Title style={{fontSize:"16px", fontFamily:"sans-serif"}}>{clickedOn}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {
@@ -252,7 +251,7 @@ export default function PostComponent(props){
                                                     <Col>
                                                         {user.firstName} {user.lastName}
                                                     </Col>
-                                                    <Col style={{textAlign:"left", fontSize:'12px', fontFamily:'fantasy'}}> 
+                                                    <Col style={{textAlign:"left", fontSize:'12px', fontFamily:'sans-serif'}}> 
                                                         {user.data}
                                                     </Col>
                                                 </Row>

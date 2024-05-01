@@ -9,21 +9,18 @@ import MessengerPage from "./pages/messengerPage";
 import { useState } from "react";
 import ProfilePage from "./pages/profilePage";
 import SignUp from "./pages/signupPage";
+import { darkTheme } from "./constants";
 
 function App() {
-  const darkColor = '#282b30'
-  const [bgTheme, setBgTheme] = useState(null);
-  const [fontColor, setFontColor] = useState(null);
-  const [themeData, setThemeData] = useState(null);
+  const [bgTheme, setBgTheme] = useState("white");
+  const [fontColor, setFontColor] = useState("black");
+  const [themeData, setThemeData] = useState(false);
 
-  useEffect(()=>{
-    handleBG()
-  },[])
 
   const handleBG = (childData) => {
 
     console.log("The child item is",childData)
-    childData ? setBgTheme(darkColor) : setBgTheme("white");
+    childData ? setBgTheme(darkTheme) : setBgTheme("white");
     childData ? setFontColor("white") : setFontColor("black");
     childData ? setThemeData(true):setThemeData(false);
 

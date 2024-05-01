@@ -92,7 +92,7 @@ export default function StartConversationComponent(props) {
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Image src={(!props.displayPicture) ? img : props.displayPicture} style={{ width: '3rem', height: '3rem', padding: '0.5rem' }} roundedCircle />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <h6 style={{ fontFamily: 'monospace', fontWeight: 'bold', margin: '0' }}>{activeUserName}</h6>
+                <h6 style={{ fontFamily: 'sans-serif', fontWeight: 'bold', margin: '0' }}>{activeUserName}</h6>
               </div>
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function StartConversationComponent(props) {
                     borderRadius:'1rem',
                     textAlign:'justify',
                     color:"black",
-                    fontFamily:'monospace'
+                    fontFamily:'sans-serif'
                   }
     
                   return (
@@ -204,7 +204,7 @@ export default function StartConversationComponent(props) {
               fontSize: "1.0rem",
               color: "grey",
               textAlign: "center",
-              fontFamily: 'monospace',
+              fontFamily: 'sans-serif',
               marginTop: '3vh'
             }}>
               Start a conversation!!
