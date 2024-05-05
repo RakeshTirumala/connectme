@@ -42,7 +42,7 @@ export default function UserPosts(props){
         ?(
             <center style={{padding:'5%'}}>
                 <Image src={nullIm} style={{width:'8rem',  transform: 'scaleX(-1)'}}/>
-                <p style={{color:'grey', fontFamily:'monospace'}}>No posts...</p>
+                <p style={{color:'grey', fontFamily:'sans-serif'}}>No posts...</p>
             </center>
         )
         :(
@@ -57,7 +57,7 @@ export default function UserPosts(props){
                                 }}>
                                     <Card.Header 
                                     style={{
-                                        fontFamily:'fantasy', fontSize:'14px', 
+                                        fontFamily:'sans-serif', fontSize:'14px', 
                                         display:'flex', flexDirection:'row', 
                                         justifyContent:'space-between', borderStyle:'none',
                                         backgroundColor:props.background

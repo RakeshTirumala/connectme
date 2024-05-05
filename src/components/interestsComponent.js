@@ -24,9 +24,10 @@ export default function InterestsComponent(props) {
         setSelectedInterests(isChecked ? [...selectedInterests, interest] : selectedInterests.filter(item => item !== interest));
     };
 
-    const handleInterests = () => {
-        localStorage.setItem('interests', JSON.stringify(selectedInterests));
-    }
+
+    useEffect(()=>{
+        localStorage.setItem('interests', JSON.stringify(selectedInterests))
+    },[selectedInterests])
 
     return (
         <Container fluid className="mx-auto" style={{ marginTop: '3vh', color:props.fontColor}}>
@@ -74,13 +75,13 @@ export default function InterestsComponent(props) {
                                             onChange={(e) => handleCheckboxChange(value, e.target.checked)}
                                         />
                                     ))}
-                                    <Button
+                                    {/* <Button
                                         variant="primary"
                                         style={{ marginTop: '3vh', borderRadius: '5rem' }}
                                         onClick={() => handleInterests()}
                                     >
                                         Update
-                                    </Button>
+                                    </Button> */}
                                 </Form>
                             </Accordion.Body>
                         </Accordion.Item>

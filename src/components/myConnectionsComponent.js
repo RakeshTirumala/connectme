@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { data } from "../data";
 import { Button, Card, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import img from "../images/defaultPic.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import noDataa from '../images/noDataa.svg'
+import { GrCursor } from "react-icons/gr";
 
 export default function MyConnectionsComponent(props) {
   console.log("here", props.connections);
   const userData = props.connections;
+  const navigate = useNavigate();
 
 
   /* const userData = props.userData.connections.filter((conn) => {
@@ -18,8 +20,10 @@ export default function MyConnectionsComponent(props) {
       conn.bio.toLowerCase().includes(props.searchQuery.toLowerCase())
     );
   });*/
+  const handleProfileRoute=(email)=>{
+    navigate('/user', {state:{email:email}})
+  }
 
-  const handleConnect = (email) => {};
   let i = 0;
   return (
     <>
@@ -31,7 +35,14 @@ export default function MyConnectionsComponent(props) {
               {
                 userData.map((user)=>{
                   return(
-                    <ListGroup.Item key={user.email} style={{ backgroundColor:props.background, color:props.fontColor}}>
+                    <ListGroup.Item 
+                    key={user.email} 
+                    style={{ 
+                      backgroundColor:props.background, color:props.fontColor,
+                      cursor:'pointer'
+                    }}
+                    onClick={()=>handleProfileRoute(user.email)}
+                    >
                       <Row>
                         <Col sm={4} md={2} >
                           <Image src={(!user.dp)?img:user.dp} roundedCircle style={{width:'2.5rem'}}/>

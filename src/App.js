@@ -10,6 +10,7 @@ import { useState } from "react";
 import ProfilePage from "./pages/profilePage";
 import SignUp from "./pages/signupPage";
 import { darkTheme } from "./constants";
+import SelectedProfilePage from "./pages/selectedProfilePage";
 
 function App() {
   const [bgTheme, setBgTheme] = useState("white");
@@ -36,6 +37,7 @@ function App() {
       <Route path="/profile" element={<ProfilePage background={bgTheme} fontColor={fontColor} themeData={themeData}/>} />
       <Route path="/messenger" element={<MessengerPage background={bgTheme} fontColor={fontColor} themeData={themeData}/>} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/user" element={<SelectedProfilePage background={bgTheme} fontColor={fontColor} themeData={themeData}/>} />
     </Routes>
   );
 }

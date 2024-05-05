@@ -18,7 +18,10 @@ export default function NavbarComponent(props) {
     <Navbar
       data-bs-theme={(props.themeData)?"dark":"light"}
       expand="lg"
-      style={{ backgroundColor: props.background, borderBottom: `1px solid ${primaryColor}`}}
+      style={{ 
+        backgroundColor: props.background, 
+        borderBottom: `1px solid ${primaryColor}`,
+      }}
     >
       <Container>
         <Navbar.Brand>

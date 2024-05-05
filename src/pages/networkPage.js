@@ -31,6 +31,10 @@ export default function NetworkPage(props) {
     if(data) setRequestsLength(data);        
   }
 
+  useEffect(()=>{
+    if(searchQuery.trim()!=="") handleSearch()
+  },[searchQuery])
+
 
   const handleSearch=async()=>{
     if(searchQuery.trim()!==""){
@@ -68,6 +72,11 @@ export default function NetworkPage(props) {
     }
   };
 
+  const onKeyPressCustom=(event)=>{
+    if(event.key==='Enter') handleSearch()
+  }
+
+
   return (
     <>
       <NavbarComponent 
@@ -94,6 +103,7 @@ export default function NetworkPage(props) {
                   }}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(event)=>onKeyPressCustom(event)}
                 />
                 <Button className="rounded-pill" onClick={()=>handleSearch()}>
                   <FaSearch />

@@ -3,9 +3,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Button, ButtonGroup, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import img from "../images/defaultPic.webp";
 import finished from '../images/finished.svg'
+import { useNavigate } from "react-router-dom";
 
 export default function RequestsComponent(props){
     const [requests, setRequests] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchRequests();
@@ -52,6 +54,10 @@ export default function RequestsComponent(props){
         }
     }
 
+    const handleProfileRoute=(email)=>{
+        navigate('/user', {state:{email:email}})
+      }
+
     return (
         <Container fluid className="mx-auto" style={{minHeight:'60vh'}}>
             {
@@ -64,7 +70,10 @@ export default function RequestsComponent(props){
                 : (
                     <ListGroup>
                         {requests.map((request) => (
-                            <ListGroup.Item key={request.email} style={{ backgroundColor: props.background, color: props.fontColor}}>
+                            <ListGroup.Item 
+                            key={request.email} 
+                            onClick={()=>handleProfileRoute(request.email)}
+                            style={{ backgroundColor: props.background, color: props.fontColor, cursor:'pointer'}}>
                                 <Row>
                                     <Col>
                                         <Image src={(!request.dp) ? img : request.dp} roundedCircle style={{width:'2.5rem'}}/>

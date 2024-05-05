@@ -70,24 +70,6 @@ export default function ProfessionalWorkComponent(props) {
                 })
               )
             }
-            {/* {currentUser.WorkExperience.map((work, index) => {
-              return (
-                <Accordion.Item
-                  key={index}
-                  eventKey={`${work.startDate} ${work.endDate}`}
-                >
-                  <Accordion.Header>{work.role}</Accordion.Header>
-                  <Accordion.Body>
-                    <SubProfessionalWork
-                      start={work.startDate}
-                      end={work.endDate}
-                      company={work.company}
-                      description={work.description}
-                    />
-                  </Accordion.Body>
-                </Accordion.Item>
-              );
-            })} */}
           </Accordion>
           {
             showAddComponent

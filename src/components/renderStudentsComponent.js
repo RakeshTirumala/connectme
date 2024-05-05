@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import img from "../images/defaultPic.webp";
 import noDataa from '../images/noDataa.svg'
+import { useNavigate} from "react-router-dom";
 
 export default function RenderStudentComponent(props) {
   const [requested, setRequested] = useState(new Set());
   const [content, setContent] = useState([]);
   const [studentsData, setStudentsData] = useState([]) 
   const currentUser = localStorage.getItem('email');
+  const navigate = useNavigate();
 
   let buttons = []
 
@@ -81,6 +83,10 @@ export default function RenderStudentComponent(props) {
     setStudentsData(pageContent)
   }
 
+  const handleProfileRoute=(email)=>{
+    navigate('/user', {state:{email:email}})
+  }
+
   console.log("studentsData",studentsData)
 
   if(content.length>1){
@@ -106,7 +112,12 @@ export default function RenderStudentComponent(props) {
           {
             studentsData.map((item) => (
               <Col key={item.email}>
-                <Card style={{ width: "18rem", backgroundColor:props.background, color:props.fontColor}}>
+                <Card 
+                style={{ 
+                width: "18rem", backgroundColor:props.background, 
+                color:props.fontColor, cursor:'pointer'}}
+                onClick={()=>handleProfileRoute(item.email)}
+                >
                   <Image
                     src={(!item.dp)?img:item.dp}
                     style={{ width: "8rem", padding: "0.5rem" }}
@@ -119,12 +130,17 @@ export default function RenderStudentComponent(props) {
                     <Card.Text>
                       Interests: {item.Interests.join(" • ")}
                     </Card.Text>
-                    <Button
-                      variant="primary"
-                      onClick={() => handleConnect(item.email)}
-                    >
-                      {requested.has(item.email) ? "Requested!" : "Connect"}
-                    </Button>
+                      {
+                        (requested.has(item.email))
+                        ?(
+                            <Button variant="primary" disabled={true}>Requested!</Button>
+                        )
+                        :(
+                            <Button variant="primary" onClick={()=>handleConnect(item.email)}>
+                            Connect
+                            </Button>
+                        )
+                      }
                   </Card.Body>
                 </Card>
               </Col>
