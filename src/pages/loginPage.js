@@ -39,6 +39,7 @@ export default function LoginPage(props) {
     setProgress(true);
     console.log(email, password);
     try {
+      // 'http://localhost:1111/api/login'
       const response = await fetch(
         process.env.REACT_APP_LOGIN_URL_DIGITAL_OCEAN,
         {

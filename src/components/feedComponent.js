@@ -29,10 +29,12 @@ export default function FeedComponent(props) {
 
   const fetchFeed = async () => {
     // process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN
+    // http://localhost:1111/api/feed
     try {
       const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}?currentUser=${currentUser}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
+        credentials:'include'
       });
   
       if (!response.ok) {
