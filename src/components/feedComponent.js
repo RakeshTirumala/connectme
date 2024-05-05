@@ -28,6 +28,7 @@ export default function FeedComponent(props) {
   },[])
 
   const fetchFeed = async () => {
+    // process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN
     try {
       const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}?currentUser=${currentUser}`, {
         method: "GET",
