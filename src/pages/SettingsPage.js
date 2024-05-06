@@ -38,7 +38,8 @@ export default function SettingsPage(props) {
   const handleLogout=async()=>{
     const response = await fetch(`${process.env.REACT_APP_USER_URL_DIGITAL_OCEAN}/logout`, {
       method:'DELETE',
-      headers:{"Content-Type":'application/json'}
+      headers:{"Content-Type":'application/json'},
+      credentials:'include'
     })
     if(response.ok){
       localStorage.removeItem('token');
