@@ -9,7 +9,7 @@ import img from "../images/defaultPic.webp";
 
 export default function SelectedUserDpComponent(props){
     const [connectionReq, setConnectionReq] = useState(false);
-    useEffect(() => {
+        useEffect(() => {
         if (props.connections && props.connections.includes(props.currentUser)) {
             setConnectionReq(true);
         }
@@ -21,7 +21,7 @@ export default function SelectedUserDpComponent(props){
                 method:'PUT',
                 headers:{"Content-Type":"application/json"},
                 credentials:'include',
-                body:JSON.stringify({currentUser:props.email, targetUser:props.currentUser})
+                body:JSON.stringify({currentUser:props.currentUser, targetUser:props.email})
               })
               if(response.ok){
                 setConnectionReq(true);
@@ -79,10 +79,14 @@ export default function SelectedUserDpComponent(props){
                             <p>Connections 0</p>
                         )
                     }
-                    {props.requests && props.requests.includes(props.currentUser) ?
-                        <Button variant="primary" disabled>Requested!</Button> :
-                        !connectionReq && <Button variant="primary" onClick={handleConnect}>Connect</Button>
-                    }
+                    <Button
+                        variant="primary"
+                        disabled={props.requests && props.requests.includes(props.currentUser) || connectionReq}
+                        onClick={() => handleConnect()}
+                    >
+                        {props.requests && props.requests.includes(props.currentUser) || connectionReq ? "Requested!" : "Connect"}
+                    </Button>
+
                 </Col>
             </Row>
         </Container>
