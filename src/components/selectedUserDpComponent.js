@@ -14,7 +14,7 @@ export default function SelectedUserDpComponent(props){
             setConnectionReq(true);
         }
     }, [props.connections, props.currentUser]);
-
+    
     const handleConnect=async()=>{
         try{
             const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/requests`,{
@@ -79,14 +79,17 @@ export default function SelectedUserDpComponent(props){
                             <p>Connections 0</p>
                         )
                     }
-                    <Button
-                        variant="primary"
-                        disabled={props.requests && props.requests.includes(props.currentUser) || connectionReq}
-                        onClick={() => handleConnect()}
-                    >
-                        {props.requests && props.requests.includes(props.currentUser) || connectionReq ? "Requested!" : "Connect"}
-                    </Button>
-
+                    {
+                        !props.connections.includes(props.currentUser) && (
+                            <Button
+                                variant="primary"
+                                disabled={props.requests && props.requests.includes(props.currentUser) || connectionReq}
+                                onClick={() => handleConnect()}
+                            >
+                                {props.requests && props.requests.includes(props.currentUser) || connectionReq ? "Requested!" : "Connect"}
+                            </Button>
+                        )
+                    }
                 </Col>
             </Row>
         </Container>

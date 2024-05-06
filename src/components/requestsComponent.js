@@ -70,7 +70,7 @@ export default function RequestsComponent(props){
                     </center>
                 )
                 : (
-                    <ListGroup>
+                    <ListGroup style={{height:'90vh', overflowY:'scroll'}}>
                         {requests.map((request) => (
                             <ListGroup.Item 
                             key={request.email} 

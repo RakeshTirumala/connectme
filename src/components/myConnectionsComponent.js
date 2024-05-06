@@ -31,7 +31,7 @@ export default function MyConnectionsComponent(props) {
         {
           (userData.length!==0)
           ?(
-            <ListGroup>
+            <ListGroup style={{height:'90vh', overflowY:'scroll'}}>
               {
                 userData.map((user)=>{
                   return(
