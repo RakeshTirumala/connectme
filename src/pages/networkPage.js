@@ -109,7 +109,7 @@ export default function NetworkPage(props) {
                 <Button className="rounded-pill" onClick={()=>handleSearch()}>
                   <FaSearch />
                 </Button>
-                <DropdownButton id="dropdown-basic-button" title="Interests">
+                {/* <DropdownButton id="dropdown-basic-button" title="Interests">
                   {
                     interests.map((interest)=>{
                       return(
@@ -117,11 +117,8 @@ export default function NetworkPage(props) {
                       )
                     })
                   }
-                  {/* <Dropdown.Item>Software Engineering</Dropdown.Item>
-                  <Dropdown.Item>Technology</Dropdown.Item>
-                  <Dropdown.Item>Something else</Dropdown.Item> */}
-
-                </DropdownButton>
+                </DropdownButton> */}
+                
               </div>
             </Form>
           </Col>

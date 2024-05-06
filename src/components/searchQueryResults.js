@@ -53,12 +53,16 @@ export default function SearchQueryResults(props){
                                 color:props.fontColor,
                                 borderColor:'lightgrey',
                                 cursor:'pointer'
-                                }}
-                            onClick={()=>handleProfileRoute(item.email)}    
+                                }}  
                             >
-                                <Image src={(!item.dp)?img:item.dp} style={{ width: '8rem', padding: '0.5rem' }} roundedCircle />
+                                <Image 
+                                src={(!item.dp)?img:item.dp} 
+                                style={{ width: '8rem', padding: '0.5rem' }} 
+                                roundedCircle 
+                                onClick={()=>handleProfileRoute(item.email)}  
+                                />
                                 <Card.Body>
-                                    <Card.Title>{item.firstName} {item.lastName}</Card.Title>
+                                    <Card.Title onClick={()=>handleProfileRoute(item.email)}>{item.firstName} {item.lastName}</Card.Title>
                                     {
                                         (requested.has(item.email))
                                         ?(

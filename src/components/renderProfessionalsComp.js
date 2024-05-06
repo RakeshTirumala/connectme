@@ -121,13 +121,15 @@ export default function RenderProfessionalsComp(props) {
                                                     color:props.fontColor,borderColor:'lightgrey',
                                                     cursor:'pointer'}} 
                                                 id="profID"
-                                                onClick={()=>handleProfileRoute(item.email)}
-                                            
                                             >
-                                                <Image src={(!item.dp)?img:item.dp} style={{ width: '8rem', padding: '0.5rem' }} roundedCircle />
+                                                <Image 
+                                                src={(!item.dp)?img:item.dp} 
+                                                style={{ width: '8rem', padding: '0.5rem' }} roundedCircle 
+                                                onClick={()=>handleProfileRoute(item.email)}
+                                                />
                                                 <Card.Body>
-                                                    <Card.Title>{item.firstName} {item.lastName}</Card.Title>
-                                                    <Card.Text>
+                                                    <Card.Title onClick={()=>handleProfileRoute(item.email)}>{item.firstName} {item.lastName}</Card.Title>
+                                                    <Card.Text onClick={()=>handleProfileRoute(item.email)}>
                                                         Interests: {item.Interests.join(" • ")}
                                                     </Card.Text>
                                                     {

@@ -74,13 +74,12 @@ export default function RequestsComponent(props){
                         {requests.map((request) => (
                             <ListGroup.Item 
                             key={request.email} 
-                            onClick={()=>handleProfileRoute(request.email)}
                             style={{ backgroundColor: props.background, color: props.fontColor, cursor:'pointer'}}>
                                 <Row>
-                                    <Col>
+                                    <Col onClick={()=>handleProfileRoute(request.email)}>
                                         <Image src={(!request.dp) ? img : request.dp} roundedCircle style={{width:'2.5rem'}}/>
                                     </Col>
-                                    <Col style={{padding:'0.5%'}}>
+                                    <Col style={{padding:'0.5%'}} onClick={()=>handleProfileRoute(request.email)}>
                                         {request.firstName} {request.lastName} 
                                     </Col>
                                     <Col style={{padding:'0.5%'}}>

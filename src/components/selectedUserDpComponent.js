@@ -8,6 +8,7 @@ import { PiIdentificationCard } from "react-icons/pi";
 import img from "../images/defaultPic.webp";
 
 export default function SelectedUserDpComponent(props){
+    // console.log("connections", props.connections)
     return(
         <>
         <Container 
@@ -63,7 +64,13 @@ export default function SelectedUserDpComponent(props){
                             <Button variant="primary" disabled={true}>Requested!</Button>
                         )
                         :(
-                            <Button variant="primary">Connect</Button>
+                            (props.connections && props.connections.includes(props.currentUser))
+                            ?(
+                                <></>
+                            )
+                            :(
+                                <Button variant="primary">Connect</Button>
+                            )
                         )
                     }
                 </Col>
@@ -72,67 +79,3 @@ export default function SelectedUserDpComponent(props){
     </>
     )
 }
-
-                    {/* <Row>
-                        <p style={{fontWeight:'600'}}>{props.firstName} {props.lastName}</p>
-                    </Row>
-                    <Row>
-                        {
-                            (props.mobile)
-                            ?(
-                                <p style={{}}><FaPhoneAlt/> {props.mobile}</p>
-                            )
-                            :(
-                                <></>
-                            )
-                        }
-                    </Row>
-                    <Row>
-                        <p style={{}}><PiIdentificationCard /> {props.email}</p>
-                    </Row> */}
-                {/* <Col style={{width:'50%'}}>
-                    <Row>
-                        {
-                            (props.posts)
-                            ?(
-                                <p style={{marginTop: '5vh',textAlign: 'center'}}>Posts {props.posts.length}</p>
-                            )
-                            :(
-                                <p style={{marginTop: '5vh',textAlign: 'center'}}>Posts 0</p>
-                            )
-                        }
-                    </Row>
-                    <Row>
-                        {
-                            props.userType==="Student"
-                            ?(
-                                <p style={{ textAlign: 'center'}}>Student <PiStudentDuotone /></p> 
-                            )
-                            :(
-                                <p style={{ textAlign: 'center'}}>Employee <RiBuilding2Line /></p>
-                            )
-                        }
-                    </Row>
-                    <Row>
-                        {
-                            (props.connections)
-                            ?(
-                                <p style={{ textAlign: 'center'}}>Connections {props.connections.length}</p>
-                            )
-                            :(
-                                <p style={{ textAlign: 'center'}}>Connections 0</p>
-                            ) 
-                        }
-                    </Row>
-                    <Row>
-                        {
-                            (props.interests)
-                            ?(
-                                <p style={{ textAlign: 'center'}}>Interests: {props.interests.join(" • ")}</p>
-                            )
-                            :(
-                                <></>
-                            )
-                        }
-                    </Row>
-                </Col> */}

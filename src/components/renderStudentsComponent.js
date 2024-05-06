@@ -118,18 +118,18 @@ export default function RenderStudentComponent(props) {
                 style={{ 
                 width: "18rem", backgroundColor:props.background, 
                 color:props.fontColor, cursor:'pointer'}}
-                onClick={()=>handleProfileRoute(item.email)}
                 >
                   <Image
                     src={(!item.dp)?img:item.dp}
                     style={{ width: "8rem", padding: "0.5rem" }}
                     roundedCircle
+                    onClick={()=>handleProfileRoute(item.email)}
                   />
                   <Card.Body>
-                    <Card.Title>
+                    <Card.Title onClick={()=>handleProfileRoute(item.email)}>
                       {item.firstName} {item.lastName}
                     </Card.Title>
-                    <Card.Text>
+                    <Card.Text onClick={()=>handleProfileRoute(item.email)}>
                       Interests: {item.Interests.join(" • ")}
                     </Card.Text>
                       {
