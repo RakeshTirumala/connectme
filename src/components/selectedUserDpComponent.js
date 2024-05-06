@@ -80,7 +80,7 @@ export default function SelectedUserDpComponent(props){
                         )
                     }
                     {
-                        !props.connections.includes(props.currentUser) && (
+                        props.connections && !props.connections.includes(props.currentUser) && (
                             <Button
                                 variant="primary"
                                 disabled={props.requests && props.requests.includes(props.currentUser) || connectionReq}
