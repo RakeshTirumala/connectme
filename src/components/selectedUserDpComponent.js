@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import { PiStudentDuotone } from "react-icons/pi";
@@ -8,7 +8,23 @@ import { PiIdentificationCard } from "react-icons/pi";
 import img from "../images/defaultPic.webp";
 
 export default function SelectedUserDpComponent(props){
-    // console.log("connections", props.connections)
+    const [connectionReq, setConnectionReq] = useState(props.connections && props.connections.includes(props.currentUser));
+
+    const handleConnect=async()=>{
+        try{
+            const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/requests`,{
+                method:'PUT',
+                headers:{"Content-Type":"application/json"},
+                credentials:'include',
+                body:JSON.stringify({currentUser:props.email, targetUser:props.currentUser})
+              })
+              if(response.ok){
+                setConnectionReq(true);
+              }
+        }catch(error){
+            console.log(error);
+        }
+    }
     return(
         <>
         <Container 
@@ -64,12 +80,12 @@ export default function SelectedUserDpComponent(props){
                             <Button variant="primary" disabled={true}>Requested!</Button>
                         )
                         :(
-                            (props.connections && props.connections.includes(props.currentUser))
+                            (connectionReq)
                             ?(
                                 <></>
                             )
                             :(
-                                <Button variant="primary">Connect</Button>
+                                <Button variant="primary" onClick={()=>handleConnect()}>Connect</Button>
                             )
                         )
                     }
