@@ -37,3 +37,11 @@
     transform: rotate(360deg);
   }
 }
+
+.lightPlaceholder::placeholder{
+  color: lightgray;
+}
+
+.darkPlaceholder::placeholder{
+  color: lightgrey;
+}

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import 'emoji-picker-element';  
 import { RiEmojiStickerLine } from "react-icons/ri";
+import '../App.css';
  
 export default function StartPostComponent(props) {
   const [post, setPost] = useState("");
@@ -69,6 +70,7 @@ export default function StartPostComponent(props) {
         <Form>
           <Form.Group className="mb-3" controlId="feedtext">
             <Form.Control
+              className={(props.background)?"darkPlaceholder":"lightPlaceholder"} 
               as="textarea"
               value={post}
               placeholder="Start a post"
