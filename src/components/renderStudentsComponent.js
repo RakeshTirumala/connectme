@@ -51,7 +51,8 @@ export default function RenderStudentComponent(props) {
   const fetchStudentData=async()=>{
     const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/students?email=${props.email}&interests=${JSON.stringify(props.interests)}`,{
       method:'GET',
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
+      credentials:'include'
     })
     console.log(response);
     const data = await response.json();

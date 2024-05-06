@@ -44,7 +44,8 @@ export default function RenderProfessionalsComp(props) {
         const response = await fetch(
             `${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/professionals?email=${props.email}&interests=${JSON.stringify(props.interests)}`, {
             method: 'GET',
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            credentials:'include'
         });
         const responseData = await response.json();
         console.log("data:[professionals]", responseData.paginatedUsers);

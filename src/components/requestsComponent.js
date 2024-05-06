@@ -20,7 +20,8 @@ export default function RequestsComponent(props){
     const fetchRequests = async () => {
         const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/requests?email=${props.email}`,{
             method: "GET",
-            headers: {"Content-Type": "application/json"}
+            headers: {"Content-Type": "application/json"},
+            credentials:'include'
         });
 
         if (response.ok) {
