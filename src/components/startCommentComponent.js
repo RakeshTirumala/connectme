@@ -26,6 +26,7 @@ export default function StartCommentComponent(props){
             const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}/postActivityComments`,{
                 method:"PUT",
                 headers:{"Content-Type":"application/json"},
+                credentials:'include',
                 body:JSON.stringify({currentUser:currentUser, postId:postId, commentData:commentData})
             })
 

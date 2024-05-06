@@ -39,6 +39,7 @@ export default function RequestsComponent(props){
         const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/connectionRequest`,{
             method: "PUT",
             headers: {"Content-Type": "application/json"},
+            credentials:'include',
             body: JSON.stringify({decision: value, currentUser: props.email, actionOnUser: actionOnUser})
         });
         

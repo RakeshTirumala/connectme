@@ -30,6 +30,7 @@ export default function StartConversationComponent(props) {
     try {
       const response = await fetch(`${process.env.REACT_APP_CHATS_URL_DIGITAL_OCEAN}/byuserId?id=${activeUser}&current=${props.currentUseremail}`, {
         method: 'GET',
+        credentials:'include',
         headers: { 'Content-Type': 'application/json' }
       });
       const { id } = await response.json();

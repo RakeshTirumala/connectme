@@ -26,8 +26,8 @@ export default function UserPosts(props){
         try{
             const response = await fetch(`${process.env.REACT_APP_PROFILE_URL_DIGITAL_OCEAN}?postId=${id}`, {
                 method:'DELETE',
-                headers:{"Content-Type":"application/json"}
-
+                headers:{"Content-Type":"application/json"},
+                credentials:'include',
             })
             console.log(response)
         }catch(error){

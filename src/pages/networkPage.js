@@ -43,7 +43,8 @@ export default function NetworkPage(props) {
         const response = await fetch(
           `${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/searchQuery?name=${searchQuery}&currentUser=${currentUseremail}`,{
             method:"GET",
-            headers:{"Content-Type":"application/json"}
+            headers:{"Content-Type":"application/json"},
+            credentials:'include'
           })
         const users = await response.json();
         setSearchResult(users);
@@ -62,6 +63,7 @@ export default function NetworkPage(props) {
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
+          credentials:'include'
         }
       );
       const { users } = await response.json();

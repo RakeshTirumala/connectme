@@ -25,7 +25,8 @@ export default function SearchQueryResults(props){
             const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/requests`,{
                 method:'PUT',
                 headers:{"Content-Type":"application/json"},
-                body:JSON.stringify({currentUser:props.currentUser, targetUser:email})
+                body:JSON.stringify({currentUser:props.currentUser, targetUser:email}),
+                credentials:'include',
               })
               if(response.ok){
                 let past = new Set(requested);

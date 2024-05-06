@@ -10,6 +10,7 @@ export default function PasswordChangeComponen(props){
             const response = await fetch(`${process.env.REACT_APP_USER_URL_DIGITAL_OCEAN}/password`, {
                 method:"PUT",
                 headers:{"Content-Type":"application/json"},
+                credentials:'include',
                 body:JSON.stringify({
                     currentUser:props.currentUser,
                     newPassword:newPassword

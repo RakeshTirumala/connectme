@@ -34,25 +34,31 @@ export default function SettingsPage(props) {
   },[])
 
   console.log("Theme", darkTheme)
-
-  const handleLogout=()=>{
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
-    localStorage.removeItem('user');
-    localStorage.removeItem('newUser');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
-    localStorage.removeItem('mobile');
-    localStorage.removeItem('userType');
-    localStorage.removeItem('Education');
-    localStorage.removeItem('workExperience');
-    localStorage.removeItem('projects');
-    localStorage.removeItem('interests');
-    localStorage.removeItem('dp');
-    localStorage.removeItem('liked');
-    localStorage.removeItem('commented');
-    localStorage.removeItem('posts');
-    navigate('/');
+ 
+  const handleLogout=async()=>{
+    const response = await fetch(`${process.env.REACT_APP_USER_URL_DIGITAL_OCEAN}/logout`, {
+      method:'DELETE',
+      headers:{"Content-Type":'application/json'}
+    })
+    if(response.ok){
+      localStorage.removeItem('token');
+      localStorage.removeItem('email');
+      localStorage.removeItem('user');
+      localStorage.removeItem('newUser');
+      localStorage.removeItem('firstName');
+      localStorage.removeItem('lastName');
+      localStorage.removeItem('mobile');
+      localStorage.removeItem('userType');
+      localStorage.removeItem('Education');
+      localStorage.removeItem('workExperience');
+      localStorage.removeItem('projects');
+      localStorage.removeItem('interests');
+      localStorage.removeItem('dp');
+      localStorage.removeItem('liked');
+      localStorage.removeItem('commented');
+      localStorage.removeItem('posts');
+      navigate('/');
+    }
   }
 
   return (

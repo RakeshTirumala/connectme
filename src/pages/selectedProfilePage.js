@@ -22,7 +22,8 @@ export default function SelectedProfilePage(props){
         try{
             const response = await fetch(`${process.env.REACT_APP_USER_URL_DIGITAL_OCEAN}/selectedProfile?selectedProfile=${email}`, {
                 method:"GET",
-                headers:{"Content-Type":"application/json"}
+                headers:{"Content-Type":"application/json"},
+                credentials:'include'
             })
             if(response.ok){
                 const {selectedUserData, posts} = await response.json();

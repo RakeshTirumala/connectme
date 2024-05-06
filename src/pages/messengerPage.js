@@ -45,7 +45,8 @@ export default function MessengerPage(props) {
     try{
       const response = await fetch(`${process.env.REACT_APP_MESSENGER_URL_DIGITAL_OCEAN}/connections?email=${currentUseremail}`, {
         method:"GET",
-        headers:{"Content-Type":"application/json"}
+        headers:{"Content-Type":"application/json"},
+        credentials:"include"
       })
       const data = await response.json();
       if(data){
@@ -66,7 +67,8 @@ export default function MessengerPage(props) {
     try{
       const response = await fetch(`${process.env.REACT_APP_MESSENGER_URL_DIGITAL_OCEAN}/pastConversations?email=${currentUseremail}`,{
         method:"GET",
-        headers:{"Content-Type":"application/json"}
+        headers:{"Content-Type":"application/json"},
+        credentials:'include'
       })
       const {prevConv} = await response.json();
       console.log("prevConvp", prevConv);

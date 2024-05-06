@@ -65,6 +65,7 @@ export default function RenderStudentComponent(props) {
       const response = await fetch(`${process.env.REACT_APP_NETWORK_URL_DIGITAL_OCEAN}/requests`,{
         method:'PUT',
         headers:{"Content-Type":"application/json"},
+        credentials:'include',
         body:JSON.stringify({currentUser:props.email, targetUser:email})
       })
       if(response.ok){

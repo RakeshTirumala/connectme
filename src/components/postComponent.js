@@ -64,6 +64,7 @@ export default function PostComponent(props){
         const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}/postActivity`,{
             method:"PUT",
             headers:{"Content-Type":"application/json"},
+            credentials:'include',
             body:JSON.stringify({currentUser:props.currentUser, postId:currentActivityPost, shouldIAddUserLike:liked})
         })
         // console.log(response)
@@ -74,6 +75,7 @@ export default function PostComponent(props){
         const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}/postActivity/likes?postId=${currentActivityPost}`,{
             method:"GET",
             headers:{"Content-Type":"application/json"},
+            credentials:'include'
         })
         const {likedUsers} = await response.json();
         console.log("liked USers",likedUsers)
@@ -84,7 +86,8 @@ export default function PostComponent(props){
     const fetchCommentsOfPost=async()=>{
         const response = await fetch(`${process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN}/postActivity/comments?postId=${currentActivityPost}`,{
             method:"GET",
-            headers:{"Content-Type":"application/json"}
+            headers:{"Content-Type":"application/json"},
+            credentials:'include'
         })
         const {commentedUsers} = await response.json();
         console.log("commentedUSers",commentedUsers)

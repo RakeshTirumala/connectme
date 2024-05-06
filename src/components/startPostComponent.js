@@ -20,6 +20,7 @@ export default function StartPostComponent(props) {
     const response = await fetch(process.env.REACT_APP_EXPLORE_URL_DIGITAL_OCEAN,{
       method:'POST',
       headers:{'Content-Type': 'application/json'},
+      credentials:'include',
       body:JSON.stringify({currentUser:email, post:post})
     })
     console.log(response)

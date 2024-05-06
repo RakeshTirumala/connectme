@@ -55,6 +55,7 @@ export default function ProfileDpComponent(props){
           const response = await fetch(process.env.REACT_APP_PROFILE_URL_DIGITAL_OCEAN, {
             method:'PUT',
             headers: { "Content-Type": "application/json" },
+            credentials:'include',
             body:JSON.stringify({fn:fn, ln:ln, mobile:mobile, education:education,
             experience:experience, projects:projects, interests:interests, email:email,newUser:false, userType:userType, dp:dp})
           })
