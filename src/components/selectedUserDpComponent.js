@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import { PiStudentDuotone } from "react-icons/pi";
@@ -8,7 +8,12 @@ import { PiIdentificationCard } from "react-icons/pi";
 import img from "../images/defaultPic.webp";
 
 export default function SelectedUserDpComponent(props){
-    const [connectionReq, setConnectionReq] = useState(props.connections && props.connections.includes(props.currentUser));
+    const [connectionReq, setConnectionReq] = useState(false);
+    useEffect(() => {
+        if (props.connections && props.connections.includes(props.currentUser)) {
+            setConnectionReq(true);
+        }
+    }, [props.connections, props.currentUser]);
 
     const handleConnect=async()=>{
         try{
@@ -74,20 +79,9 @@ export default function SelectedUserDpComponent(props){
                             <p>Connections 0</p>
                         )
                     }
-                    {
-                        (props.requests && props.requests.includes(props.currentUser))
-                        ?(
-                            <Button variant="primary" disabled={true}>Requested!</Button>
-                        )
-                        :(
-                            (connectionReq)
-                            ?(
-                                <></>
-                            )
-                            :(
-                                <Button variant="primary" onClick={()=>handleConnect()}>Connect</Button>
-                            )
-                        )
+                    {props.requests && props.requests.includes(props.currentUser) ?
+                        <Button variant="primary" disabled>Requested!</Button> :
+                        !connectionReq && <Button variant="primary" onClick={handleConnect}>Connect</Button>
                     }
                 </Col>
             </Row>
