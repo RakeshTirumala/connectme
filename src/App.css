@@ -38,10 +38,10 @@
   }
 }
 
-.lightPlaceholder::placeholder{
+textarea::placeholder{
   color: lightgray;
 }
 
-.darkPlaceholder::placeholder{
+textarea::placeholder{
   color: lightgrey;
 }
