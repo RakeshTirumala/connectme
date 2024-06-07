@@ -7,3 +7,7 @@ ConnectMe is a social networking application designed for professionals. Users c
 - **Personalized Feed**: Get updates and content based on the activities of your connections.
 - **Profile Recommendations**: Discover new connections through personalized profile recommendations.
 - **Real-Time Chat**: Communicate instantly with your connections through real-time chat.
+
+## App
+
+Check out the App ConnectMe [here](https://connectme-three.vercel.app/).
